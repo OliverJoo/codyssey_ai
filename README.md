@@ -905,55 +905,6 @@ open -a Docker
 docker info
 ```
 
-#### 결과 정리 예시
-- 초기에 Docker CLI는 인식됐지만, 엔진 연결은 실패했다.
-- 런타임 미기동 가설을 세우고 OrbStack/Docker 실행 여부와 context를 점검했다.
-- 런타임을 기동한 뒤 `docker info` 에 Server 정보가 출력되어 문제를 해결했다.
-
----
-
-## 5. 평가 질문 매핑표
-
-| 평가 질문 | 대응 단계 | 확인 방법 |
-|---|---|---|
-| 터미널에서 기본 명령어로 폴더/파일 생성·이동·삭제를 수행한 흔적이 있는가? | 단계 3 | `pwd`, `ls -la`, `mkdir`, `touch`, `cp`, `mv`, `rm`, `rmdir` 로그 |
-| 파일 권한 변경 결과가 확인되는가? | 단계 4 | `ls -l`, `ls -ld`, `chmod` 전/후 비교, `run.sh` 실행 |
-| `docker --version`이 출력되고, Docker가 동작 가능한 상태인가? | 단계 2, 5 | `docker --version`, `docker info`, `docker context ls` |
-| `docker run hello-world`가 정상 실행되는가? | 단계 6 | `Hello from Docker!`, `docker ps -a`, `docker logs hello-mission` |
-| 이미지/컨테이너 목록 확인 및 정리 흔적이 있는가? | 단계 7 | `docker images`, `docker ps`, `docker ps -a`, `docker rm` |
-| Dockerfile로 이미지 빌드가 가능한가? | 단계 8, 9 | `docker build -f docker/Dockerfile ...` 성공 로그 |
-| 매핑된 포트로 접속이 가능한가? | 단계 9 | `docker ps` 의 `8080->80`, `curl`, 브라우저 스크린샷 |
-| Docker 볼륨 데이터가 컨테이너 삭제 후에도 유지되는가? | 단계 11 | writer 삭제 후 reader 컨테이너에서 동일 파일 `cat` |
-| Git 설정 및 GitHub 연동이 확인되는가? | 단계 12, 13 | `git config --list --global`, `git remote -v`, GitHub/VSCode 증거 |
-| 프로젝트 디렉토리 구조를 어떤 기준으로 구성했는지 설명할 수 있는가? | 단계 1, 14 | `find . -maxdepth 3`, README 구조 설명 |
-| 포트/볼륨 설정을 어떤 방식으로 재현 가능하게 정리했는지 설명할 수 있는가? | 단계 10, 11, 14 | README 포트 표, 스토리지 표, 실행 명령 정리 |
-| 이미지와 컨테이너의 차이를 "빌드/실행/변경" 관점에서 구분해 설명할 수 있는가? | 단계 6, 8, 개념 3-1 | `docker build` 와 `docker run` 차이 설명 |
-| 컨테이너 내부 포트로 직접 접속할 수 없는 이유와 필요한 이유를 설명할 수 있는가? | 단계 9, 개념 3-2 | `-p 8080:80`, `curl http://localhost:8080` |
-| 절대 경로/상대 경로를 어떤 상황에서 선택하는지 설명할 수 있는가? | 단계 3, 10, 개념 3-3 | `$(pwd)/bind-site` 와 상대 경로 비교 |
-| 파일 권한 숫자 표기(예: 755, 644)가 어떤 규칙으로 결정되는지 설명할 수 있는가? | 단계 4, 개념 3-4 | `chmod 755`, `chmod 644`, `ls -l` 해석 |
-| "호스트 포트가 이미 사용 중"이라 포트 매핑이 실패한다면, 어떤 순서로 원인을 진단할지 설명할 수 있는가? | 문제 해결 4-1 | `lsof`, `docker ps`, `ps -p PID` |
-| 컨테이너 삭제 후 데이터가 사라진 경험이 있다면, 이를 방지하기 위한 대안을 설명할 수 있는가? | 단계 11, 문제 해결 4-2 | named volume, bind mount, backup 예시 |
-| 이 미션에서 가장 어려웠던 지점과, 해결 과정(가설 → 확인 → 조치)을 근거와 함께 설명할 수 있는가? | 문제 해결 4-3 | `docker info` 실패 → 엔진 미기동 가설 → 런타임 실행 |
-
----
-
-## 6. 제출 전 최종 체크리스트
-
-- [ ] 실행 환경(OS, Shell, Terminal, Docker, Git)을 입력했다.
-- [ ] CLI 기본 명령어 실행 흔적을 남겼다.
-- [ ] 파일/디렉토리 권한 변경 전후 결과를 남겼다.
-- [ ] `docker --version`, `docker info`, `docker run hello-world` 결과를 첨부했다.
-- [ ] 이미지/컨테이너 목록, 로그, stats, 정리 흔적을 남겼다.
-- [ ] Dockerfile과 이미지 빌드 로그를 첨부했다.
-- [ ] 포트 매핑 후 브라우저 또는 `curl` 접속 결과를 첨부했다.
-- [ ] Bind Mount 변경 반영 결과를 첨부했다.
-- [ ] Named Volume 영속성 검증 결과를 첨부했다.
-- [ ] Git 설정, GitHub 원격 저장소, VSCode GitHub 연동 증거를 첨부했다.
-- [ ] 디렉토리 구조 설계 기준과 포트/볼륨 재현 방식을 설명했다.
-- [ ] 개념 설명 섹션과 문제 해결 섹션을 작성했다.
-- [ ] 평가 질문 매핑표를 작성했다.
-- [ ] 민감정보를 마스킹했다.
-
 ---
 
 ## 7. 첨부 자료 목록 예시
@@ -967,7 +918,3 @@ docker info
 - `app/index.html`
 
 ---
-
-## 8. 최종 한 줄 요약
-
-- 본 실습은 **macOS 환경에서 CLI, Docker, Git/GitHub를 사용해 재현 가능한 개발/컨테이너 실습 환경을 직접 구축하고 검증한 과정**이다.
