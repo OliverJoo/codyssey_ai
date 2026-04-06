@@ -77,6 +77,54 @@ class Quiz:
     def from_dict(cls, data: dict) -> "Quiz":
         pass
 
+# ============================================================
+# QuizGame 클래스
+# 역할: 게임 전체 흐름(메뉴/입력 처리/게임 진행/점수/저장·불러오기)을 담당
+# ============================================================
+class QuizGame:
+
+    def __init__(self):
+        self.quizzes: list   = []
+        self.high_score: int = 0
+        self.load_state()
+
+    # --- 데이터 저장/불러오기 ---
+
+    def load_state(self):
+        pass
+
+    def save_state(self):
+        pass
+
+    def _init_default_quizzes(self):
+        pass
+
+    # --- UI 출력 ---
+
+    def show_menu(self):
+        pass
+
+    # --- 입력 처리(검증) ---
+
+    def get_valid_input(self, prompt: str, min_val: int, max_val: int) -> int:
+        pass
+
+    def get_valid_string(self, prompt: str) -> str:
+        pass
+
+    # --- 게임 진행 ---
+
+    def run_quiz(self):
+        pass
+
+    def add_quiz(self):
+        pass
+
+    def show_quiz_list(self):
+        pass
+
+    def show_high_score(self):
+        pass
 
 
 def main():
