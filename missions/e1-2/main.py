@@ -243,7 +243,7 @@ class QuizGame:
         if score > self.high_score:
             self.high_score = score
             print("새로운 최고 점수입니다!")
-            self.save_state()  # 최고 점수 갱신 즉시 저장
+            self.save_state()
         else:
             print(f"현재 최고 점수: {self.high_score}점")
         print(SEPARATOR_THICK)
@@ -262,7 +262,7 @@ class QuizGame:
         answer = self.get_valid_input(f"  정답 번호 ({MIN_ANSWER}-{MAX_ANSWER}): ", MIN_ANSWER, MAX_ANSWER)
 
         self.quizzes.append(Quiz(question=question, choices=choices, answer=answer))
-        self.save_state()  # 추가 즉시 저장
+        self.save_state()
         print("퀴즈가 추가되었습니다!")
 
     def show_quiz_list(self):
