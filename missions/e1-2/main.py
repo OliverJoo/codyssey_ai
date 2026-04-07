@@ -102,24 +102,54 @@ class QuizGame:
         self.high_score: int = 0
         self.load_state()
 
+    # def load_state(self):
+    #     try:
+    #         with open(STATE_FILE, "r", encoding="utf-8") as f:
+    #             data = json.load(f)
+    #         self.quizzes = [Quiz.from_dict(q) for q in data.get("quizzes", [])]
+    #         self.high_score = data.get("high_score", 0)
+    #         print(f"저장된 데이터를 불러왔습니다.(퀴즈 {len(self.quizzes)}개, 최고점수 {self.high_score}점)")
+    #     except FileNotFoundError:
+    #         print("저장된 파일이 없습니다. 기본 퀴즈 데이터를 사용합니다.")
+    #         self._init_default_quizzes()
+    #     except json.JSONDecodeError:
+    #         print(f"저장 파일이 손상되었습니다. "
+    #               f"'{BACKUP_FILE}'로 백업 후 기본 데이터로 초기화합니다.")
+    #         try:
+    #             shutil.copy(STATE_FILE, BACKUP_FILE)
+    #         except OSError:
+    #             print("백업 파일 생성에 실패했습니다.")
+    #         self._init_default_quizzes()
+    #     except IOError as e:
+    #         print(f"파일 읽기 오류: {e}")
+    #         print("기본 퀴즈 데이터를 사용합니다.")
+    #         self._init_default_quizzes()
+
     def load_state(self):
         try:
             with open(STATE_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
+
             self.quizzes = [Quiz.from_dict(q) for q in data.get("quizzes", [])]
             self.high_score = data.get("high_score", 0)
+
+            if not isinstance(self.high_score, int):
+                raise ValueError("high_score는 정수여야 합니다.")
+
             print(f"저장된 데이터를 불러왔습니다.(퀴즈 {len(self.quizzes)}개, 최고점수 {self.high_score}점)")
+
         except FileNotFoundError:
             print("저장된 파일이 없습니다. 기본 퀴즈 데이터를 사용합니다.")
             self._init_default_quizzes()
-        except json.JSONDecodeError:
-            print(f"저장 파일이 손상되었습니다. "
-                  f"'{BACKUP_FILE}'로 백업 후 기본 데이터로 초기화합니다.")
+
+        except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+            print(f"저장 파일이 손상되었습니다. '{BACKUP_FILE}'로 백업 후 기본 데이터로 초기화합니다.")
             try:
                 shutil.copy(STATE_FILE, BACKUP_FILE)
             except OSError:
                 print("백업 파일 생성에 실패했습니다.")
             self._init_default_quizzes()
+
         except IOError as e:
             print(f"파일 읽기 오류: {e}")
             print("기본 퀴즈 데이터를 사용합니다.")
@@ -140,8 +170,6 @@ class QuizGame:
     def _init_default_quizzes(self):
         self.quizzes = [Quiz.from_dict(q) for q in DEFAULT_QUIZZES]
         self.high_score = 0
-
-    # --- UI 출력 ---
 
     def show_menu(self):
         print("\n" + SEPARATOR_THICK)
@@ -260,9 +288,38 @@ class QuizGame:
         else:
             print(f"최고 점수: {self.high_score}점")
 
+    def run(self):
+        try:
+            while True:
+                self.show_menu()
+                choice = self.get_valid_input("  선택: ", MIN_MENU, MAX_MENU)
+
+                if choice == 1:
+                    self.run_quiz()
+                elif choice == 2:
+                    self.add_quiz()
+                elif choice == 3:
+                    self.show_quiz_list()
+                elif choice == 4:
+                    self.show_high_score()
+                elif choice == 5:
+                    self.save_state()
+                    print("\n프로그램을 종료합니다. 안녕히 가세요!")
+                    break
+
+        except (KeyboardInterrupt, EOFError) as e:
+            if isinstance(e, KeyboardInterrupt):
+                print("\n\nCtrl+C 입력 감지. 데이터를 저장하고 종료합니다...")
+            else:
+                print("\n\n입력 스트림 종료. 데이터를 저장하고 종료합니다...")
+
+            self.save_state()
+            print("프로그램을 안전하게 종료했습니다.")
+
 
 def main():
-    pass
+    game = QuizGame()
+    game.run()
 
 
 if __name__ == '__main__':
