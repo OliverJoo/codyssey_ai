@@ -3,16 +3,16 @@
 import json
 import shutil
 
-STATE_FILE = "state.json"  # 데이터 저장 파일명
-BACKUP_FILE = "state.json.bak"  # 손상 시 백업 파일명
-NUM_CHOICES = 4  # 선택지 개수 (고정 4개)
-MIN_MENU = 1  # 메뉴 최솟값
-MAX_MENU = 5  # 메뉴 최댓값
-MIN_ANSWER = 1  # 정답 번호 최솟값
-MAX_ANSWER = 4  # 정답 번호 최댓값
-PERFECT_SCORE = 100  # 만점 기준 (퍼센트 환산)
-SEPARATOR_THIN = "-" * 44  # 구분선
-SEPARATOR_THICK = "=" * 44  # 구분선
+STATE_FILE = "state.json"
+BACKUP_FILE = "state.json.bak"
+NUM_CHOICES = 4
+MIN_MENU = 1
+MAX_MENU = 5
+MIN_ANSWER = 1
+MAX_ANSWER = 4
+PERFECT_SCORE = 100
+SEPARATOR_THIN = "-" * 44
+SEPARATOR_THICK = "=" * 44
 
 # 디폴트 퀴즈
 DEFAULT_QUIZZES = [
