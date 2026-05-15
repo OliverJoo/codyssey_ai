@@ -1,6 +1,6 @@
 # codyssey_missions
 
-2026 Codyssey 미션들을 위한 코드와 자료를 담고 있습니다.
+2026 Codyssey 미션들을 위한 코드와 자료들
 
 ## 폴더 구조
 
