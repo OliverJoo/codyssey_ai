@@ -1,0 +1,21 @@
+services:
+  mariadb:
+    image: mariadb:11.8.2
+    container_name: cafe-mariadb-1182
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: RootPass_1182
+      MARIADB_DATABASE: cafe_order_db
+      MARIADB_USER: cafe_user
+      MARIADB_PASSWORD: CafePass_1182
+      TZ: Asia/Seoul
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_1182_data:/var/lib/mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+volumes:
+  mariadb_1182_data:
