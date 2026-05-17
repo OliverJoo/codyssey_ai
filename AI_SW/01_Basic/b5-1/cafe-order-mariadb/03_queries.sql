@@ -159,8 +159,8 @@ ORDER BY order_date DESC;
 SELECT c.name AS customer_name,
        SUM(oi.quantity * oi.unit_price) AS total_spent
 FROM customers c
-INNER JOIN orders o ON c.id = o.customer_id
-INNER JOIN order_items oi ON o.id = oi.order_id
+LEFT JOIN orders o ON c.id = o.customer_id
+LEFT JOIN order_items oi ON o.id = oi.order_id
 WHERE o.status IN ('PAID', 'COMPLETED')
 GROUP BY c.id, c.name
 ORDER BY total_spent DESC;
