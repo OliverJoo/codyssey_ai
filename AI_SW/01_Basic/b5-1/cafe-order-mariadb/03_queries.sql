@@ -155,7 +155,7 @@ FROM orders
 WHERE customer_id = 1
 ORDER BY order_date DESC;
 
--- Q16. 같은 요구사항을 JOIN과 서브쿼리
+-- Q16. (보너스)같은 요구사항을 JOIN과 서브쿼리
 SELECT c.name AS customer_name,
        SUM(oi.quantity * oi.unit_price) AS total_spent
 FROM customers c
