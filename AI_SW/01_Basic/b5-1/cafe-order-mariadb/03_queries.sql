@@ -154,3 +154,30 @@ SELECT id, customer_id, order_date, status
 FROM orders
 WHERE customer_id = 1
 ORDER BY order_date DESC;
+
+-- Q16. 같은 요구사항을 JOIN과 서브쿼리
+SELECT c.name AS customer_name,
+       SUM(oi.quantity * oi.unit_price) AS total_spent
+FROM customers c
+INNER JOIN orders o ON c.id = o.customer_id
+INNER JOIN order_items oi ON o.id = oi.order_id
+WHERE o.status IN ('PAID', 'COMPLETED')
+GROUP BY c.id, c.name
+ORDER BY total_spent DESC;
+
+SELECT c.name AS customer_name,
+       (
+         SELECT SUM(oi.quantity * oi.unit_price)
+         FROM orders o
+         INNER JOIN order_items oi ON o.id = oi.order_id
+         WHERE o.customer_id = c.id
+           AND o.status IN ('PAID', 'COMPLETED')
+       ) AS total_spent
+FROM customers c
+WHERE (
+         SELECT COUNT(*)
+         FROM orders o
+         WHERE o.customer_id = c.id
+           AND o.status IN ('PAID', 'COMPLETED')
+      ) > 0
+ORDER BY total_spent DESC;
