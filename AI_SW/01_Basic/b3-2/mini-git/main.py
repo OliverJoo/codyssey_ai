@@ -35,15 +35,24 @@ def _merge(left, right, key):
     result.extend(left[i:]); result.extend(right[j:])
     return result
 
+# ── 공통 데코레이터 ─────────────────────────────────────────────
+def require_init(func):
+    """저장소가 초기화되었는지(작성자 등록 여부) 확인하는 데코레이터입니다."""
+    def wrapper(self, *args, **kwargs):
+        if not self.author:
+            print("Repository not initialized."); return
+        return func(self, *args, **kwargs)
+    return wrapper
+
 # ── 핵심 자료구조 ───────────────────────────────────────────────
 class Commit:
     """
     커밋 그래프의 단일 노드를 나타냅니다.
     git의 커밋처럼 메시지, 작성자, 타임스탬프, 그리고 부모 커밋들의 해시 목록(DAG 구성 요소)을 가집니다.
     """
-    def __init__(self, message, author, parents=None):
-        # 고유한 6자리 16진수 문자열 해시를 생성합니다.
-        self.hash = uuid.uuid4().hex[:6]
+    def __init__(self, message, author, parents=None, commit_hash=None):
+        # 고유한 6자리 16진수 문자열 해시를 지정하거나 새로 생성합니다.
+        self.hash = commit_hash or uuid.uuid4().hex[:6]
         self.message = message
         self.author = author
         self.timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
@@ -90,8 +99,9 @@ class Repository:
         self.author = user_name
         self.branches = {"main": None}
         self.head = "main"
-        print(f"Initialized repository.\nCurrent branch: main\nCurrent user: {user_name}")
+        print(f"Initialized repository.\nCurrent branch: main\nCurrent user: {user_name}\n")
 
+    @require_init
     def cmd_branch(self, name):
         """새로운 브랜치를 생성합니다. 신규 브랜치는 현재 HEAD가 가리키는 커밋을 함께 참조합니다."""
         if name in self.branches:
@@ -99,6 +109,7 @@ class Repository:
         self.branches[name] = self.branches.get(self.head)
         print(f"Created branch: {name}")
 
+    @require_init
     def cmd_switch(self, name):
         """현재 활성화된 브랜치(HEAD)를 지정된 브랜치로 전환합니다."""
         if name not in self.branches:
@@ -106,18 +117,25 @@ class Repository:
         self.head = name
         print(f"Switched to branch: {name}")
 
+    @require_init
     def cmd_commit(self, message):
         """새로운 커밋을 생성하고 저장합니다. 현재 브랜치의 마지막 커밋이 부모 커밋이 됩니다."""
-        if not self.author:
-            print("Repository not initialized."); return
         parent_hash = self.branches.get(self.head)
         parents = [parent_hash] if parent_hash else []
-        c = Commit(message, self.author, parents)
+        
+        # 중복되지 않는 유일한 6자리 해시 생성 보장
+        while True:
+            c_hash = uuid.uuid4().hex[:6]
+            if c_hash not in self.commits:
+                break
+                
+        c = Commit(message, self.author, parents, commit_hash=c_hash)
         self.commits[c.hash] = c
         self.branches[self.head] = c.hash
         self.index.add_commit(c)
         print(f"[{self.head} {c.hash}] {message}")
 
+    @require_init
     def cmd_log(self, sort_by=None):
         """
         저장소 내 모든 커밋 목록을 위상 정렬(Topological Sort)하여 출력합니다.
@@ -168,6 +186,7 @@ class Repository:
             print(f"commit {c.hash} ({c.author}, {c.timestamp}){label}")
             print(f"    {c.message}\n")
 
+    @require_init
     def cmd_path(self, h1, h2):
         """
         두 커밋(h1, h2) 사이의 최단 경로(Shortest Path)를 무방향 그래프 상에서 탐색하여 출력합니다.
@@ -233,8 +252,10 @@ class Repository:
         best = best_paths[0]
         for p in best_paths[1:]:
             if "->".join(p) < "->".join(best): best = p
+            
         print("Path: " + " -> ".join(best))
 
+    @require_init
     def cmd_ancestors(self, commit_hash):
         """
         지정된 커밋의 모든 조상(Ancestors) 커밋을 역추적하여 출력합니다.
@@ -254,6 +275,7 @@ class Repository:
             queue.extend(c.parents)
         if not visited: print("No ancestors.")
 
+    @require_init
     def cmd_search(self, keyword):
         """
         메시지 텍스트 내에서 특정 키워드를 검색하여 매칭된 커밋 목록을 출력합니다.
@@ -269,6 +291,7 @@ class Repository:
             c = self.commits[h]
             print(f"  - {c.hash}: {c.message}")
 
+    @require_init
     def cmd_search_author(self, author):
         """
         특정 작성자(Author)가 작성한 모든 커밋 목록을 출력합니다.
@@ -318,33 +341,54 @@ def run_repl(repo):
         if not tokens:
             print("Invalid args"); continue
         cmd, args = tokens[0], tokens[1:]
+        is_valid = True
+        
         if cmd in ("EXIT", "QUIT"):
             print("Goodbye!"); break
         elif cmd == "INIT":
-            repo.cmd_init(args[0]) if len(args)==1 else print("Invalid args")
+            if len(args) == 1: repo.cmd_init(args[0])
+            else: is_valid = False
         elif cmd == "BRANCH":
-            repo.cmd_branch(args[0]) if len(args)==1 else print("Invalid args")
+            if len(args) == 1: repo.cmd_branch(args[0])
+            else: is_valid = False
         elif cmd == "SWITCH":
-            repo.cmd_switch(args[0]) if len(args)==1 else print("Invalid args")
+            if len(args) == 1: repo.cmd_switch(args[0])
+            else: is_valid = False
         elif cmd == "COMMIT":
-            repo.cmd_commit(" ".join(args)) if args else print("Invalid args")
+            if args: repo.cmd_commit(" ".join(args))
+            else: is_valid = False
         elif cmd == "LOG":
             sort_by = None
-            if args and args[0].startswith("--sort-by="):
-                sort_by = args[0].split("=",1)[1]
-            repo.cmd_log(sort_by)
+            if args:
+                if len(args) == 1 and args[0].startswith("--sort-by="):
+                    val = args[0].split("=", 1)[1]
+                    if val in ("date", "author"):
+                        sort_by = val
+                    else:
+                        is_valid = False
+                else:
+                    is_valid = False
+            if is_valid:
+                repo.cmd_log(sort_by)
         elif cmd == "PATH":
-            repo.cmd_path(args[0], args[1]) if len(args)==2 else print("Invalid args")
+            if len(args) == 2: repo.cmd_path(args[0], args[1])
+            else: is_valid = False
         elif cmd == "ANCESTORS":
-            repo.cmd_ancestors(args[0]) if len(args)==1 else print("Invalid args")
+            if len(args) == 1: repo.cmd_ancestors(args[0])
+            else: is_valid = False
         elif cmd == "SEARCH":
-            if not args: print("Invalid args")
+            if not args:
+                is_valid = False
             elif args[0].startswith("--author="):
-                repo.cmd_search_author(args[0].split("=",1)[1])
+                repo.cmd_search_author(args[0].split("=", 1)[1])
             else:
                 repo.cmd_search(" ".join(args))
         else:
             print(f"Unknown command: {cmd}")
+            continue
+            
+        if not is_valid:
+            print("Invalid args")
 
 if __name__ == "__main__":
     repo = Repository()
