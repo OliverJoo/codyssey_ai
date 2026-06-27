@@ -139,9 +139,95 @@ Goodbye!
 
 1. **필수 제출물**
    * `main.py`: Mini Git 핵심 구동 엔트리포인트 파일
+   * `main_bonus.py`: 보너스 기능이 확장된 엔트리포인트 파일
    * `README.md`: 프로젝트 명세 및 실행 예제 파일
 
 2. **실행 명령**
-   ```bash
-   python3 main.py
-   ```
+   * 기본 과제 실행:
+     ```bash
+     python3 main.py
+     ```
+   * 보너스 과제 실행:
+     ```bash
+     python3 main_bonus.py
+     ```
+
+---
+
+## Bonus 과제
+
+보너스 과제 요구사항을 반영하여 `main_bonus.py`를 구현하였습니다. 원본 `main.py` 파일의 기존 코드는 수정하지 않고, 상속 및 모듈 가져오기를 통해 기능을 안전하게 확장하였습니다.
+
+### 1. 추가된 보너스 기능 및 명령어
+
+* **Diff (간단 비교)**: `DIFF <file1> <file2>`
+  * 두 텍스트 파일을 줄 단위로 비교합니다. 동적 계획법(DP) 기반의 LCS(Longest Common Subsequence) 알고리즘을 사용해 추가된 줄(`+`), 삭제된 줄(`-`), 공통인 줄(` `)을 정확히 판별하여 출력합니다.
+* **Merge (브랜치 병합 흉내내기)**: `MERGE <branch_name>`
+  * 현재 브랜치의 HEAD와 대상 브랜치의 HEAD를 부모 목록(`parents`)으로 가지는 새로운 Merge Commit을 생성합니다.
+* **정렬 알고리즘 성능 비교**: `COMPARE-SORT`
+  * 직접 구현한 세 가지 정렬 알고리즘(`Merge Sort`, `Quick Sort`, `Insertion Sort`)의 성능을 비교합니다. 100, 500, 1000, 2000 크기의 난수 배열을 생성해 정렬 실행 시간(ms)을 표 형태로 출력합니다.
+
+### 2. 보너스 기능 실제 실행 기록 (Bonus Session Log)
+
+`main_bonus.py` 프로그램을 기동하여 추가된 보너스 기능들을 실제로 실행해본 결과 로그입니다.
+
+#### A. Diff 및 정렬 알고리즘 비교 테스트
+```bash
+mini-git> diff test1.txt test2.txt
+  Hello World
+- This is a test file.
++ This is a modified test file.
+  We are verifying the diff algorithm.
++ Welcome to Python.
+  Good bye.
+
+mini-git> compare-sort
+Size     | Merge Sort (ms)  | Quick Sort (ms)  | Insertion Sort (ms) 
+---------------------------------------------------------------------------
+100      | 0.0766           | 0.0766           | 0.1044              
+500      | 0.4718           | 1.2141           | 3.9218              
+1000     | 0.9702           | 1.1478           | 11.8832             
+2000     | 2.3658           | 2.4153           | 70.5035             
+```
+
+#### B. 브랜치 병합 (Merge) 테스트
+```bash
+mini-git> init UserA
+Initialized repository.
+Current branch: main
+Current user: UserA
+
+mini-git> commit "Initial"
+[main 1c47b4] Initial
+
+mini-git> branch branchB
+Created branch: branchB
+
+mini-git> commit "commitA"
+[main 21b7ab] commitA
+
+mini-git> switch branchB
+Switched to branch: branchB
+
+mini-git> commit "commitB"
+[branchB 075e63] commitB
+
+mini-git> switch main
+Switched to branch: main
+
+mini-git> merge branchB
+[main 9783b0] Merge branch 'branchB' into 'main'
+
+mini-git> log
+commit 1c47b4 (UserA, 2026-06-27 13:51:33)
+    Initial
+
+commit 21b7ab (UserA, 2026-06-27 13:51:33)
+    commitA
+
+commit 075e63 (UserA, 2026-06-27 13:51:33) [branchB]
+    commitB
+
+commit 9783b0 (UserA, 2026-06-27 13:51:33) [main]
+    Merge branch 'branchB' into 'main'
+```
