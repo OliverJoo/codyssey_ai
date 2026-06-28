@@ -38,7 +38,7 @@ for h, c in self.commits.items():
         if p in self.commits:
             in_degree[h] += 1       # 자식 커밋 h의 진입 차수(필수 선행 부모 수)를 1 증가시킵니다.
             children[p].append(h)   # 부모 커밋 p의 자식 인접 리스트에 h를 등록합니다.
-          
+        
 # 3. 진입 차수가 0인(더 이상 올라갈 부모가 없는 루트 커밋) 노드를 찾아 BFS용 큐에 넣습니다.
 queue  = deque([h for h, d in in_degree.items() if d == 0])
 result = []
