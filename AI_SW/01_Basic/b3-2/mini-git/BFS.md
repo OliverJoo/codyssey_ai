@@ -2,7 +2,7 @@
 
 이 문서는 `main.py` 파일 내에 구현된 그래프 탐색 및 위상 정렬 알고리즘의 동작 방식을 분석합니다.
 
-현재 [main.py](file:///Users/oliverjoo/Dev/codyssey/2026/codyssey_missions/AI_SW/01_Basic/b3-2/mini-git/main.py) 저장소 시스템에는 **DFS(깊이 우선 탐색)가 전혀 사용되지 않았으며**, 모든 그래프 관련 작업은 **BFS(너비 우선 탐색) 및 대기 큐(Queue) 기반 알고리즘**으로 구현되어 있습니다.
+현재 [main.py](file:///Users/oliverjoo/Dev/codyssey/2026/codyssey_missions/AI_SW/01_Basic/b3-2/mini-git/main.py) 저장소 시스템에는 **BFS(너비 우선 탐색) 및 대기 큐(Queue) 기반 알고리즘**이 구현되어 있습니다.
 
 ---
 
