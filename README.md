@@ -10,7 +10,8 @@
   - `e1-3/`: 세 번째 미션 (예: 간단한 스크립트 작성)
 
 - `AI_SW/`: 본 과정 미션들
-  - 01_Basic
-    - `b5-1/`: 진행중
-  - 02_Advanced
-  - 03_Master
+  - `01_Basic/`
+    - `b3-2/mini-git/`: Python으로 구현한 모의 Git 저장소 CLI 도구
+    - `b5-1/cafe-order-mariadb/`: MariaDB 기반 카페 주문 관리 시스템 DB 설계 및 쿼리 작성
+  - `02_Advanced/`
+  - `03_Master/`
