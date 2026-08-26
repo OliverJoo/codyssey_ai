@@ -13,18 +13,3 @@
 {"id": "TX-000013", "type": "expense", "date": "2026-08-22", "amount": 23000, "category": "transport", "memo": "야근 택시비", "tags": ["택시", "교통비"]}
 {"id": "TX-000014", "type": "expense", "date": "2026-08-24", "amount": 18500, "category": "food", "memo": "주말 브런치 카페", "tags": ["카페", "주말"]}
 {"id": "TX-000015", "type": "income", "date": "2026-08-25", "amount": 200000, "category": "allowance", "memo": "주식 배당금 입금", "tags": ["배당금", "투자"]}
-{"id": "TX-000016", "type": "income", "date": "2026-08-01", "amount": 4500000, "category": "salary", "memo": "8월 기본급 및 상여금", "tags": ["급여", "월급"]}
-{"id": "TX-000017", "type": "expense", "date": "2026-08-01", "amount": 650000, "category": "living", "memo": "8월 월세 및 관리비", "tags": ["고정지출", "월세"]}
-{"id": "TX-000018", "type": "expense", "date": "2026-08-02", "amount": 15000, "category": "food", "memo": "점심 순두부찌개(특)", "tags": ["점심", "식비"]}
-{"id": "TX-000019", "type": "expense", "date": "2026-08-03", "amount": 5500, "category": "food", "memo": "스타벅스 아이스 아메리카노", "tags": ["커피", "디저트"]}
-{"id": "TX-000020", "type": "expense", "date": "2026-08-05", "amount": 55000, "category": "transport", "memo": "8월 기후동행카드 충전", "tags": ["교통비", "지하철"]}
-{"id": "TX-000021", "type": "expense", "date": "2026-08-07", "amount": 48000, "category": "shopping", "memo": "여름 반팔 티셔츠 구매", "tags": ["의류", "쇼핑"]}
-{"id": "TX-000022", "type": "income", "date": "2026-08-10", "amount": 150000, "category": "allowance", "memo": "중고 모니터 당근마켓 판매", "tags": ["부수입", "당근"]}
-{"id": "TX-000023", "type": "expense", "date": "2026-08-11", "amount": 32000, "category": "food", "memo": "저녁 치킨 배달 (배민)", "tags": ["배달", "저녁"]}
-{"id": "TX-000024", "type": "expense", "date": "2026-08-14", "amount": 35000, "category": "living", "memo": "쿠팡 생필품 및 세제 구매", "tags": ["마트", "생필품"]}
-{"id": "TX-000025", "type": "expense", "date": "2026-08-15", "amount": 78000, "category": "food", "memo": "광복절 친구 모임 (파스타&스테이크)", "tags": ["외식", "모임"]}
-{"id": "TX-000026", "type": "expense", "date": "2026-08-18", "amount": 19800, "category": "shopping", "memo": "개발 서적 (클린 아키텍처) 구매", "tags": ["도서", "자기계발"]}
-{"id": "TX-000027", "type": "expense", "date": "2026-08-20", "amount": 12000, "category": "food", "memo": "구내식당 점심 식권 충전", "tags": ["점심", "식비"]}
-{"id": "TX-000028", "type": "expense", "date": "2026-08-22", "amount": 23000, "category": "transport", "memo": "야근 택시비", "tags": ["택시", "교통비"]}
-{"id": "TX-000029", "type": "expense", "date": "2026-08-24", "amount": 18500, "category": "food", "memo": "주말 브런치 카페", "tags": ["카페", "주말"]}
-{"id": "TX-000030", "type": "income", "date": "2026-08-25", "amount": 200000, "category": "allowance", "memo": "주식 배당금 입금", "tags": ["배당금", "투자"]}
