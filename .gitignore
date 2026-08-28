@@ -390,3 +390,6 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,flask,pycharm
+
+# Ignore dummy directories anywhere in the repository
+**/dummy/
