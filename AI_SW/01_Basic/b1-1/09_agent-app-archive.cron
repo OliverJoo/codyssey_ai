@@ -1,0 +1,2 @@
+# Run the optional time-based retention task every day at 03:17 as root.
+17 3 * * * root /home/agent-admin/agent-app/bin/archive_logs.sh >> /var/log/agent-app/archive-cron.log 2>&1
