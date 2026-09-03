@@ -68,21 +68,21 @@
     }
     .toolbar label:hover { border-color: var(--accent); color: var(--accent); }
     .zoom-help { margin-left: auto; color: var(--soft); font-size: 12px; }
-    .diagram { overflow-x: auto; padding-bottom: 8px; }
+    .diagram { overflow: auto; padding-bottom: 8px; }
     svg { display: block; width: 100%; min-width: 840px; height: auto; }
-    #zoom-75:checked ~ .diagram svg { width: 75%; }
+    #zoom-fit:checked ~ .diagram svg { width: 100%; min-width: 0; }
+    #zoom-50:checked ~ .diagram svg { width: 50%; min-width: 420px; }
     #zoom-100:checked ~ .diagram svg { width: 100%; }
-    #zoom-125:checked ~ .diagram svg { width: 125%; max-width: none; }
-    #zoom-150:checked ~ .diagram svg { width: 150%; max-width: none; }
-    #zoom-200:checked ~ .diagram svg { width: 200%; max-width: none; }
-    #zoom-75:checked ~ .toolbar label[for="zoom-75"],
+    #zoom-150:checked ~ .diagram svg { width: 150%; min-width: 1260px; max-width: none; }
+    #zoom-200:checked ~ .diagram svg { width: 200%; min-width: 1680px; max-width: none; }
+    #zoom-fit:checked ~ .toolbar label[for="zoom-fit"],
+    #zoom-50:checked ~ .toolbar label[for="zoom-50"],
     #zoom-100:checked ~ .toolbar label[for="zoom-100"],
-    #zoom-125:checked ~ .toolbar label[for="zoom-125"],
     #zoom-150:checked ~ .toolbar label[for="zoom-150"],
-    #zoom-200:checked ~ .toolbar label[for="zoom-200"] { border-color: var(--accent); background: #fff0e8; color: var(--accent); }
-    #zoom-75:focus-visible ~ .toolbar label[for="zoom-75"],
+    #zoom-200:checked ~ .toolbar label[for="zoom-200"] { border-color: var(--accent); background: rgba(235,108,54,.08); color: var(--accent); }
+    #zoom-fit:focus-visible ~ .toolbar label[for="zoom-fit"],
+    #zoom-50:focus-visible ~ .toolbar label[for="zoom-50"],
     #zoom-100:focus-visible ~ .toolbar label[for="zoom-100"],
-    #zoom-125:focus-visible ~ .toolbar label[for="zoom-125"],
     #zoom-150:focus-visible ~ .toolbar label[for="zoom-150"],
     #zoom-200:focus-visible ~ .toolbar label[for="zoom-200"] { outline: 2px solid var(--link); outline-offset: 2px; }
     footer {
@@ -100,24 +100,24 @@
     <h1>b1-1 설정부터 제출까지</h1>
     <p class="subtitle">Mac에서 Ubuntu 실습 환경을 준비한 뒤 보안과 권한을 구성하고, 아키텍처에 맞는 제공 앱을 실행해 관제 로그와 제출 증거를 만드는 흐름입니다.</p>
 
-    <input class="zoom-toggle" type="radio" name="diagram-zoom" id="zoom-75">
-    <input class="zoom-toggle" type="radio" name="diagram-zoom" id="zoom-100" checked>
-    <input class="zoom-toggle" type="radio" name="diagram-zoom" id="zoom-125">
+    <input class="zoom-toggle" type="radio" name="diagram-zoom" id="zoom-fit" checked>
+    <input class="zoom-toggle" type="radio" name="diagram-zoom" id="zoom-50">
+    <input class="zoom-toggle" type="radio" name="diagram-zoom" id="zoom-100">
     <input class="zoom-toggle" type="radio" name="diagram-zoom" id="zoom-150">
     <input class="zoom-toggle" type="radio" name="diagram-zoom" id="zoom-200">
     <div class="toolbar" role="radiogroup" aria-label="다이어그램 확대 및 축소 배율">
-      <label for="zoom-75">75%</label>
+      <label for="zoom-fit">화면 맞춤</label>
+      <label for="zoom-50">50%</label>
       <label for="zoom-100">100%</label>
-      <label for="zoom-125">125%</label>
       <label for="zoom-150">150%</label>
       <label for="zoom-200">200%</label>
       <span class="zoom-help">Tab·방향키로 배율 선택</span>
     </div>
 
     <div class="diagram" id="diagram-viewport" tabindex="0" aria-label="확대 시 가로로 스크롤할 수 있는 다이어그램">
-      <svg id="mission-diagram" viewBox="0 0 840 436" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="b1-mission-flow-title b1-mission-flow-desc">
-        <title id="b1-mission-flow-title">b1-1 Linux 운영 미션 수행 흐름</title>
-        <desc id="b1-mission-flow-desc">학습자가 Ubuntu 환경을 준비하고 관리자가 SSH와 UFW, 계정과 ACL을 설정한 뒤 운영자가 제공 앱을 실행하고 개발자의 monitor 스크립트가 상태를 기록해 제출 증거로 만드는 여섯 단계 과정.</desc>
+      <svg id="mission-diagram" viewBox="0 0 840 436" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="02_mission-flow-title 02_mission-flow-desc">
+        <title id="02_mission-flow-title">b1-1 Linux 운영 미션 수행 흐름</title>
+        <desc id="02_mission-flow-desc">학습자가 Ubuntu 환경을 준비하고 관리자가 SSH와 UFW, 계정과 ACL을 설정한 뒤 운영자가 제공 앱을 실행하고 개발자의 monitor 스크립트가 상태를 기록해 제출 증거로 만드는 여섯 단계 과정.</desc>
         <defs>
           <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
             <polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/>
@@ -257,7 +257,7 @@
       </svg>
     </div>
 
-    <footer>Static diagram · Default editorial profile · Provided Linux app verified in Ubuntu 22.04 Docker</footer>
+    <footer>diagram-design v2.6.12 · Process · Minimal light · Static CSS zoom · Ubuntu 22.04 Docker verification</footer>
   </main>
 </body>
 </html>

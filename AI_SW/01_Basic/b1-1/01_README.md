@@ -182,7 +182,7 @@ Docker에서 제공 ARM64 앱을 단계별로 실제 실행한 결과, 바이너
 
 [설정부터 제출까지의 Process 다이어그램 열기](02_mission-flow.html)
 
-다이어그램은 설치한 `diagram-design` 플러그인의 Process 유형 규칙(역할 lane, 단계, 입력/출력, 단일 focal 단계)을 적용한 HTML이다. 상단에서 75%~200% 배율을 선택할 수 있고 키보드 Tab·방향키도 지원하며, 확대 후 가로 스크롤로 이동할 수 있다.
+다이어그램은 Codex CLI에 설치한 `diagram-design` v2.6.12 플러그인의 Process 유형 규칙(역할 lane, 단계, 입력/출력, 단일 focal 단계)을 적용한 standalone inline-SVG HTML이다. JavaScript 없이 상단에서 화면 맞춤·50%·100%·150%·200% 배율을 선택할 수 있고, 키보드 Tab·방향키와 확대 후 가로·세로 스크롤을 지원한다.
 
 ## 4. 파일 안내
 
@@ -205,6 +205,7 @@ Docker에서 제공 ARM64 앱을 단계별로 실제 실행한 결과, 바이너
 | [15_collect_evidence.sh](15_collect_evidence.sh) | 제출용 수행 내역 텍스트 수집 |
 | [16_README_answer.md](16_README_answer.md) | 질문 이미지의 19개 질문과 답, 개념 튜토리얼 |
 | [17_README_answer.html](17_README_answer.html) | 답변을 스크롤하며 학습하는 브라우저 문서 |
+| [18_verify_links.py](18_verify_links.py) | README·답변·다이어그램의 내부 링크와 SVG/배율 정합성 검사 |
 
 ## 5. 권한 설계
 
