@@ -73,7 +73,6 @@
 <a class="toc-l3" href="#5-리뷰-횟수와-리뷰-품질은-다르다">5. 리뷰 횟수와 리뷰 품질은 다르다</a>
 <a class="toc-l3" href="#6-증빙-강도를-구분하는-법">6. 증빙 강도를 구분하는 법</a>
 <a class="toc-l3" href="#7-최신-원격-상태를-읽는-법">7. 최신 원격 상태를 읽는 법</a>
-<a class="toc-l3" href="#8-평가자에게-보여-주는-5분-흐름">8. 평가자에게 보여 주는 5분 흐름</a>
 <a class="toc-l2" href="#심화-부록-git-협업을-이력-검증-시스템-으로-이해하기">심화 부록: Git 협업을 “이력 검증 시스템”으로 이해하기</a>
 <a class="toc-l3" href="#1-커밋-해시는-무결성을-보여-주지만-작성자-신원까지-증명하지는-않는다">1. 커밋 해시는 무결성을 보여 주지만 작성자 신원까지 증명하지는 않는다</a>
 <a class="toc-l3" href="#2-서로-다른-커밋이-같은-변경인지-볼-때는-patch-id-가-유용하다">2. 서로 다른 커밋이 같은 변경인지 볼 때는 `patch-id`가 유용하다</a>
@@ -728,21 +727,6 @@ git log --graph --oneline --all
 <p>원격 저장소는 계속 변하므로 확인 시점과 <code>main</code> commit을 함께 기록해야 한다. 2026-09-03 확인 결과 PR #32의 <code>80b43c2</code>는 OliverJoo의 승인을 거쳐 merge commit <code>daecf53</code>으로 반영됐다. 현재 열린 PR은 없으며, 이후 변경이 생기면 같은 방식으로 API와 실제 graph를 다시 교차 확인한다.</p>
 <p>또한 원격 <code>docs/git-log.txt</code>는 PR #29까지를 담은 스냅샷이다. 파일이 저장된 뒤 병합된 PR #30·#31·#32는 실제 <code>git log</code>와 GitHub PR 페이지에서 추가 확인한다. 증빙 파일도 생성 시점을 함께 기록해야 낡은 스냅샷을 최신 상태로 오해하지 않는다.</p>
 <p><strong>관련 자료:</strong> <a href="docs/remote-change-audit.md">최신 원격 변경 전수 감사</a>, <a href="docs/git-history-evidence.md">Git 이력 증빙</a></p>
-<h3 id="8-평가자에게-보여-주는-5분-흐름">8. 평가자에게 보여 주는 5분 흐름</h3>
-<ol>
-<li><a href="diagrams/01_github-flow.html">GitHub Flow</a>에서 정상 협업 흐름을 설명한다.</li>
-<li><code>python3 src/main.py</code>로 원격과 동일한 두 함수 실행 결과를 확인하고, 필요하면 <code>python3 examples/team_utils_demo.py</code>로 네 모듈을 학습용으로 함께 실행한다.</li>
-<li><a href="SUBMISSION.md#2-%ED%8C%80%EC%9B%90%EB%B3%84-%EC%8B%A4%EC%A0%9C-%EA%B8%B0%EC%97%AC">팀원별 기여</a>에서 4명의 PR·review를 확인한다.</li>
-<li><a href="docs/conflict-resolution.md">충돌 기록</a>에서 <code>abe92b8</code>과 <code>fee0b98</code> 판단을 설명한다.</li>
-<li><a href="docs/troubleshooting-log.md">복구 로그</a>에서 공유 여부에 따른 명령 선택을 설명한다.</li>
-<li><a href="docs/remote-change-audit.md">최신 원격 변경</a>에서 PR #29~#32의 반영 상태를 확인한다.</li>
-<li><a href="SUBMISSION.md#3-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%EC%B6%A9%EC%A1%B1-%ED%98%84%ED%99%A9">충족 현황</a>에서 Issue closing 누락과 세부 보호 설정 증빙 보완점도 정직하게 제시한다.</li>
-</ol>
-<pre><code class="language-bash">cd &quot;$UPSTREAM_CLONE&quot;
-python3 src/main.py
-git log --oneline --graph --decorate --all
-git show --cc abe92b8 -- src/main.py
-</code></pre>
 <hr />
 <h2 id="심화-부록-git-협업을-이력-검증-시스템-으로-이해하기">심화 부록: Git 협업을 “이력 검증 시스템”으로 이해하기</h2>
 <p>이 부록은 앞에서 다룬 GitHub Flow, Issue–PR 연결, 충돌 해결, reset/revert/rebase 사용법을 반복하지 않는다. 작은 유틸리티 저장소에서 확인한 스냅샷·리뷰·병합 증거를 실제 팀의 재현성과 자동화 문제로 확장한다.</p>

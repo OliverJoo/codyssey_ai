@@ -668,23 +668,6 @@ git log --graph --oneline --all
 
 **관련 자료:** [최신 원격 변경 전수 감사](docs/remote-change-audit.md), [Git 이력 증빙](docs/git-history-evidence.md)
 
-### 8. 평가자에게 보여 주는 5분 흐름
-
-1. [GitHub Flow](diagrams/01_github-flow.html)에서 정상 협업 흐름을 설명한다.
-2. `python3 src/main.py`로 원격과 동일한 두 함수 실행 결과를 확인하고, 필요하면 `python3 examples/team_utils_demo.py`로 네 모듈을 학습용으로 함께 실행한다.
-3. [팀원별 기여](SUBMISSION.md#2-팀원별-실제-기여)에서 4명의 PR·review를 확인한다.
-4. [충돌 기록](docs/conflict-resolution.md)에서 `abe92b8`과 `fee0b98` 판단을 설명한다.
-5. [복구 로그](docs/troubleshooting-log.md)에서 공유 여부에 따른 명령 선택을 설명한다.
-6. [최신 원격 변경](docs/remote-change-audit.md)에서 PR #29~#32의 반영 상태를 확인한다.
-7. [충족 현황](SUBMISSION.md#3-요구사항-충족-현황)에서 Issue closing 누락과 세부 보호 설정 증빙 보완점도 정직하게 제시한다.
-
-```bash
-cd "$UPSTREAM_CLONE"
-python3 src/main.py
-git log --oneline --graph --decorate --all
-git show --cc abe92b8 -- src/main.py
-```
-
 ---
 
 ## 심화 부록: Git 협업을 “이력 검증 시스템”으로 이해하기
