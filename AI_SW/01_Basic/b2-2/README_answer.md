@@ -301,3 +301,108 @@ python3 src/main.py
 git log --oneline --graph --decorate --all
 git show --cc abe92b8 -- src/main.py
 ```
+
+---
+
+## 심화 부록: Git 협업을 “이력 검증 시스템”으로 이해하기
+
+이 부록은 앞에서 다룬 GitHub Flow, Issue–PR 연결, 충돌 해결, reset/revert/rebase 사용법을 반복하지 않는다. 작은 유틸리티 저장소에서 확인한 스냅샷·리뷰·병합 증거를 실제 팀의 재현성과 자동화 문제로 확장한다.
+
+### 1. 커밋 해시는 무결성을 보여 주지만 작성자 신원까지 증명하지는 않는다
+
+Git 객체 ID는 커밋 내용, 부모, 작성자 정보 등을 바탕으로 계산되므로 커밋 `daecf53...`를 고정하면 “그때 본 객체와 같은가”를 확인하기 좋다. 프로젝트의 SHA-256 스냅샷 테스트도 로컬 파일이 기준 바이트와 같은지 탐지한다. 그러나 해시가 같다는 사실만으로 그 기준값을 누가 만들었는지, 믿을 만한 배포인지까지 증명되지는 않는다.
+
+현실적으로 공격자가 코드와 `EXPECTED` 해시를 함께 바꾸면 테스트는 다시 통과한다. 중요한 기준선은 보호된 CI 변수, 서명된 tag/release, 별도 감사 시스템처럼 변경 권한이 분리된 곳에 두어야 한다.
+
+```bash
+git tag -s training-baseline-2026-09 daecf53
+git tag -v training-baseline-2026-09
+```
+
+즉 `hash = 무결성`, `signature + 신뢰한 공개키 = 출처 확인`으로 역할을 구분한다. 교육 제출물이라면 commit 고정만으로 충분할 수 있지만, 배포 승인에는 신뢰 사슬이 더 필요하다.
+
+### 2. 서로 다른 커밋이 같은 변경인지 볼 때는 `patch-id`가 유용하다
+
+rebase나 cherry-pick은 같은 코드 변경을 새 부모 위에 다시 만들기 때문에 commit hash가 달라진다. 이때 hash만 비교하면 동일 작업을 다른 작업으로 오판할 수 있다. `git patch-id --stable`은 메타데이터보다 diff의 실질 내용을 기준으로 비교하는 도구다.
+
+예를 들어 `reverse_string` 타입 검사를 feature 브랜치에서 cherry-pick해 hotfix 브랜치에도 적용하면 두 commit ID는 달라도 패치가 같을 수 있다.
+
+```bash
+git show <commit-A> | git patch-id --stable
+git show <commit-B> | git patch-id --stable
+```
+
+두 patch-id가 같으면 “실질 변경이 동등할 가능성이 높다”는 근거가 된다. 다만 파일 이동, 문맥 변화, 바이너리 변경 등에서는 한계가 있으므로 최종 트리와 테스트도 함께 본다. 협업 통계에서 단순 commit 수 대신 “독립 변경 단위”를 세려 할 때도 이 차이가 중요하다.
+
+### 3. 회귀 원인은 `git bisect`로 선형 탐색 대신 이진 탐색할 수 있다
+
+PR 수가 많아진 뒤 `count_words`의 빈 문자열 테스트가 깨졌다고 하자. 최근 commit부터 하나씩 되돌려 확인하면 n번 가까이 실행할 수 있지만, `git bisect`는 좋은 기준과 나쁜 기준 사이를 절반씩 좁혀 O(log n)번에 최초 불량 commit을 찾는다.
+
+```bash
+git bisect start
+git bisect bad HEAD
+git bisect good <정상으로 확인한-commit>
+git bisect run python3 -m unittest tests.test_team_utils
+git bisect reset
+```
+
+자동 bisect에 쓰는 테스트는 결과가 결정적이어야 한다. 네트워크 상태나 현재 시간에 따라 흔들리는 테스트라면 엉뚱한 commit을 지목한다. 또한 여러 원인이 동시에 있는 경우 “최초 bad”가 곧 전체 근본 원인이라는 뜻은 아니므로 해당 diff를 다시 검토한다.
+
+### 4. 반복 충돌에는 `rerere`, 동시 작업에는 `worktree`가 도움 된다
+
+긴 rebase에서 같은 충돌을 여러 번 풀거나, 병합을 시험했다 취소한 뒤 다시 풀 때 사람은 같은 결정을 반복하기 쉽다. `rerere`는 conflict 상태와 해결 결과를 기록해 같은 형태의 충돌에 이전 해결을 재사용한다.
+
+```bash
+git config rerere.enabled true
+# 평소처럼 충돌 해결 후 git add / commit
+git rerere status
+```
+
+자동 재사용 결과도 반드시 diff와 테스트로 검토해야 한다. 문맥은 같아 보여도 업무 의도가 달라졌을 수 있기 때문이다.
+
+한편 긴급 수정 때문에 현재 feature 작업을 stash로 숨기는 대신 별도 worktree를 만들면 두 작업 디렉터리를 동시에 유지할 수 있다.
+
+```bash
+git worktree add ../b2-2-hotfix -b hotfix/count-words origin/main
+git worktree list
+```
+
+호텔 방 두 개에 서로 다른 작업 도구를 펼쳐 두는 것과 같다. 다만 같은 브랜치를 두 worktree에서 동시에 checkout할 수 없고, 생성한 경로와 브랜치의 정리 책임을 팀 규칙에 포함해야 한다.
+
+### 5. 사람의 규칙은 “브랜치 보호의 기계적 계약”으로 옮겨야 한다
+
+문서에 What/Why/How와 리뷰 규칙이 있어도 누락은 발생한다. 실무에서는 PR template을 안내로 쓰되, required status checks, required review, 최신 base 반영, conversation resolution을 branch rule로 강제한다. 특정 영역은 `CODEOWNERS`로 담당 검토자를 자동 요청할 수 있다.
+
+```text
+# .github/CODEOWNERS 예시
+/src/        @team-python
+/docs/       @team-docs
+/.github/    @repo-maintainers
+```
+
+예를 들어 문서 담당 승인만 받고 `src/` 변경을 병합하는 문제를 줄일 수 있다. 단, CODEOWNERS가 자동 요청하는 것과 “그 소유자의 승인 없이는 병합 불가”는 별도 보호 규칙이다. CI도 단순 `grep` 존재 검사만 두기보다 실제 단위 테스트, 링크 검사, 원본 스냅샷 검사를 서로 다른 check로 보여 주면 실패 원인과 재실행 권한이 명확해진다.
+
+### 6. Git의 rename은 파일 신원이 아니라 유사도에 대한 사후 판단이다
+
+Git은 파일에 영구 ID를 붙여 “이 파일이 이름만 바뀌었다”고 저장하지 않는다. 한 경로의 삭제와 다른 경로의 추가를 비교할 때 내용 유사도가 충분하면 rename으로 표시한다. 그래서 같은 commit도 옵션과 임계값에 따라 `R100`, `R60`, 또는 delete/add로 보일 수 있다.
+
+```bash
+git diff --find-renames=50% <parent> <commit>
+git diff --find-renames=90% <parent> <commit>
+```
+
+이 사실은 rename/modify 충돌 증빙에 중요하다. 최종 `git show --summary`의 `R100`만으로 “당시 사용자가 실제 충돌 마커를 해결했다”까지 증명할 수 없다. 재현 절차에서는 공통 merge base, 양쪽 tree, 실제 merge 명령의 stdout/stderr와 exit code를 함께 보존해야 한다.
+
+### 실무 접근법
+
+#### 접근법 1. 병합 전 disposable worktree에서 통합을 예행연습한다
+
+PR head를 임시 worktree에 두고 대상 base를 merge 또는 rebase한 뒤 전체 테스트를 실행한다. 원래 작업 디렉터리를 건드리지 않아 충돌 재현과 증거 캡처가 쉽다. 성공 기준은 “충돌 마커가 없다”가 아니라 양쪽 요구사항 테스트가 모두 통과하는 것이다.
+
+#### 접근법 2. 증거를 주장과 분리된 원시 자료로 보존한다
+
+PR 번호, review state, commit hash를 문장으로만 옮기지 말고 조회 시각과 함께 API JSON 또는 명령 출력으로 저장하고, 그 파일의 해시를 manifest에 기록한다. 문서는 이 원시 자료에서 계산되도록 하면 “19개”처럼 바뀌는 숫자를 수동으로 여러 파일에 복사하다 생기는 불일치를 줄일 수 있다. 개인정보·토큰은 원시 자료에 포함하지 않는다.
+
+#### 접근법 3. CI를 요구사항 추적표와 1:1로 연결한다
+
+각 요구사항에 `자동 검사`, `API로 확인`, `사람이 캡처` 중 검증 방식을 지정한다. 함수 동작과 링크는 자동화하고, 실제 리뷰의 질이나 화면 설정은 사람 검토 대상으로 남긴다. 자동화할 수 없는 항목을 억지로 `grep` 통과로 치환하지 않는 것이 핵심이다. PR 화면에는 실패한 요구사항 이름과 복구 방법이 바로 보이게 한다.
