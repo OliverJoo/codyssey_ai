@@ -1,0 +1,86 @@
+* 33a80c9 docs: finalize B2-2 collaboration documents
+*   f476db6 Merge pull request #29 from dave17code/feature/joo-revert-practice
+|\  
+| * 7a37beb Revert "docs: add temporary revert practice file"
+| * df3e50c docs: add temporary revert practice file
+|/  
+*   7ee6232 Merge pull request #26 from dave17code/feature/kwon-troubleshooting-submission
+|\  
+| * 5a9c003 docs: add troubleshooting log and submission index
+|/  
+*   5b06f78 Merge pull request #24 from dave17code/feature/kwon-update-old-guide
+|\  
+| * fee0b98 fix: resolve modify/delete conflict by moving changes to new-file.md
+| *   9315e23 Merge branch 'main' of https://github.com/dave17code/b2-2-git-conflict-craft into feature/kwon-update-old-guide
+| |\  
+| |/  
+|/|   
+* |   e660623 Merge pull request #22 from dave17code/feature/joo-rename-new-file
+|\ \  
+| * | 99ef129 docs: rename old-guide.md to new-file.md
+|/ /  
+| * 1b1ec20 docs: modify content of old-guide.md
+| * 2579e64 docs: modify content of old-guide.md
+|/  
+*   716f3a0 Merge pull request #20 from dave17code/feature/kwon-modify-file
+|\  
+| * 8e112d0 docs: modify content of old-guide.md
+* |   f016774 Merge pull request #19 from dave17code/feature/joo-rename-file
+|\ \  
+| * | 1323dee docs: rename old-guide.md to guide.md
+* | |   045e2f6 Merge pull request #18 from dave17code/feature/kwon-modify-file
+|\ \ \  
+| | |/  
+| |/|   
+| * | 9bb1c43 docs: modify content of old-guide.md
+* | |   f97aa20 Merge pull request #17 from dave17code/feature/joo-rename-file
+|\ \ \  
+| | |/  
+| |/|   
+| * | 949b6b6 docs: rename old-guide.md to guide.md
+|/ /  
+* |   44866c8 Merge pull request #16 from dave17code/feature/joo-prepare-conflict
+|\ \  
+| * | a33831a docs: add old guide file for non-trivial conflict test
+| |/  
+* |   ab62450 Merge pull request #14 from dave17code/feature/kang-readme-main
+|\ \  
+| * \   abe92b8 fix: resolve conflict in main.py by combining Kim and Kang outputs
+| |\ \  
+| |/ /  
+|/| |   
+* | |   90a6ddf Merge pull request #15 from dave17code/feature/kim-main-conflict
+|\ \ \  
+| * | | e7917b1 feat: update main.py with reverse_string output
+|/ / /  
+* | |   e61f2bf Merge pull request #11 from dave17code/feature/kim-contributing
+|\ \ \  
+| |_|/  
+|/| |   
+| * | 07f7a54 docs: add contributing guide and team rules
+|/ /  
+| * 4241fdc feat: add main runner with count_words
+| * 932dd4c feat: add README.md and main runner with count_words
+|/  
+*   2c58a81 Merge pull request #8 from dave17code/feature/kwon-math-utils
+|\  
+| * 38ab44f docs: update docstring with negative numbers and zero explanation
+| * 2d9a7fe feat: add is_even utility function
+* |   339aa53 Merge pull request #7 from dave17code/feature/joo-list-utils
+|\ \  
+| * | db5ae1a docs: clarify order non-preservation in remove_duplicates docstring
+| * | 13c490b feat: add remove_duplicates utility function
+| |/  
+* |   44f90df Merge pull request #4 from dave17code/geature/kang-count-utils
+|\ \  
+| * | e47ac39 refactor: apply strip to handle leading and trailing spaces
+| * | 8f78474 feat: add count_words utility function
+| |/  
+* |   b22f9e3 Merge pull request #2 from dave17code/feature/kim-string-utils
+|\ \  
+| |/  
+|/|   
+| * 5e171a9 refactor: add type check and docstring example based on review
+| * af55b1e feat: add reverse_string utility function
+|/  
+* 175ea3c chore: 프로젝트 초기화 및 .gitignore 설정
