@@ -1,0 +1,7 @@
+# 선택 보너스 예시: 실제 GitHub 계정에 검토 책임을 배정한다.
+* @dave17code
+/src/string_utils.py @dave17code
+/src/count_utils.py @heeyoung35
+/src/list_utils.py @OliverJoo
+/src/math_utils.py @hyunn9799
+/docs/ @dave17code @heeyoung35 @OliverJoo @hyunn9799
