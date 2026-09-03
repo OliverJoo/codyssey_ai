@@ -18,6 +18,8 @@ claude.md
 **/*README_Answer.*
 !AI_SW/01_Basic/b2-2/*README_answer.*
 !AI_SW/01_Basic/b2-2/*README_Answer.*
+*.log
+!AI_SW/01_Basic/b1-2/*.log
 
 
 ### Flask ###
@@ -85,7 +87,7 @@ cover/
 *.pot
 
 # Django stuff:
-*.log
+# *.log (Custom added 섹션에서 관리됨)
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
