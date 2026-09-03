@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>4인 팀 Git 복구 명령과 증거 등급</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}body{margin:0;padding:32px;background:#f5f5f5;color:#2d3142;font-family:'Geist','Noto Sans KR',system-ui,sans-serif}.frame{max-width:1120px;margin:auto}.eyebrow{font:500 8px 'Geist Mono',monospace;letter-spacing:.18em;color:#4f5d75;text-transform:uppercase}.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin:8px 0 20px}h1{margin:0;font:400 32px 'Instrument Serif','Noto Serif KR',serif}.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.tools a{padding:8px 12px;border:1px solid rgba(45,49,66,.25);border-radius:6px;background:#fff;color:#2d3142;text-decoration:none;font:500 12px 'Geist','Noto Sans KR',sans-serif}.tools a:hover,.tools a:focus{border-color:#eb6c36;outline:none}.viewport{height:min(72vh,680px);min-height:480px;overflow:auto;border-block:1px solid rgba(45,49,66,.12)}.zoom-target{display:none}svg{display:block;width:920px;height:680px;max-width:none;background:#f5f5f5}#rc-z50:target~svg{width:460px;height:340px}#rc-z100:target~svg{width:920px;height:680px}#rc-z150:target~svg{width:1380px;height:1020px}#rc-z200:target~svg{width:1840px;height:1360px}#rc-fit:target~svg{width:100%;height:auto}.name{font:600 12px 'Geist','Noto Sans KR',sans-serif;fill:#2d3142}.small-ko{font:500 12px 'Geist','Noto Sans KR',sans-serif;fill:#4f5d75}.tech{font:400 8px 'Geist Mono',monospace;fill:#7a8399}.note{margin-top:12px;color:#4f5d75;font-size:12px}@media(max-width:640px){body{padding:16px}.viewport{min-height:400px}}
+  </style>
+</head>
+<body>
+  <main class="frame">
+    <p class="eyebrow">FLOWCHART · DIAGRAM-DESIGN 2.6.12</p>
+    <div class="head"><h1>복구 명령 선택과 증거 등급</h1><div class="tools" aria-label="다이어그램 확대 축소"><a href="#rc-z50">50%</a><a href="#rc-z100">100%</a><a href="#rc-z150">150%</a><a href="#rc-z200">200%</a><a href="#rc-fit">화면 맞춤</a></div></div>
+    <div class="viewport">
+      <span class="zoom-target" id="rc-z50"></span><span class="zoom-target" id="rc-z100"></span><span class="zoom-target" id="rc-z150"></span><span class="zoom-target" id="rc-z200"></span><span class="zoom-target" id="rc-fit"></span>
+      <svg viewBox="0 0 920 680" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="03_git-recovery-decision-title 03_git-recovery-decision-desc">
+        <title id="03_git-recovery-decision-title">4인 팀 Git 복구 명령과 증거 등급</title>
+        <desc id="03_git-recovery-decision-desc">OliverJoo의 revert는 commit과 PR로 확인됐습니다. dave17code의 amend와 hyunn9799의 stash는 PR 본문과 문서로 확인되며, heeyoung35의 reset soft는 문서 기록만 확인됩니다.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#4f5d75"/></marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#eb6c36"/></marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#2e5aa8"/></marker>
+        </defs>
+        <rect width="920" height="680" fill="#f5f5f5"/>
+
+        <!-- 모든 연결선과 판단 라벨을 노드보다 먼저 그립니다. -->
+        <line x1="460" y1="72" x2="460" y2="112" stroke="#4f5d75" marker-end="url(#arrow)"/>
+        <line x1="568" y1="160" x2="640" y2="160" stroke="#eb6c36" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+        <line x1="460" y1="208" x2="460" y2="256" stroke="#4f5d75" marker-end="url(#arrow)"/>
+        <line x1="568" y1="304" x2="640" y2="304" stroke="#4f5d75" marker-end="url(#arrow)"/>
+        <line x1="460" y1="352" x2="460" y2="400" stroke="#4f5d75" marker-end="url(#arrow)"/>
+        <line x1="568" y1="448" x2="640" y2="448" stroke="#4f5d75" marker-end="url(#arrow)"/>
+        <line x1="460" y1="496" x2="460" y2="544" stroke="#2e5aa8" marker-end="url(#arrow-link)"/>
+
+        <rect x="584" y="132" width="40" height="16" rx="2" fill="#f5f5f5"/><text x="604" y="144" text-anchor="middle" class="small-ko">예</text>
+        <rect x="476" y="220" width="52" height="16" rx="2" fill="#f5f5f5"/><text x="502" y="232" text-anchor="middle" class="small-ko">아니오</text>
+        <rect x="584" y="276" width="40" height="16" rx="2" fill="#f5f5f5"/><text x="604" y="288" text-anchor="middle" class="small-ko">예</text>
+        <rect x="476" y="364" width="52" height="16" rx="2" fill="#f5f5f5"/><text x="502" y="376" text-anchor="middle" class="small-ko">아니오</text>
+        <rect x="584" y="420" width="40" height="16" rx="2" fill="#f5f5f5"/><text x="604" y="432" text-anchor="middle" class="small-ko">예</text>
+        <rect x="476" y="508" width="52" height="16" rx="2" fill="#f5f5f5"/><text x="502" y="520" text-anchor="middle" class="small-ko">아니오</text>
+
+        <!-- 상황별 명령과 서로 다른 증거 등급 -->
+        <rect x="360" y="24" width="200" height="48" rx="24" fill="#fff" stroke="#2d3142"/><text x="460" y="52" text-anchor="middle" class="name">상황별 명령과 증거 확인</text>
+        <polygon points="460,112 568,160 460,208 352,160" fill="rgba(235,108,54,.08)" stroke="#eb6c36" stroke-width="1.2"/><text x="460" y="156" text-anchor="middle" class="name">이미 원격에 공유됐는가?</text><text x="460" y="176" text-anchor="middle" class="tech">PUBLIC HISTORY?</text>
+        <rect x="640" y="124" width="200" height="72" rx="6" fill="rgba(235,108,54,.08)" stroke="#eb6c36" stroke-width="1.2"/><text x="740" y="148" text-anchor="middle" class="small-ko">OliverJoo · commit + PR</text><text x="740" y="168" text-anchor="middle" class="name">git revert df3e50c</text><text x="740" y="184" text-anchor="middle" class="tech">A · 7a37beb VERIFIED</text>
+        <polygon points="460,256 568,304 460,352 352,304" fill="#fff" stroke="#2d3142"/><text x="460" y="300" text-anchor="middle" class="name">최신 커밋만 고칠 것인가?</text><text x="460" y="320" text-anchor="middle" class="tech">LOCAL · NOT PUSHED</text>
+        <rect x="640" y="268" width="200" height="72" rx="6" fill="#fff" stroke="rgba(45,49,66,.35)"/><text x="740" y="292" text-anchor="middle" class="small-ko">dave17code · PR 본문 + 문서</text><text x="740" y="312" text-anchor="middle" class="name">git commit --amend</text><text x="740" y="328" text-anchor="middle" class="tech">B · 전후 hash 증거 없음</text>
+        <polygon points="460,400 568,448 460,496 352,448" fill="#fff" stroke="#2d3142"/><text x="460" y="444" text-anchor="middle" class="name">커밋만 취소하고 변경은 둘까?</text><text x="460" y="464" text-anchor="middle" class="tech">KEEP STAGED CHANGES?</text>
+        <rect x="640" y="412" width="200" height="72" rx="6" fill="#fff" stroke="rgba(45,49,66,.35)"/><text x="740" y="436" text-anchor="middle" class="small-ko">heeyoung35 · 문서 기록만</text><text x="740" y="456" text-anchor="middle" class="name">git reset --soft HEAD~1</text><text x="740" y="472" text-anchor="middle" class="tech">C · 실행 증거 없음</text>
+        <rect x="360" y="544" width="200" height="72" rx="6" fill="rgba(46,90,168,.06)" stroke="#2e5aa8"/><text x="460" y="568" text-anchor="middle" class="small-ko">hyunn9799 · PR 본문 + 문서</text><text x="460" y="588" text-anchor="middle" class="name">git stash / stash pop</text><text x="460" y="604" text-anchor="middle" class="tech">B · 전후 stash 증거 없음</text>
+        <line x1="32" y1="640" x2="888" y2="640" stroke="rgba(45,49,66,.12)" stroke-width=".8"/>
+        <text x="460" y="664" text-anchor="middle" class="small-ko">A: commit+PR · B: PR 본문+문서 · C: 문서만 · 명령 전후 증거를 함께 기록한다</text>
+      </svg>
+    </div>
+    <p class="note">상단 버튼으로 화면 맞춤·50%·100%·150%·200%를 선택하고, 확대 후 가로·세로 스크롤로 이동할 수 있습니다.</p>
+  </main>
+</body>
+</html>

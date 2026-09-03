@@ -1,0 +1,14 @@
+graph TD
+    A[Git 충돌 요구<br/>2건 + 비자명 1건] --> B[사례 1: main.py]
+    B --> C[PR 14와 15<br/>같은 실행 영역 수정]
+    C --> D[abe92b8<br/>두 출력 결합]
+    D --> E[확인된 실제 충돌 1건]
+    A --> F[사례 2: rename/modify 의도]
+    F --> G[부모 1b1ec20 + e660623 replay]
+    G --> H[Automatic merge went well<br/>R100 rename]
+    H --> I[conflict marker 증거 없음]
+    I --> J[두 번째 실제 충돌로 미인정]
+    E --> K{요구 충족 판단}
+    J --> K
+    K --> L[미확인 / 실제 conflict 증빙 필요]
+    M[02_demo.sh modify/delete<br/>별도 합성 예제] -. 증거로 계산하지 않음 .-> L

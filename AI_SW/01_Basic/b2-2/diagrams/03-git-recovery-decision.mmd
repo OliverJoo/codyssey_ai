@@ -1,0 +1,13 @@
+graph TD
+    A[문제가 생긴 commit 또는 작업] --> B{이미 공유했는가?}
+    B -->|원격 공유됨| C[git revert]
+    C --> C1[A등급 증거<br/>df3e50c + 7a37beb + PR29]
+    B -->|아직 로컬| D{원하는 결과는?}
+    D -->|최근 commit 보완| E[git commit --amend]
+    E --> E1[B등급 증거<br/>PR 본문 + 문서]
+    D -->|commit만 취소<br/>변경 staged 유지| F[git reset --soft]
+    F --> F1[C등급 증거<br/>문서 기록만]
+    D -->|작업 임시 보관| G[git stash / pop]
+    G --> G1[B등급 증거<br/>PR 본문 + 문서]
+    H[안전 규칙] --> I[공유 main 재작성 금지]
+    H --> J[reset / rebase는 개인 브랜치에서만]

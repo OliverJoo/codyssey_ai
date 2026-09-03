@@ -1,0 +1,12 @@
+graph LR
+    A[Issue와 완료 조건] --> B[feature 브랜치]
+    B --> C[작은 commit]
+    C --> D[PR: What Why How]
+    D --> E[타인 review]
+    E --> F{승인과 검증}
+    F -->|통과| G[main merge]
+    F -->|수정 요청| C
+    G --> H[배포 가능한 기준선]
+    I[원격 근거<br/>main daecf53] --> G
+    J[감사 결과<br/>병합 PR 19개] --> D
+    K[누락<br/>Closes 12/19<br/>실질 review 5/19] -. 보완 필요 .-> D
