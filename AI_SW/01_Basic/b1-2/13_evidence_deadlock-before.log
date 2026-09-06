@@ -1,0 +1,82 @@
+===== EXPERIMENT =====
+CASE=deadlock-before
+STARTED_AT=2026-09-02T01:24:33+00:00
+PID=31
+LAUNCHER_PID=26
+ARCH=aarch64
+MEMORY_LIMIT=512
+CPU_MAX_OCCUPY=10
+MULTI_THREAD_ENABLE=true
+TIME_LIMIT_SECONDS=20
+TIMED_OUT=true
+PROCESS_EXIT_STATUS=143
+
+===== MONITOR =====
+TIMESTAMP,PID,CPU_PERCENT,RSS_KB,MEM_MB,STATE,THREADS,ELAPSED
+2026-09-02T01:24:33+00:00,31,0.0,16728,16.34,SN,1,00:00
+2026-09-02T01:24:34+00:00,31,2.0,16728,16.34,SN,1,00:01
+2026-09-02T01:24:35+00:00,31,1.0,16728,16.34,SN,1,00:02
+2026-09-02T01:24:36+00:00,31,0.6,16728,16.34,SN,1,00:03
+2026-09-02T01:24:37+00:00,31,0.5,16728,16.34,SN,1,00:04
+2026-09-02T01:24:38+00:00,31,0.4,16728,16.34,SN,1,00:05
+2026-09-02T01:24:39+00:00,31,0.3,16728,16.34,SN,1,00:06
+2026-09-02T01:24:40+00:00,31,0.2,16848,16.45,SNl,3,00:07
+2026-09-02T01:24:41+00:00,31,0.2,16848,16.45,SNl,3,00:08
+2026-09-02T01:24:42+00:00,31,0.3,16848,16.45,SNl,3,00:09
+2026-09-02T01:24:43+00:00,31,0.3,16848,16.45,SNl,3,00:10
+2026-09-02T01:24:44+00:00,31,0.2,16848,16.45,SNl,3,00:11
+2026-09-02T01:24:45+00:00,31,0.2,16848,16.45,SNl,3,00:12
+2026-09-02T01:24:46+00:00,31,0.2,16848,16.45,SNl,3,00:13
+2026-09-02T01:24:47+00:00,31,0.2,16848,16.45,SNl,3,00:14
+2026-09-02T01:24:48+00:00,31,0.2,16848,16.45,SNl,3,00:15
+2026-09-02T01:24:49+00:00,31,0.1,16848,16.45,SNl,3,00:16
+2026-09-02T01:24:50+00:00,31,0.1,16848,16.45,SNl,3,00:17
+2026-09-02T01:24:51+00:00,31,0.1,16848,16.45,SNl,3,00:18
+2026-09-02T01:24:52+00:00,31,0.1,16848,16.45,SNl,3,00:19
+2026-09-02T01:24:53+00:00,31,EXITED,,,,,
+
+===== APPLICATION =====
+>>> Starting Agent Boot Sequence...
+[1/6] Checking User Account               [OK]
+   ... Running as service user 'learner' (uid=1000)
+[2/6] Verifying Environment Variables     [OK]
+   ... All required Envs correct
+[3/6] Checking Required Files             [OK]
+   ... Verified 'secret.key' with correct key string.
+[4/6] Checking Port Availability          [OK]
+   ... Port 15034 is available.
+[5/6] Verifying Log Permission            [OK]
+   ... Log directory is writable: /tmp/agent-b1-2.2ZDgyh/home/logs
+[6/6] Verifying Mission Environment       [OK]
+   ... MEMORY_LIMIT=512MB, CPU_MAX_OCCUPY=10%, MULTI_THREAD_ENABLE=True
+------------------------------------------------------------
+All Boot Checks Passed!
+Agent READY
+2026-09-02 01:24:33,183 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-09-02 01:24:33,183 [INFO] Agent listening at port 15034
+
+==================================================
+ [ Agent Initiate ] Resource Check 
+==================================================
+ [ MEMORY ] Limit: 512MB 		[ OK ]
+ [ CPU    ] Limit: 10%  		[ OK ]
+ [ THREAD ] Concurrency: True 		[ WARNING ]
+--------------------------------------------------
+ >>> SYSTEM WARNING: POTENTIAL DEADLOCK IN CONCURRENT MODE.
+==================================================
+
+2026-09-02 01:24:35,196 [WARNING] [AgentWorker] Initializing concurrent transaction processors...
+2026-09-02 01:24:35,197 [WARNING] [System] CAUTION: Strict resource locking is enabled.
+2026-09-02 01:24:40,216 [INFO] [Worker-Thread-1] Process Started. Attempting to lock [Shared_Memory_A]...
+2026-09-02 01:24:40,217 [INFO] [AgentWorker][Worker-Thread-1] LOCK ACQUIRED: [Shared_Memory_A]. (Holding...)
+2026-09-02 01:24:40,218 [INFO] [AgentWorker][Worker-Thread-2] Process Started. Attempting to lock [Socket_Pool_B]...
+2026-09-02 01:24:40,218 [INFO] [AgentWorker] Waiting for worker threads to complete transactions...
+2026-09-02 01:24:40,218 [INFO] [AgentWorker][Worker-Thread-1] Processing critical data in Memory A...
+2026-09-02 01:24:40,219 [INFO] [AgentWorker][Worker-Thread-2] LOCK ACQUIRED: [Socket_Pool_B]. (Holding...)
+2026-09-02 01:24:40,219 [INFO] [AgentWorker][Worker-Thread-2] Establishing network connections in Pool B...
+2026-09-02 01:24:42,234 [INFO] [AgentWorker][Worker-Thread-1] Need resource [Socket_Pool_B] to finish job.
+2026-09-02 01:24:42,235 [INFO] [AgentWorker][Worker-Thread-2] Need resource [Shared_Memory_A] to write logs.
+2026-09-02 01:24:42,235 [INFO] [AgentWorker][Worker-Thread-1] WAITING for [Socket_Pool_B]... (Status: BLOCKED)
+2026-09-02 01:24:42,236 [INFO] [AgentWorker][Worker-Thread-2] WAITING for [Shared_Memory_A]... (Status: BLOCKED)
+
+===== END =====
