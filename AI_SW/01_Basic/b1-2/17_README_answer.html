@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>b1-2 평가문항 질문과 답변</title>
+  <style>
+    :root { --bg:#f3f6f4; --paper:#fff; --ink:#17211b; --muted:#647068; --line:#d8e0da; --brand:#146c4b; --brand2:#0e4f70; --soft:#e8f4ee; --code:#101914; --code-ink:#e8f5ec; --shadow:0 18px 55px rgba(25,55,39,.10); --radius:18px; }
+    @media (prefers-color-scheme:dark) { :root { --bg:#0d1511; --paper:#142019; --ink:#edf5ef; --muted:#a7b6ac; --line:#304039; --brand:#68d4a7; --brand2:#78c7ed; --soft:#1d3026; --code:#07100b; --code-ink:#e8f5ec; --shadow:0 18px 55px rgba(0,0,0,.32); } }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; } body { margin:0; color:var(--ink); background:radial-gradient(circle at 80% 0, color-mix(in srgb,var(--brand) 12%,transparent), transparent 34rem),var(--bg); font-family:Inter,Pretendard,"Noto Sans KR",system-ui,sans-serif; line-height:1.75; }
+    #progress { position:fixed; z-index:100; inset:0 auto auto 0; width:0; height:4px; background:linear-gradient(90deg,var(--brand),var(--brand2)); }
+    .hero { padding:5.5rem max(1rem,calc((100vw - 1180px)/2)) 3.5rem; color:#fff; background:linear-gradient(130deg,#102c20,#0d4960); }
+    .eyebrow { font-size:.78rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; opacity:.78; } .hero h1 { max-width:18ch; margin:.5rem 0 1rem; font-size:clamp(2.2rem,6vw,4.8rem); line-height:1.06; letter-spacing:-.055em; }
+    .hero p { max-width:48rem; margin:0; color:#d9e9e0; } .hero-links { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.3rem; } .hero-links a { padding:.52rem .78rem; color:#fff; border:1px solid #ffffff55; border-radius:999px; text-decoration:none; font-size:.86rem; }
+    .layout { display:grid; grid-template-columns:280px minmax(0,820px); gap:2rem; width:min(calc(100% - 2rem),1180px); margin:2rem auto 5rem; align-items:start; }
+    aside { position:sticky; top:1rem; max-height:calc(100vh - 2rem); padding:1rem; overflow:auto; background:color-mix(in srgb,var(--paper) 94%,transparent); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
+    aside strong { display:block; margin:.15rem .4rem .7rem; } #toc-filter { width:100%; margin-bottom:.7rem; padding:.65rem .75rem; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:10px; }
+    #toc a { display:block; padding:.34rem .45rem; color:var(--muted); border-left:2px solid transparent; text-decoration:none; font-size:.84rem; line-height:1.35; } #toc a:hover,#toc a.active { color:var(--brand); border-left-color:var(--brand); background:var(--soft); } .toc-l2 { margin-left:.55rem; } .toc-l3 { margin-left:1.1rem; }
+    main { min-width:0; } .diagram { margin-bottom:1.5rem; padding:1.1rem; background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); } .diagram-head { display:flex; justify-content:space-between; gap:1rem; align-items:flex-start; margin-bottom:.8rem; } .diagram h2 { margin:0; font-size:1.25rem; } .diagram p { margin:.15rem 0 0; color:var(--muted); font-size:.88rem; }
+    .diagram-art { width:100%; max-height:720px; overflow:auto; padding:.6rem; background:#fff; border:1px solid var(--line); border-radius:12px; } .diagram-art svg { display:block; width:100%; min-width:720px; height:auto; margin:auto; } .artifact-links { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.75rem; } .artifact-links a { color:var(--brand2); font-size:.8rem; }
+    article { padding:clamp(1rem,3vw,2.5rem); background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); } article h1,article h2,article h3,article h4 { scroll-margin-top:1rem; line-height:1.28; letter-spacing:-.025em; } article h1 { margin-top:0; font-size:clamp(2rem,5vw,3.35rem); } article h2 { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--line); font-size:clamp(1.5rem,4vw,2.15rem); } article h3 { margin-top:2rem; font-size:1.28rem; } article h4 { margin-top:1.5rem; }
+    article a { color:var(--brand2); text-underline-offset:.18em; } article blockquote { margin:1.2rem 0; padding:.8rem 1rem; color:var(--muted); background:var(--soft); border-left:4px solid var(--brand); border-radius:0 10px 10px 0; }
+    article table { display:block; width:100%; overflow-x:auto; border-collapse:collapse; } th,td { padding:.65rem .75rem; border:1px solid var(--line); text-align:left; vertical-align:top; } th { background:var(--soft); }
+    article code { padding:.1rem .35rem; color:color-mix(in srgb,var(--brand) 78%,var(--ink)); background:var(--soft); border-radius:5px; } article pre { position:relative; overflow:auto; padding:1.15rem; color:var(--code-ink); background:var(--code); border-radius:12px; } article pre code { padding:0; color:inherit; background:none; } .copy { position:absolute; top:.5rem; right:.5rem; padding:.3rem .5rem; color:#dce8df; background:#ffffff18; border:1px solid #ffffff30; border-radius:6px; cursor:pointer; }
+    article img { max-width:100%; height:auto; } hr { margin:3rem 0; border:0; border-top:1px solid var(--line); } footer { width:min(calc(100% - 2rem),820px); margin:0 auto 3rem; color:var(--muted); font-size:.82rem; text-align:center; }
+    @media(max-width:900px) { .layout { grid-template-columns:1fr; } aside { position:relative; top:0; max-height:320px; } } @media(max-width:600px) { .hero { padding-top:4rem; } .layout { width:min(calc(100% - 1rem),1180px); gap:1rem; } .diagram-head { display:block; } article { border-radius:14px; } }
+    @media print { #progress,aside,.hero-links,.copy,.artifact-links { display:none!important; } body { background:#fff; } .hero { padding:1rem 0; color:#000; background:#fff; } .hero p,.eyebrow { color:#555; } .layout { display:block; width:100%; margin:0; } .diagram,article { border:0; box-shadow:none; } article h2 { break-after:avoid; } pre,blockquote,table { break-inside:avoid; } }
+  </style>
+</head>
+<body>
+  <div id="progress"></div>
+  <header class="hero">
+    <div class="eyebrow">README ANSWER · COMPLETE HTML EDITION</div>
+    <h1>b1-2 평가문항 질문과 답변</h1>
+    <p>최신 <strong>16_README_answer.md</strong> 전체 내용과 폴더의 핵심 흐름도를 한 문서에 담았습니다.</p>
+    <div class="hero-links"><a href="16_README_answer.md">Markdown 원문</a><a href="diagrams/README_answer_diagram.svg">다이어그램 SVG</a><a href="diagrams/README_answer_diagram.excalidraw">편집 가능한 Excalidraw</a></div>
+  </header>
+  <div class="layout">
+    <aside aria-label="문서 목차"><strong>목차</strong><input id="toc-filter" type="search" placeholder="제목 검색" aria-label="목차 검색"><nav id="toc"><a class="toc-l1" href="#b1-2-평가문항-질문과-답변">b1-2 평가문항 질문과 답변</a>
+<a class="toc-l2" href="#항목-1-결과물-충족-여부">항목 1: 결과물 충족 여부</a>
+<a class="toc-l3" href="#질문-1-1">질문 1-1</a>
+<a class="toc-l3" href="#질문-1-2">질문 1-2</a>
+<a class="toc-l3" href="#질문-1-3">질문 1-3</a>
+<a class="toc-l3" href="#질문-1-4">질문 1-4</a>
+<a class="toc-l3" href="#질문-1-5">질문 1-5</a>
+<a class="toc-l3" href="#질문-1-6">질문 1-6</a>
+<a class="toc-l3" href="#질문-1-7">질문 1-7</a>
+<a class="toc-l3" href="#질문-1-8">질문 1-8</a>
+<a class="toc-l2" href="#항목-2-명령과-판단-과정">항목 2: 명령과 판단 과정</a>
+<a class="toc-l3" href="#질문-2-1">질문 2-1</a>
+<a class="toc-l3" href="#질문-2-2">질문 2-2</a>
+<a class="toc-l3" href="#질문-2-3">질문 2-3</a>
+<a class="toc-l2" href="#항목-3-운영체제-개념-설명">항목 3: 운영체제 개념 설명</a>
+<a class="toc-l3" href="#질문-3-1">질문 3-1</a>
+<a class="toc-l3" href="#질문-3-2">질문 3-2</a>
+<a class="toc-l3" href="#질문-3-3">질문 3-3</a>
+<a class="toc-l3" href="#질문-3-4">질문 3-4</a>
+<a class="toc-l2" href="#항목-4-응용-회고-질문">항목 4: 응용·회고 질문</a>
+<a class="toc-l3" href="#질문-4-1">질문 4-1</a>
+<a class="toc-l3" href="#질문-4-2">질문 4-2</a>
+<a class="toc-l3" href="#질문-4-3">질문 4-3</a>
+<a class="toc-l3" href="#질문-4-4">질문 4-4</a>
+<a class="toc-l3" href="#질문-4-5">질문 4-5</a>
+<a class="toc-l2" href="#항목-5-보너스-문제">항목 5: 보너스 문제</a>
+<a class="toc-l3" href="#질문-5-1">질문 5-1</a>
+<a class="toc-l1" href="#튜토리얼-이-미션을-이해하기-위한-핵심-개념">튜토리얼: 이 미션을 이해하기 위한 핵심 개념</a>
+<a class="toc-l2" href="#1-프로그램-프로세스-스레드-pid">1. 프로그램, 프로세스, 스레드, PID</a>
+<a class="toc-l2" href="#2-가상-메모리-힙-rss와-메모리-누수">2. 가상 메모리, 힙, RSS와 메모리 누수</a>
+<a class="toc-l2" href="#3-oom-killer와-애플리케이션-memoryguard의-차이">3. OOM Killer와 애플리케이션 MemoryGuard의 차이</a>
+<a class="toc-l2" href="#4-cpu-사용률과-시스템-지연">4. CPU 사용률과 시스템 지연</a>
+<a class="toc-l2" href="#5-watchdog의-역할">5. Watchdog의 역할</a>
+<a class="toc-l2" href="#6-데드락의-네-조건">6. 데드락의 네 조건</a>
+<a class="toc-l2" href="#7-프로세스-상태를-읽는-방법">7. 프로세스 상태를 읽는 방법</a>
+<a class="toc-l2" href="#8-좋은-장애-실험-한-번에-한-변수">8. 좋은 장애 실험: 한 번에 한 변수</a>
+<a class="toc-l2" href="#9-로그를-증거로-만드는-법">9. 로그를 증거로 만드는 법</a>
+<a class="toc-l2" href="#10-github-issue-형식으로-쓰는-이유">10. GitHub Issue 형식으로 쓰는 이유</a>
+<a class="toc-l2" href="#11-before-after를-정직하게-해석하기">11. Before &amp; After를 정직하게 해석하기</a>
+<a class="toc-l2" href="#12-실습-완료-체크">12. 실습 완료 체크</a>
+<a class="toc-l2" href="#더-깊이-이해하기-장애-신호를-원인으로-연결하는-법">더 깊이 이해하기: 장애 신호를 원인으로 연결하는 법</a>
+<a class="toc-l3" href="#1-rss-하나만으로-메모리-누수를-확정할-수-없는-이유">1. RSS 하나만으로 메모리 누수를 확정할 수 없는 이유</a>
+<a class="toc-l3" href="#2-cpu-100-는-원인이-아니라-결과다">2. CPU 100%는 원인이 아니라 결과다</a>
+<a class="toc-l3" href="#3-deadlock-livelock-starvation은-겉모습이-비슷하다">3. Deadlock·livelock·starvation은 겉모습이 비슷하다</a>
+<a class="toc-l3" href="#4-wall-clock과-monotonic-clock의-역할은-다르다">4. wall clock과 monotonic clock의 역할은 다르다</a>
+<a class="toc-l3" href="#5-장애-격리는-자원별-보호보다-한-단계-넓은-설계다">5. 장애 격리는 자원별 보호보다 한 단계 넓은 설계다</a>
+<a class="toc-l3" href="#6-한-변수-실험도-반복과-대조군이-있어야-강해진다">6. 한 변수 실험도 반복과 대조군이 있어야 강해진다</a>
+<a class="toc-l2" href="#실무에서-바로-쓰는-접근법">실무에서 바로 쓰는 접근법</a>
+<a class="toc-l3" href="#접근법-1-첫-5분에는-복구와-증거-보존을-동시에-설계한다">접근법 1. 첫 5분에는 복구와 증거 보존을 동시에 설계한다</a>
+<a class="toc-l3" href="#접근법-2-신호를-사용자-서비스-런타임-커널-순으로-연결한다">접근법 2. 신호를 `사용자 → 서비스 → 런타임 → 커널` 순으로 연결한다</a>
+<a class="toc-l3" href="#접근법-3-완화와-근본-해결에-서로-다른-완료-조건을-둔다">접근법 3. 완화와 근본 해결에 서로 다른 완료 조건을 둔다</a></nav></aside>
+    <main>
+      <section class="diagram" aria-labelledby="diagram-title">
+        <div class="diagram-head"><div><h2 id="diagram-title">핵심 흐름 다이어그램</h2><p>답변의 주요 상태·데이터·판단 관계를 한눈에 보여 줍니다.</p></div></div>
+        <div class="diagram-art" role="img" aria-label="b1-2 평가문항 질문과 답변 핵심 흐름도"><svg id="diagram-b1-2" width="100%" xmlns="http://www.w3.org/2000/svg" class="flowchart" style="max-width: 772.953125px;" viewBox="0 0 772.953125 1045.4281005859375" role="graphics-document document" aria-roledescription="flowchart-v2"><style>#diagram-b1-2{font-family:Helvetica,"Liberation Sans",Arial,"Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Microsoft YaHei","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-size:16px;fill:#000000;}@keyframes edge-animation-frame{from{stroke-dashoffset:0;}}@keyframes dash{to{stroke-dashoffset:0;}}#diagram-b1-2 .edge-animation-slow{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 50s linear infinite;stroke-linecap:round;}#diagram-b1-2 .edge-animation-fast{stroke-dasharray:9,5!important;stroke-dashoffset:900;animation:dash 20s linear infinite;stroke-linecap:round;}#diagram-b1-2 .error-icon{fill:#552222;}#diagram-b1-2 .error-text{fill:#552222;stroke:#552222;}#diagram-b1-2 .edge-thickness-normal{stroke-width:1px;}#diagram-b1-2 .edge-thickness-thick{stroke-width:3.5px;}#diagram-b1-2 .edge-pattern-solid{stroke-dasharray:0;}#diagram-b1-2 .edge-thickness-invisible{stroke-width:0;fill:none;}#diagram-b1-2 .edge-pattern-dashed{stroke-dasharray:3;}#diagram-b1-2 .edge-pattern-dotted{stroke-dasharray:2;}#diagram-b1-2 .marker{fill:#666;stroke:#666;}#diagram-b1-2 .marker.cross{stroke:#666;}#diagram-b1-2 svg{font-family:Helvetica,"Liberation Sans",Arial,"Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Microsoft YaHei","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-size:16px;}#diagram-b1-2 p{margin:0;}#diagram-b1-2 .label{font-family:Helvetica,"Liberation Sans",Arial,"Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Microsoft YaHei","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;color:#000000;}#diagram-b1-2 .cluster-label text{fill:#333;}#diagram-b1-2 .cluster-label span{color:#333;}#diagram-b1-2 .cluster-label span p{background-color:transparent;}#diagram-b1-2 .label text,#diagram-b1-2 span{fill:#000000;color:#000000;}#diagram-b1-2 .node rect,#diagram-b1-2 .node circle,#diagram-b1-2 .node ellipse,#diagram-b1-2 .node polygon,#diagram-b1-2 .node path{fill:#eee;stroke:#999;stroke-width:1px;}#diagram-b1-2 .rough-node .label text,#diagram-b1-2 .node .label text,#diagram-b1-2 .image-shape .label,#diagram-b1-2 .icon-shape .label{text-anchor:middle;}#diagram-b1-2 .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#diagram-b1-2 .rough-node .label,#diagram-b1-2 .node .label,#diagram-b1-2 .image-shape .label,#diagram-b1-2 .icon-shape .label{text-align:center;}#diagram-b1-2 .node.clickable{cursor:pointer;}#diagram-b1-2 .root .anchor path{fill:#666!important;stroke-width:0;stroke:#666;}#diagram-b1-2 .arrowheadPath{fill:#333333;}#diagram-b1-2 .edgePath .path{stroke:#666;stroke-width:2.0px;}#diagram-b1-2 .flowchart-link{stroke:#666;fill:none;}#diagram-b1-2 .edgeLabel{background-color:white;text-align:center;}#diagram-b1-2 .edgeLabel p{background-color:white;}#diagram-b1-2 .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#diagram-b1-2 .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#diagram-b1-2 .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}#diagram-b1-2 .cluster text{fill:#333;}#diagram-b1-2 .cluster span{color:#333;}#diagram-b1-2 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:Helvetica,"Liberation Sans",Arial,"Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Microsoft YaHei","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}#diagram-b1-2 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}#diagram-b1-2 rect.text{fill:none;stroke-width:0;}#diagram-b1-2 .icon-shape,#diagram-b1-2 .image-shape{background-color:white;text-align:center;}#diagram-b1-2 .icon-shape p,#diagram-b1-2 .image-shape p{background-color:white;padding:2px;}#diagram-b1-2 .icon-shape rect,#diagram-b1-2 .image-shape rect{opacity:0.5;background-color:white;fill:white;}#diagram-b1-2 .label-icon{display:inline-block;height:1em;overflow:visible;vertical-align:-0.125em;}#diagram-b1-2 .node .label-icon path{fill:currentColor;stroke:revert;stroke-width:revert;}#diagram-b1-2 :root{--mermaid-font-family:Helvetica,"Liberation Sans",Arial,"Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Microsoft YaHei","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;}</style><g><marker id="diagram-b1-2_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="diagram-b1-2_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker><marker id="diagram-b1-2_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="diagram-b1-2_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><circle cx="5" cy="5" r="5" class="arrowMarkerPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle></marker><marker id="diagram-b1-2_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><marker id="diagram-b1-2_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath" style="stroke-width: 2; stroke-dasharray: 1, 0;"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path d="M344.383,56L344.383,60.167C344.383,64.333,344.383,72.667,344.383,80.333C344.383,88,344.383,95,344.383,98.5L344.383,102" id="L_A_B_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_A_B_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjU2fSx7IngiOjM0NC4zODI4MTI1LCJ5Ijo4MX0seyJ4IjozNDQuMzgyODEyNSwieSI6MTA2fV0=" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M344.383,154L344.383,158.167C344.383,162.333,344.383,170.667,344.383,178.333C344.383,186,344.383,193,344.383,196.5L344.383,200" id="L_B_C_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_B_C_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjE1NH0seyJ4IjozNDQuMzgyODEyNSwieSI6MTc5fSx7IngiOjM0NC4zODI4MTI1LCJ5IjoyMDR9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M344.383,252L344.383,256.167C344.383,260.333,344.383,268.667,344.383,276.333C344.383,284,344.383,291,344.383,294.5L344.383,298" id="L_C_D_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_C_D_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjI1Mn0seyJ4IjozNDQuMzgyODEyNSwieSI6Mjc3fSx7IngiOjM0NC4zODI4MTI1LCJ5IjozMDJ9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M344.383,350L344.383,354.167C344.383,358.333,344.383,366.667,344.383,374.333C344.383,382,344.383,389,344.383,392.5L344.383,396" id="L_D_E_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_D_E_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjM1MH0seyJ4IjozNDQuMzgyODEyNSwieSI6Mzc1fSx7IngiOjM0NC4zODI4MTI1LCJ5Ijo0MDB9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M304.784,468.23L269.932,480.829C235.08,493.429,165.376,518.629,130.524,536.562C95.672,554.495,95.672,565.161,95.672,570.495L95.672,575.828" id="L_E_F_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_E_F_0" data-points="W3sieCI6MzA0Ljc4NDM4NjQyNzQ3NTU3LCJ5Ijo0NjguMjI5Njk4OTI3NDc1NTd9LHsieCI6OTUuNjcxODc1LCJ5Ijo1NDMuODI4MTI1fSx7IngiOjk1LjY3MTg3NSwieSI6NTc5LjgyODEyNX1d" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M344.383,507.828L344.383,513.828C344.383,519.828,344.383,531.828,344.383,543.161C344.383,554.495,344.383,565.161,344.383,570.495L344.383,575.828" id="L_E_G_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_E_G_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjUwNy44MjgxMjV9LHsieCI6MzQ0LjM4MjgxMjUsInkiOjU0My44MjgxMjV9LHsieCI6MzQ0LjM4MjgxMjUsInkiOjU3OS44MjgxMjV9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M385.643,466.568L427.631,479.444C469.619,492.321,553.595,518.075,595.582,536.285C637.57,554.495,637.57,565.161,637.57,570.495L637.57,575.828" id="L_E_H_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_E_H_0" data-points="W3sieCI6Mzg1LjY0MzIyNjgyOTk5NTc0LCJ5Ijo0NjYuNTY3NzEwNjcwMDA0MjZ9LHsieCI6NjM3LjU3MDMxMjUsInkiOjU0My44MjgxMjV9LHsieCI6NjM3LjU3MDMxMjUsInkiOjU3OS44MjgxMjV9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M95.672,627.828L95.672,631.995C95.672,636.161,95.672,644.495,95.672,653.628C95.672,662.761,95.672,672.695,95.672,677.661L95.672,682.628" id="L_F_I_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_F_I_0" data-points="W3sieCI6OTUuNjcxODc1LCJ5Ijo2MjcuODI4MTI1fSx7IngiOjk1LjY3MTg3NSwieSI6NjUyLjgyODEyNX0seyJ4Ijo5NS42NzE4NzUsInkiOjY4Ni42MjgxMjQyMzcwNjA1fV0=" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M344.383,627.828L344.383,631.995C344.383,636.161,344.383,644.495,344.383,653.628C344.383,662.761,344.383,672.695,344.383,677.661L344.383,682.628" id="L_G_J_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_G_J_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjYyNy44MjgxMjV9LHsieCI6MzQ0LjM4MjgxMjUsInkiOjY1Mi44MjgxMjV9LHsieCI6MzQ0LjM4MjgxMjUsInkiOjY4Ni42MjgxMjQyMzcwNjA1fV0=" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M637.57,627.828L637.57,631.995C637.57,636.161,637.57,644.495,637.57,652.161C637.57,659.828,637.57,666.828,637.57,670.328L637.57,673.828" id="L_H_K_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_H_K_0" data-points="W3sieCI6NjM3LjU3MDMxMjUsInkiOjYyNy44MjgxMjV9LHsieCI6NjM3LjU3MDMxMjUsInkiOjY1Mi44MjgxMjV9LHsieCI6NjM3LjU3MDMxMjUsInkiOjY3Ny44MjgxMjV9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M95.672,734.628L95.672,740.261C95.672,745.895,95.672,757.161,122.652,768.11C149.632,779.059,203.592,789.69,230.572,795.006L257.552,800.321" id="L_I_L_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_I_L_0" data-points="W3sieCI6OTUuNjcxODc1LCJ5Ijo3MzQuNjI4MTI0MjM3MDYwNX0seyJ4Ijo5NS42NzE4NzUsInkiOjc2OC40MjgxMjM0NzQxMjExfSx7IngiOjI2MS40NzY1NjI1LCJ5Ijo4MDEuMDk0Mjc3MDc4NjQ0NH1d" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M344.383,734.628L344.383,740.261C344.383,745.895,344.383,757.161,344.383,766.295C344.383,775.428,344.383,782.428,344.383,785.928L344.383,789.428" id="L_J_L_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_J_L_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjczNC42MjgxMjQyMzcwNjA1fSx7IngiOjM0NC4zODI4MTI1LCJ5Ijo3NjguNDI4MTIzNDc0MTIxMX0seyJ4IjozNDQuMzgyODEyNSwieSI6NzkzLjQyODEyMzQ3NDEyMTF9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M637.57,743.428L637.57,747.595C637.57,751.761,637.57,760.095,603.181,770.009C568.792,779.923,500.013,791.418,465.624,797.165L431.234,802.913" id="L_K_L_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_K_L_0" data-points="W3sieCI6NjM3LjU3MDMxMjUsInkiOjc0My40MjgxMjM0NzQxMjExfSx7IngiOjYzNy41NzAzMTI1LCJ5Ijo3NjguNDI4MTIzNDc0MTIxMX0seyJ4Ijo0MjcuMjg5MDYyNSwieSI6ODAzLjU3MjEyMjYyMTQyNDV9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M344.383,841.428L344.383,845.595C344.383,849.761,344.383,858.095,344.383,865.761C344.383,873.428,344.383,880.428,344.383,883.928L344.383,887.428" id="L_L_M_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_L_M_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjg0MS40MjgxMjM0NzQxMjExfSx7IngiOjM0NC4zODI4MTI1LCJ5Ijo4NjYuNDI4MTIzNDc0MTIxMX0seyJ4IjozNDQuMzgyODEyNSwieSI6ODkxLjQyODEyMzQ3NDEyMTF9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path><path d="M344.383,939.428L344.383,943.595C344.383,947.761,344.383,956.095,344.383,963.761C344.383,971.428,344.383,978.428,344.383,981.928L344.383,985.428" id="L_M_N_0" class="edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" style=";" data-edge="true" data-et="edge" data-id="L_M_N_0" data-points="W3sieCI6MzQ0LjM4MjgxMjUsInkiOjkzOS40MjgxMjM0NzQxMjExfSx7IngiOjM0NC4zODI4MTI1LCJ5Ijo5NjQuNDI4MTIzNDc0MTIxMX0seyJ4IjozNDQuMzgyODEyNSwieSI6OTg5LjQyODEyMzQ3NDEyMTF9XQ==" marker-end="url(#diagram-b1-2_flowchart-v2-pointEnd)"></path></g><g class="edgeLabels"><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g><rect class="background" style="stroke: none"></rect></g><g class="edgeLabel"><g class="label" data-id="L_A_B_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_B_C_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_C_D_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_D_E_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel" transform="translate(95.671875, 543.828125)"><g class="label" data-id="L_E_F_0" transform="translate(-38.8359375, -11)"><g><rect class="background" style="" x="-2" y="0" width="77.671875" height="22"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">메모리</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 증가</tspan></tspan></text></g></g></g><g class="edgeLabel" transform="translate(344.3828125, 543.828125)"><g class="label" data-id="L_E_G_0" transform="translate(-41.8828125, -11)"><g><rect class="background" style="" x="-2" y="0" width="83.765625" height="22"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">CPU와</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 지연</tspan></tspan></text></g></g></g><g class="edgeLabel" transform="translate(637.5703125, 543.828125)"><g class="label" data-id="L_E_H_0" transform="translate(-31.9140625, -11)"><g><rect class="background" style="" x="-2" y="0" width="63.828125" height="22"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">진행</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 정지</tspan></tspan></text></g></g></g><g class="edgeLabel"><g class="label" data-id="L_F_I_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_G_J_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_H_K_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_I_L_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_J_L_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_K_L_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_L_M_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g><g class="edgeLabel"><g class="label" data-id="L_M_N_0" transform="translate(0, 0)"><text y="-10.1"><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"></tspan></text></g></g></g><g class="nodes"><g class="node default" id="flowchart-A-0" transform="translate(344.3828125, 32)"><rect class="basic label-container" style="" x="-66.828125" y="-24" width="133.65625" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">정상</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 기준선</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-B-1" transform="translate(344.3828125, 130)"><rect class="basic label-container" style="" x="-92.0546875" y="-24" width="184.109375" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">장애</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 조건</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 하나</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 주입</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-C-3" transform="translate(344.3828125, 228)"><rect class="basic label-container" style="" x="-114.5234375" y="-24" width="229.046875" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">관측</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> PID</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 포착·시각축</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 정렬</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-D-5" transform="translate(344.3828125, 326)"><rect class="basic label-container" style="" x="-82.90625" y="-24" width="165.8125" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">사용자</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 영향</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 확인</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-E-7" transform="translate(344.3828125, 453.9140625)"><polygon points="53.9140625,0 107.828125,-53.9140625 53.9140625,-107.828125 0,-53.9140625" class="label-container" transform="translate(-53.4140625, 53.9140625)"></polygon><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">주요</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 신호</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-F-9" transform="translate(95.671875, 603.828125)"><rect class="basic label-container" style="" x="-87.671875" y="-24" width="175.34375" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">RSS</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> PSS</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 기울기</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-G-11" transform="translate(344.3828125, 603.828125)"><rect class="basic label-container" style="" x="-75.984375" y="-24" width="151.96875" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">연산</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 대기</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 제한</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-H-13" transform="translate(637.5703125, 603.828125)"><rect class="basic label-container" style="" x="-82.90625" y="-24" width="165.8125" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">스레드</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 대기</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 관계</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-I-15" transform="translate(95.671875, 710.6281242370605)"><rect class="basic label-container" style="" x="-82.90625" y="-24" width="165.8125" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">누수와</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 캐시</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 구분</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-J-17" transform="translate(344.3828125, 710.6281242370605)"><rect class="basic label-container" style="" x="-115.8046875" y="-24" width="231.609375" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">연산</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 폭주와</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> throttling</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 구분</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-K-19" transform="translate(637.5703125, 710.6281242370605)"><rect class="basic label-container" style="" x="-127.3828125" y="-32.79999923706055" width="254.765625" height="65.5999984741211"></rect><g class="label" style="" transform="translate(0, -17.799999237060547)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">deadlock</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> livelock</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> starvation</tspan></tspan><tspan class="text-outer-tspan" x="0" y="1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">구분</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-L-21" transform="translate(344.3828125, 817.4281234741211)"><rect class="basic label-container" style="" x="-82.90625" y="-24" width="165.8125" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">완화와</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 증거</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 보존</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-M-27" transform="translate(344.3828125, 915.4281234741211)"><rect class="basic label-container" style="" x="-59.9140625" y="-24" width="119.828125" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">근본</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 수정</tspan></tspan></text></g></g></g><g class="node default" id="flowchart-N-29" transform="translate(344.3828125, 1013.4281234741211)"><rect class="basic label-container" style="" x="-82.90625" y="-24" width="165.8125" height="48"></rect><g class="label" style="" transform="translate(0, -9)"><rect></rect><g><rect class="background" style="stroke: none"></rect><text y="-10.1" style=""><tspan class="text-outer-tspan" x="0" y="-0.1em" dy="1.1em"><tspan font-style="normal" class="text-inner-tspan" font-weight="normal">대조군</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 반복</tspan><tspan font-style="normal" class="text-inner-tspan" font-weight="normal"> 검증</tspan></tspan></text></g></g></g></g></g></g></svg></div>
+        <div class="artifact-links"><a href="diagrams/README_answer_diagram.mmd">Mermaid 원본</a><a href="diagrams/README_answer_diagram.excalidraw">Excalidraw 편집본</a><a href="diagrams/README_answer_diagram.svg">SVG</a><a href="diagrams/README_answer_diagram.png">PNG</a></div>
+      </section>
+      <article id="markdown-content"><h1 id="b1-2-평가문항-질문과-답변">b1-2 평가문항 질문과 답변</h1>
+<p>이 답변은 <code>b1-2.pdf</code>, 제공된 <code>agent-leak-app</code> ARM64 실제 실행, <code>04_monitor.sh</code> 출력 형식을 기준으로 작성했다. PID·타임스탬프·세부 수치는 실행마다 달라지므로 제출 전 자신의 번호가 붙은 증거 로그로 교체한다.</p>
+<h2 id="항목-1-결과물-충족-여부">항목 1: 결과물 충족 여부</h2>
+<h3 id="질문-1-1">질문 1-1</h3>
+<p><strong>Q. [OOM] 메모리 사용량이 선형적으로 증가하다가 프로세스가 강제 종료되는 패턴이 로그에 기록되어 있는가?</strong></p>
+<p><strong>A.</strong> 그렇다. <code>07_evidence_oom-before.log</code>에서 관제 CSV의 <code>RSS_KB</code>/<code>MEM_MB</code>가 시간에 따라 증가하고, 앱 로그는 <code>Current Heap: 25MB</code> → <code>50MB</code> 순으로 증가한다. 이어 <code>Memory limit exceeded (50MB &gt;= 50MB)</code>와 <code>Self-terminating process PID</code>가 기록되고 관제 마지막에 같은 PID의 <code>EXITED</code>가 남는다. 내부 힙 수치와 OS의 RSS는 측정 기준이 달라 정확히 같지는 않지만 둘 다 증가 방향이어야 한다.</p>
+<p><strong>관련 파일:</strong> <a href="./07_evidence_oom-before.log">Before 증거</a> · <a href="./09_report_oom.md">OOM 리포트</a> · <a href="./04_monitor.sh">관제 스크립트</a></p>
+<h3 id="질문-1-2">질문 1-2</h3>
+<p><strong>Q. [OOM] <code>MEMORY_LIMIT</code> 조정 후 프로세스 생존 시간이 늘어난 Before &amp; After 비교 결과가 있는가?</strong></p>
+<p><strong>A.</strong> 있다. Before는 50MB, After는 100MB로 한 변수만 바꾼다. 제공 앱은 약 3초마다 내부 힙을 25MB씩 늘리므로 50MB 실행은 약 5초, 100MB 실행은 그보다 늦게 제한에 도달한다. 정확한 비교는 두 파일의 <code>STARTED_AT</code>, 마지막 관제 <code>ELAPSED</code>, <code>TIMED_OUT</code>, 종료 로그 시각으로 계산한다. 제한 상향은 종료를 늦출 뿐 누수를 해결하지 않는다.</p>
+<p><strong>관련 파일:</strong> <a href="./07_evidence_oom-before.log">Before 증거</a> · <a href="./08_evidence_oom-after.log">After 증거</a> · <a href="./09_report_oom.md">OOM 리포트</a></p>
+<h3 id="질문-1-3">질문 1-3</h3>
+<p><strong>Q. [CPU] CPU 사용률이 임계치를 초과하여 프로세스가 종료되는 패턴이 로그에 기록되어 있는가?</strong></p>
+<p><strong>A.</strong> 앱의 보호 로직 관점에서는 있다. <code>10_evidence_cpu-before.log</code>에서 내부 <code>Current Load</code>가 5.00%에서 50.15%까지 증가했고 <code>CPU Threshold Violated!</code> 다음에 종료되었다. 다만 같은 PID를 추적한 관제 CSV의 OS 실측 <code>CPU_PERCENT</code>는 시작 직후 3.0%를 제외하면 주로 0.5~1.0%였다. 따라서 이 바이너리는 내부 CPU 부하 시나리오와 종료 패턴을 재현하지만, 실제 코어 점유율이 50%였다고 해석하면 안 된다. 실제 장애 조사에서는 앱 지표와 <code>ps</code>/<code>top</code> 실측값을 반드시 구분한다.</p>
+<p><strong>관련 파일:</strong> <a href="./10_evidence_cpu-before.log">Before 증거</a> · <a href="./12_report_cpu.md">CPU 리포트</a> · <a href="./04_monitor.sh">관제 스크립트</a></p>
+<h3 id="질문-1-4">질문 1-4</h3>
+<p><strong>Q. [CPU] <code>CPU_MAX_OCCUPY</code> 조정 후 종료 여부/생존 시간이 변한 Before &amp; After 비교 결과가 있는가?</strong></p>
+<p><strong>A.</strong> 있다. Before는 100으로 높은 부하를 허용해 약 50% 보호 기준까지 상승한 뒤 종료되고, After는 10으로 제한해 5~10% 사이에서 <code>Peak reached</code> → <code>Starting cooldown</code> → <code>Cooldown complete</code>를 반복하며 실험 제한 시간 동안 생존한다. 두 로그의 <code>PROCESS_EXIT_STATUS</code>, <code>TIMED_OUT</code>, <code>ELAPSED</code>를 함께 비교한다.</p>
+<p><strong>관련 파일:</strong> <a href="./10_evidence_cpu-before.log">Before 증거</a> · <a href="./11_evidence_cpu-after.log">After 증거</a> · <a href="./12_report_cpu.md">CPU 리포트</a></p>
+<h3 id="질문-1-5">질문 1-5</h3>
+<p><strong>Q. [Deadlock] 프로세스가 살아있으나(PID 존재) CPU/메모리 변화 없이 로그가 멈춘 상태를 식별했는가?</strong></p>
+<p><strong>A.</strong> 그렇다. <code>13_evidence_deadlock-before.log</code>에는 <code>PID</code>가 기록되고 관제 루프가 제한 시간까지 같은 PID를 계속 표본화한다. 앱 로그는 두 <code>WAITING ... (Status: BLOCKED)</code> 이후 진행되지 않으며 작업 완료 로그가 없다. <code>TIMED_OUT=true</code>는 프로세스가 스스로 끝나지 않았음을 뜻한다. PID 존재 하나만으로는 부족하고, 자원 변화 정체와 로그 정지를 함께 봐야 한다.</p>
+<p><strong>관련 파일:</strong> <a href="./13_evidence_deadlock-before.log">Before 증거</a> · <a href="./15_report_deadlock.md">Deadlock 리포트</a> · <a href="./04_monitor.sh">관제 스크립트</a></p>
+<h3 id="질문-1-6">질문 1-6</h3>
+<p><strong>Q. [Deadlock] <code>MULTI_THREAD_ENABLE</code> 조정 후 데드락 재현/회피 비교 결과가 있는가?</strong></p>
+<p><strong>A.</strong> 있다. Before <code>true</code>에서는 Thread-1이 <code>Shared_Memory_A</code>, Thread-2가 <code>Socket_Pool_B</code>를 보유한 뒤 서로 상대 자원을 기다린다. After <code>false</code>에서는 Thread-A, B, C가 모두 100% 완료하고 <code>All tasks completed.</code>가 나온다. 단일 스레드 전환은 회피책이며 근본 해결은 락 획득 순서를 통일하는 것이다.</p>
+<p><strong>관련 파일:</strong> <a href="./13_evidence_deadlock-before.log">Before 증거</a> · <a href="./14_evidence_deadlock-after.log">After 증거</a> · <a href="./15_report_deadlock.md">Deadlock 리포트</a></p>
+<h3 id="질문-1-7">질문 1-7</h3>
+<p><strong>Q. [Format] 3개의 리포트가 모두 GitHub Issue 구조(현상 → 증거 → 원인 → 조치)를 갖추고 있는가?</strong></p>
+<p><strong>A.</strong> 그렇다. <code>09_report_oom.md</code>, <code>12_report_cpu.md</code>, <code>15_report_deadlock.md</code>는 모두 <code>Description</code>, <code>Evidence &amp; Logs</code>, <code>Root Cause Analysis</code>, <code>Workaround &amp; Verification</code> 네 구역을 가진다. <code>18_verify_submission.sh</code>도 이 제목이 빠졌는지 자동 검사한다.</p>
+<p><strong>관련 파일:</strong> <a href="./09_report_oom.md">OOM</a> · <a href="./12_report_cpu.md">CPU</a> · <a href="./15_report_deadlock.md">Deadlock</a> · <a href="./18_verify_submission.sh">최종 검사</a></p>
+<h3 id="질문-1-8">질문 1-8</h3>
+<p><strong>Q. [Evidence] 리포트에 PID, 로그 타임스탬프, 핵심 로그 메시지가 포함된 증거가 첨부되어 있는가?</strong></p>
+<p><strong>A.</strong> 그렇다. 안정적인 보고서 본문에는 대표 핵심 로그를 넣고, 실행마다 변하는 전체 증거는 <code>07</code>, <code>08</code>, <code>10</code>, <code>11</code>, <code>13</code>, <code>14</code> 증거 로그에 보관한다. 각 증거 파일 첫 부분에 <code>STARTED_AT</code>, <code>PID</code>, 세 환경변수, 제한 시간, 종료 상태가 있으며 관제 행과 애플리케이션 타임스탬프 로그가 이어진다. 제출 전 리포트의 대표 PID와 시간은 자신의 최신 증거 파일에 맞춘다.</p>
+<p><strong>관련 파일:</strong> <a href="./06_run_mission.sh">전체 실행 스크립트</a> · <a href="./07_evidence_oom-before.log">OOM 증거</a> · <a href="./10_evidence_cpu-before.log">CPU 증거</a> · <a href="./13_evidence_deadlock-before.log">Deadlock 증거</a></p>
+<h2 id="항목-2-명령과-판단-과정">항목 2: 명령과 판단 과정</h2>
+<h3 id="질문-2-1">질문 2-1</h3>
+<p><strong>Q. <code>04_monitor.sh</code>에서 메모리 증가 패턴을 추적하기 위해 사용한 명령어와 데이터 추출 방법은 무엇인가?</strong></p>
+<p><strong>A.</strong> 먼저 <code>kill -0 PID</code>로 프로세스 생존 여부를 확인한다. 살아 있으면 <code>ps -p PID -o %cpu=,rss=,stat=,nlwp=,etime=</code>로 CPU%, RSS(KB), 상태, 스레드 수, 경과 시간을 한 번에 읽는다. <code>awk</code>로 <code>RSS / 1024</code>를 계산해 MB로 만들고 <code>date -Iseconds</code> 타임스탬프와 함께 CSV로 출력한다. 1초 간격 표본에서 <code>MEM_MB</code>를 시간 순으로 비교하면 증가율을 볼 수 있다. Linux VM에서는 <code>watch -n 1 'ps ...'</code>, <code>top -p PID</code>, <code>/proc/PID/status</code>의 <code>VmRSS</code>도 교차 확인에 쓸 수 있다.</p>
+<p><strong>관련 파일:</strong> <a href="./04_monitor.sh">관제 스크립트</a> · <a href="./07_evidence_oom-before.log">OOM 증거</a></p>
+<h3 id="질문-2-2">질문 2-2</h3>
+<p><strong>Q. 프로세스의 CPU 사용률을 확인하기 위해 선택한 도구와 적용한 옵션의 의미를 구분하여 설명할 수 있는가?</strong></p>
+<p><strong>A.</strong> 자동 수집은 <code>ps -p PID -o %cpu=</code>를 사용한다. <code>-p</code>는 대상 PID만 선택하고, <code>-o</code>는 출력 열을 지정하며, 열 이름 뒤 <code>=</code>는 헤더를 없애 파싱하기 쉽게 한다. 순간 변화와 스레드별 차이는 <code>top -H -p PID</code>로 본다. <code>-H</code>는 스레드 단위, <code>-p</code>는 특정 프로세스만 표시한다. 고정된 증거에는 <code>ps</code>, 실시간 관찰에는 <code>top</code>이 적합하다.</p>
+<p><strong>관련 파일:</strong> <a href="./04_monitor.sh">관제 스크립트</a> · <a href="./12_report_cpu.md">CPU 리포트</a></p>
+<h3 id="질문-2-3">질문 2-3</h3>
+<p><strong>Q. 프로세스가 &quot;살아있지만 멈춰있는 상태&quot;를 어떤 도구 순서와 판단 흐름으로 진단했는가?</strong></p>
+<p><strong>A.</strong> 순서는 다음과 같다.</p>
+<ol>
+<li><code>pgrep -af agent-leak-app</code> 또는 <code>ps -ef</code>로 PID가 존재하는지 확인한다.</li>
+<li><code>ps -p PID -o stat,etime,%cpu,rss,nlwp</code>를 여러 번 실행해 PID는 유지되지만 CPU/RSS가 정체하는지 본다.</li>
+<li><code>ps -L -p PID ...</code> 또는 <code>top -H -p PID</code>로 개별 스레드도 진행하지 않는지 확인한다.</li>
+<li>앱 로그의 마지막 줄과 타임스탬프를 확인해 출력이 멈춘 지점을 찾는다.</li>
+<li><code>LOCK ACQUIRED</code>, <code>Need resource</code>, <code>WAITING ... BLOCKED</code>를 시간순으로 연결해 A→B, B→A 순환 의존을 만든다.</li>
+</ol>
+<p>이 다섯 증거가 맞을 때 데드락으로 판단한다. 단순히 CPU가 0%라는 이유만으로는 정상적인 I/O 대기나 유휴 상태와 구분할 수 없다.</p>
+<p><strong>관련 파일:</strong> <a href="./13_evidence_deadlock-before.log">Deadlock 증거</a> · <a href="./15_report_deadlock.md">Deadlock 리포트</a> · <a href="./04_monitor.sh">관제 스크립트</a></p>
+<h2 id="항목-3-운영체제-개념-설명">항목 3: 운영체제 개념 설명</h2>
+<h3 id="질문-3-1">질문 3-1</h3>
+<p><strong>Q. 메모리 누수가 발생했을 때 애플리케이션의 메모리 보호 정책이 해당 프로세스를 강제 종료하는 이유는 무엇인가?</strong></p>
+<p><strong>A.</strong> 한 프로세스의 누수가 계속되면 물리 메모리와 스왑이 줄고 다른 서비스까지 느려지거나 운영체제 OOM Killer가 임의의 프로세스를 종료할 수 있다. MemoryGuard가 임계치에서 문제 프로세스를 먼저 종료하면 장애 범위를 해당 프로세스로 제한하고 시스템 전체 불안정을 예방할 수 있다. 데이터 손실이나 재시작 비용이 있지만 전체 서버가 멈추는 것보다 작은 피해를 선택하는 보호 장치다.</p>
+<p><strong>관련 파일:</strong> <a href="./09_report_oom.md">OOM 리포트</a> · <a href="./07_evidence_oom-before.log">OOM Before 증거</a></p>
+<h3 id="질문-3-2">질문 3-2</h3>
+<p><strong>Q. CPU 과점유 시 단일 프로세스를 종료하는 것이 시스템 보호에 왜 필요한가?</strong></p>
+<p><strong>A.</strong> CPU 코어는 여러 프로세스가 시간 조각을 나눠 쓴다. 한 프로세스가 계산 루프를 계속 돌면 다른 요청이 실행될 차례가 늦어지고 지연시간이 커진다. 과점유 프로세스를 제한하거나 종료하면 스케줄러가 다른 중요한 프로세스에 CPU 시간을 줄 수 있어 서버 전체의 응답성을 회복한다. 운영 환경에서는 즉시 종료 전 nice/cgroup 제한, 속도 제한, 재시작 정책도 고려한다.</p>
+<p><strong>관련 파일:</strong> <a href="./12_report_cpu.md">CPU 리포트</a> · <a href="./10_evidence_cpu-before.log">CPU Before 증거</a></p>
+<h3 id="질문-3-3">질문 3-3</h3>
+<p><strong>Q. 교착상태가 발생하는 원리를 &quot;상호 배제&quot;와 &quot;순환 대기&quot; 개념으로 설명할 수 있는가?</strong></p>
+<p><strong>A.</strong> 상호 배제는 한 자원을 동시에 한 스레드만 가질 수 있다는 뜻이다. 이 앱에서 Thread-1은 A를, Thread-2는 B를 독점한다. Thread-1이 B를 기다리고 Thread-2가 A를 기다리면 대기 화살표가 Thread-1 → B/Thread-2 → A/Thread-1의 원을 만든다. 자원을 강제로 빼앗지 못하고 기존 자원을 놓지 않으므로 둘 다 영원히 진행하지 못한다.</p>
+<p><strong>관련 파일:</strong> <a href="./15_report_deadlock.md">Deadlock 리포트</a> · <a href="./02_mission-flow.svg">미션 흐름도</a></p>
+<h3 id="질문-3-4">질문 3-4</h3>
+<p><strong>Q. 로그에서 스레드 간 순환 의존 관계(A→B, B→A)를 어떻게 파악했는가?</strong></p>
+<p><strong>A.</strong> 각 스레드의 <code>LOCK ACQUIRED</code>를 먼저 표로 적어 현재 소유자를 정한다. 다음 <code>Need resource</code> 또는 <code>WAITING</code> 로그로 필요한 자원을 적는다. Thread-1은 A를 보유하고 B가 필요하며, Thread-2는 B를 보유하고 A가 필요하다. 소유자에서 대기 대상으로 화살표를 그렸을 때 서로 되돌아오는 폐곡선이 생기므로 순환 대기라고 판단했다.</p>
+<p><strong>관련 파일:</strong> <a href="./13_evidence_deadlock-before.log">Deadlock 증거</a> · <a href="./15_report_deadlock.md">Deadlock 리포트</a></p>
+<h2 id="항목-4-응용-회고-질문">항목 4: 응용·회고 질문</h2>
+<h3 id="질문-4-1">질문 4-1</h3>
+<p><strong>Q. 실제 운영 서버에서 메모리 누수를 장애 전에 탐지하도록 현재 <code>04_monitor.sh</code>를 어떻게 개선하겠는가?</strong></p>
+<p><strong>A.</strong> 단일 수치를 저장하는 수준에서 다음 기능을 추가한다.</p>
+<ul>
+<li>RSS 절대값과 5분 이동 증가율(MB/min)을 함께 계산한다.</li>
+<li>연속 N회 임계 초과 때만 경고해 순간 스파이크 오탐을 줄인다.</li>
+<li>PID 재시작을 구분하도록 시작 시각과 실행 파일을 함께 기록한다.</li>
+<li>cgroup 메모리, 호스트 가용 메모리, 스왑, OOM 이벤트도 수집한다.</li>
+<li>CSV를 Prometheus node/process exporter 또는 로그 수집기로 보내 대시보드와 알림을 만든다.</li>
+<li>경고 시 <code>ps</code>, <code>/proc/PID/status</code>, 열린 파일 수, 최근 앱 로그를 자동 스냅샷으로 남긴다.</li>
+</ul>
+<p>예를 들어 RSS가 10분 연속 분당 20MB 이상 증가하고 예상 한계 도달 시간이 15분 이하면 경고하도록 한다. 절대 임계치만 보는 것보다 장애 전 탐지가 빠르다.</p>
+<p><strong>관련 파일:</strong> <a href="./04_monitor.sh">관제 스크립트</a> · <a href="./09_report_oom.md">OOM 리포트</a></p>
+<h3 id="질문-4-2">질문 4-2</h3>
+<p><strong>Q. OOM, CPU Spike, Deadlock 중 실제 서비스 환경에서 가장 치명적인 것은 무엇이며 어떻게 근본 예방하겠는가?</strong></p>
+<p><strong>A.</strong> 서비스 특성에 따라 다르지만, 관제에서 놓치기 쉬운 Deadlock을 가장 위험하게 본다. 프로세스와 포트가 살아 있어 단순 liveness 검사는 통과하지만 실제 요청은 끝나지 않아 장애 발견이 늦어질 수 있기 때문이다. 근본 예방은 전역 락 순서 규칙, 짧은 임계구역, 락 타임아웃, 락 보유 중 I/O 금지, 동시성 테스트, 요청 완료를 확인하는 readiness/외부 합성 모니터링이다. OOM과 CPU에도 각각 메모리 상한·누수 테스트와 CPU 프로파일링·속도 제한이 필요하다.</p>
+<p><strong>관련 파일:</strong> <a href="./09_report_oom.md">OOM 리포트</a> · <a href="./12_report_cpu.md">CPU 리포트</a> · <a href="./15_report_deadlock.md">Deadlock 리포트</a></p>
+<h3 id="질문-4-3">질문 4-3</h3>
+<p><strong>Q. 같은 서버에서 OOM과 Deadlock이 동시에 발생했다면 어떤 순서로 트러블슈팅하며 그 근거는 무엇인가?</strong></p>
+<p><strong>A.</strong> 먼저 증거를 보존한 뒤 메모리 고갈 확산을 막고, 그 다음 데드락을 분석한다.</p>
+<ol>
+<li>시각, PID, cgroup/호스트 메모리, <code>ps</code>, 스레드 상태, 앱 로그를 즉시 저장한다.</li>
+<li>메모리 여유가 거의 없으면 문제 인스턴스를 트래픽에서 제외하고 제한·재시작으로 시스템 전체 OOM을 막는다. 메모리 고갈은 다른 프로세스까지 연쇄 종료시킬 수 있어 우선순위가 높다.</li>
+<li>복제 인스턴스가 있으면 서비스 연속성을 확보한다.</li>
+<li>저장한 스레드/락 로그로 순환 대기를 분석하고 데드락 코드를 수정한다.</li>
+<li>메모리 누수와 데드락을 각각 독립된 실험으로 재현해 원인이 서로 섞이지 않았는지 확인한다.</li>
+</ol>
+<p>재시작부터 하면 원인 증거가 사라지므로 항상 짧은 증거 수집이 첫 단계다. 단, 서버 전체가 곧 멈출 정도면 가용성 보호를 우선하고 가능한 최소 증거만 수집한다.</p>
+<p><strong>관련 파일:</strong> <a href="./09_report_oom.md">OOM 리포트</a> · <a href="./15_report_deadlock.md">Deadlock 리포트</a></p>
+<h3 id="질문-4-4">질문 4-4</h3>
+<p><strong>Q. 환경변수 조정이 임시 조치라면 소스 코드를 직접 수정할 때 장애 유형별로 무엇을 개선하겠는가?</strong></p>
+<p><strong>A.</strong> OOM은 사용이 끝난 객체 참조 제거, 무제한 컬렉션/캐시의 크기·TTL 제한, 스트리밍 처리, 메모리 프로파일 회귀 테스트를 적용한다. CPU는 바쁜 대기 제거, 블로킹/이벤트 기반 대기, 작업 큐 backpressure, 알고리즘 복잡도 개선, 취소 가능한 루프를 적용한다. Deadlock은 전역 락 순서 통일, 중첩 락 축소, <code>tryLock</code> 타임아웃, 불변 데이터나 메시지 전달 사용, 락 순서 테스트를 적용한다.</p>
+<p><strong>관련 파일:</strong> <a href="./09_report_oom.md">OOM</a> · <a href="./12_report_cpu.md">CPU</a> · <a href="./15_report_deadlock.md">Deadlock</a></p>
+<h3 id="질문-4-5">질문 4-5</h3>
+<p><strong>Q. 다시 처음부터 수행한다면 트러블슈팅 과정을 어떻게 다르게 접근하겠는가?</strong></p>
+<p><strong>A.</strong> 먼저 정상 기준 실행을 남기고, 실험표를 만들어 한 번에 한 변수만 바꾼다. 모든 실행에서 PID·시작 시각·환경변수·종료 코드를 자동 기록하고, 관제와 앱 로그의 시계를 맞춘다. 각 장애의 성공 판정 조건을 실행 전에 적고, 동일 시간 제한으로 반복한다. 마지막에 리포트를 쓰는 대신 실험 직후 현상·증거·가설·결론을 바로 기록하면 기억에 의존한 추측을 줄일 수 있다.</p>
+<p><strong>관련 파일:</strong> <a href="./01_README.md">전체 안내</a> · <a href="./06_run_mission.sh">전체 실행</a> · <a href="./18_verify_submission.sh">최종 검사</a></p>
+<h2 id="항목-5-보너스-문제">항목 5: 보너스 문제</h2>
+<h3 id="질문-5-1">질문 5-1</h3>
+<p><strong>Q. 로그만으로 Round-Robin, FCFS, Priority 중 어떤 스케줄링 알고리즘인지 추론할 수 있는가?</strong></p>
+<p><strong>A.</strong> 최신 정상 실행 로그에서는 Thread-A, B, C가 각각 40%에서 <code>Preempted</code>된 뒤 60~80%로 재개되고, 마지막에 A, B, C가 차례로 100%를 완료했다. 작업이 끝나기 전에 다음 작업으로 교대하고 같은 순서로 다시 돌아오므로 애플리케이션 스케줄러는 Round-Robin으로 추론할 수 있다. Priority라면 특정 작업의 일관된 우선 선점이, FCFS라면 A 완료 후 B 시작이 보여야 한다. 단, 이는 앱이 출력한 작업 스케줄이며 Linux 커널 스케줄러 자체를 이 로그만으로 확정하는 것은 아니다.</p>
+<p><strong>관련 파일:</strong> <a href="./11_evidence_cpu-after.log">CPU After/정상 실행 증거</a> · <a href="./06_run_mission.sh">전체 실행 스크립트</a></p>
+<hr />
+<h1 id="튜토리얼-이-미션을-이해하기-위한-핵심-개념">튜토리얼: 이 미션을 이해하기 위한 핵심 개념</h1>
+<h2 id="1-프로그램-프로세스-스레드-pid">1. 프로그램, 프로세스, 스레드, PID</h2>
+<p>프로그램은 디스크에 있는 실행 파일이고, 프로세스는 그 파일이 메모리에 올라와 실행 중인 인스턴스다. PID는 프로세스의 번호표다. 스레드는 한 프로세스 안의 실행 흐름이다.</p>
+<p>카페로 비유하면 매장 운영 매뉴얼은 프로그램, 실제 영업 중인 매장은 프로세스, 매장 번호는 PID, 주문·커피·포장을 동시에 담당하는 직원들은 스레드다. 매장은 열려 있어도 직원들이 서로 같은 도구를 기다리면 손님 주문은 멈출 수 있다. 이것이 &quot;PID는 있지만 서비스는 멈춤&quot;을 이해하는 출발점이다.</p>
+<h2 id="2-가상-메모리-힙-rss와-메모리-누수">2. 가상 메모리, 힙, RSS와 메모리 누수</h2>
+<p>프로세스는 코드, 스택, 힙 등의 메모리 영역을 사용한다. 힙은 실행 중 크기가 변하는 객체를 저장하는 곳이다. 사용이 끝난 객체가 계속 참조되면 회수되지 않아 힙이 커진다. 이것이 메모리 누수다.</p>
+<p>RSS(Resident Set Size)는 현재 물리 메모리에 올라온 프로세스 페이지 크기다. 앱이 말하는 <code>Current Heap</code>은 내부 논리 수치이고 <code>ps</code>의 RSS는 코드·라이브러리·스택 등도 포함한다. 그래서 두 숫자는 다르지만 누수 실험에서는 둘 다 장기적으로 상승하는지 본다.</p>
+<p>현실 예시는 사용자 요청마다 1MB 이미지를 전역 배열에 넣고 삭제하지 않는 서버다. 초당 10개 요청이면 분당 약 600MB가 쌓인다. 처음에는 정상이어도 시간이 지나면 서버가 느려지고 결국 보호 정책 또는 OOM Killer가 프로세스를 종료한다.</p>
+<h2 id="3-oom-killer와-애플리케이션-memoryguard의-차이">3. OOM Killer와 애플리케이션 MemoryGuard의 차이</h2>
+<p>OOM Killer는 Linux가 시스템 메모리가 심각하게 부족할 때 프로세스를 골라 종료하는 최후 방어선이다. MemoryGuard는 애플리케이션 내부에서 자체 한계를 보고 더 일찍 자기 자신을 종료하는 정책이다.</p>
+<p>이번 로그에 <code>[MemoryGuard]</code>와 <code>Self-terminating process</code>가 있으므로 직접 원인은 내부 정책이다. 보고서에는 &quot;메모리 누수 → 내부 제한 도달 → MemoryGuard 자기 종료&quot;로 써야 한다. 단순히 &quot;OOM이 나서 Linux가 죽였다&quot;고 쓰면 증거와 맞지 않는다.</p>
+<h2 id="4-cpu-사용률과-시스템-지연">4. CPU 사용률과 시스템 지연</h2>
+<p>CPU 사용률은 일정 시간 동안 프로세스가 CPU에서 실제 실행된 비율이다. 1개 코어 기준으로 한 프로세스가 100%면 그 코어를 거의 계속 쓰는 상태다. 멀티코어 시스템의 도구에 따라 한 프로세스가 100%를 넘게 표시될 수도 있다.</p>
+<p>현실 예시는 메시지가 없는데도 <code>while true</code>로 큐를 계속 확인하는 코드다. <code>sleep</code>이나 이벤트 대기가 없으면 할 일이 없어도 CPU를 사용한다. 다른 프로세스는 실행 차례를 기다리므로 웹 요청 지연이 커진다. 해결은 단순히 임계치를 바꾸는 것이 아니라 바쁜 대기를 이벤트 기반 대기로 바꾸는 것이다.</p>
+<h2 id="5-watchdog의-역할">5. Watchdog의 역할</h2>
+<p>Watchdog는 &quot;정상 범위를 벗어나면 정해진 조치를 하는 감시자&quot;다. CPU, 응답 시간, heartbeat를 감시하고 제한, 재시작, 트래픽 차단 등을 수행한다. 화재경보기처럼 문제 원인을 고치지는 않지만 피해 확산을 막고 명확한 사건 로그를 남긴다.</p>
+<h2 id="6-데드락의-네-조건">6. 데드락의 네 조건</h2>
+<p>교착상태는 다음 네 조건이 동시에 있을 때 가능하다.</p>
+<ol>
+<li>상호 배제: 자원을 한 번에 한 스레드만 사용한다.</li>
+<li>점유 대기: 자원 하나를 가진 채 다른 자원을 기다린다.</li>
+<li>비선점: 상대가 가진 자원을 강제로 빼앗을 수 없다.</li>
+<li>순환 대기: A가 B를, B가 A를 기다리는 원이 생긴다.</li>
+</ol>
+<p>좁은 식당에서 두 사람이 각각 왼쪽 젓가락을 든 뒤 오른쪽 젓가락을 기다리는 상황과 같다. 둘 다 하나를 내려놓지 않으면 식사는 영원히 시작되지 않는다.</p>
+<p>가장 단순한 예방은 모든 스레드가 항상 A 다음 B 순서로 락을 잡게 하는 것이다. 그러면 B를 먼저 가진 Thread-2가 생기지 않아 원이 끊어진다.</p>
+<h2 id="7-프로세스-상태를-읽는-방법">7. 프로세스 상태를 읽는 방법</h2>
+<p>Linux <code>ps</code>의 대표 상태는 다음과 같다.</p>
+<ul>
+<li><code>R</code>: 실행 중 또는 실행 가능</li>
+<li><code>S</code>: 인터럽트 가능한 대기, 정상적인 sleep/I/O 대기에도 흔함</li>
+<li><code>D</code>: 인터럽트 불가 대기, 주로 커널 I/O</li>
+<li><code>T</code>: 정지 또는 추적 중</li>
+<li><code>Z</code>: 종료됐지만 부모가 회수하지 않은 좀비</li>
+</ul>
+<p>상태 문자 하나만으로 데드락을 확정할 수 없다. CPU/RSS 변화, 스레드별 상태, 앱 진행 로그, 요청 응답 여부를 조합한다.</p>
+<h2 id="8-좋은-장애-실험-한-번에-한-변수">8. 좋은 장애 실험: 한 번에 한 변수</h2>
+<p>OOM을 볼 때 CPU와 스레드 설정도 위험하게 두면 CPU 종료나 데드락이 먼저 발생할 수 있다. 그래서 OOM 실험에서는 메모리만 바꾸고 CPU=10, 멀티스레드=false를 유지한다. CPU 실험과 Deadlock 실험도 같은 원칙을 쓴다.</p>
+<p>과학 실험처럼 독립변수 1개, 관측값 여러 개, 동일한 시간 제한을 사용한다. 반복 실행에서 같은 패턴이 나오면 원인 설명의 신뢰도가 높아진다.</p>
+<h2 id="9-로그를-증거로-만드는-법">9. 로그를 증거로 만드는 법</h2>
+<p>좋은 로그 발췌에는 다섯 가지가 있다.</p>
+<ol>
+<li>언제: ISO 8601 또는 앱 타임스탬프</li>
+<li>무엇이: PID와 스레드 이름</li>
+<li>어떤 조건에서: 환경변수 값</li>
+<li>무슨 변화가: CPU/RSS/상태 수치</li>
+<li>어떤 결과로: 종료 코드, timeout, 핵심 메시지</li>
+</ol>
+<p>한 줄만 떼어놓지 말고 정상 → 경고 → 장애의 앞뒤 3~10줄을 함께 보여준다. 전체 원본은 증거 파일로 남기고 보고서에는 핵심만 발췌한다.</p>
+<h2 id="10-github-issue-형식으로-쓰는-이유">10. GitHub Issue 형식으로 쓰는 이유</h2>
+<p>현상은 사용자가 겪은 결과, 증거는 재현 가능한 사실, 원인은 사실을 설명하는 기술적 추론, 조치는 위험을 줄인 행동과 검증이다. 이 순서를 지키면 동료가 &quot;무슨 일이 있었나&quot;, &quot;왜 그렇게 판단했나&quot;, &quot;다시 확인할 수 있나&quot;를 빠르게 알 수 있다.</p>
+<p>나쁜 보고서는 &quot;프로그램이 이상해서 재시작했다&quot;로 끝난다. 좋은 보고서는 &quot;09:00, PID 21, RSS가 25→50MB로 증가했고 MemoryGuard가 종료했다. 제한을 100MB로 바꾸자 생존 시간이 늘었지만 증가율은 같아 누수는 남았다&quot;처럼 관측과 해석을 분리한다.</p>
+<h2 id="11-before-after를-정직하게-해석하기">11. Before &amp; After를 정직하게 해석하기</h2>
+<p>After에서 더 오래 살았다고 문제가 해결된 것은 아니다. 메모리 제한을 두 배로 올려 종료 시간만 두 배 가까이 늦어졌다면 오히려 누수가 계속된다는 강한 증거다. CPU 제한으로 종료가 사라져도 처리량이 낮아질 수 있고, 멀티스레드를 끄면 데드락은 피하지만 성능이 떨어질 수 있다.</p>
+<p>따라서 리포트에는 임시 조치의 효과와 비용, 근본 코드 수정안을 모두 적는다.</p>
+<h2 id="12-실습-완료-체크">12. 실습 완료 체크</h2>
+<ul>
+<li><code>./06_run_mission.sh all</code>로 증거 파일 6개를 만들었다.</li>
+<li>모든 파일에서 PID와 타임스탬프를 확인했다.</li>
+<li>OOM은 증가율과 종료, CPU는 특정 PID의 상승과 보호 종료, Deadlock은 PID 생존과 순환 대기를 각각 입증했다.</li>
+<li>3개 리포트에 자신의 최신 수치를 반영했다.</li>
+<li><code>./18_verify_submission.sh</code>가 PASS를 출력했다.</li>
+<li>Docker 테스트 컨테이너가 남지 않았다.</li>
+</ul>
+<hr />
+<h2 id="더-깊이-이해하기-장애-신호를-원인으로-연결하는-법">더 깊이 이해하기: 장애 신호를 원인으로 연결하는 법</h2>
+<p>앞의 튜토리얼이 OOM·CPU Spike·Deadlock의 기본 현상과 재현법을 다뤘다면, 여기서는 같은 숫자가 서로 다른 원인에서 나올 때 어떻게 구분하는지에 초점을 맞춘다.</p>
+<h3 id="1-rss-하나만으로-메모리-누수를-확정할-수-없는-이유">1. RSS 하나만으로 메모리 누수를 확정할 수 없는 이유</h3>
+<p>RSS에는 애플리케이션 힙뿐 아니라 스택, 공유 라이브러리의 resident page, 메모리 매핑 파일도 포함된다. Linux가 파일 캐시를 회수하거나 공유 page의 귀속을 계산하는 방식 때문에 RSS는 작업량이 늘 때 올라간 뒤 높은 수준을 유지할 수도 있다. 이것은 반드시 누수가 아니다.</p>
+<p>더 세밀한 지표는 다음과 같다.</p>
+<ul>
+<li><code>PSS</code>: 공유 page 비용을 공유 프로세스 수로 나눈 값</li>
+<li><code>Private_Dirty</code>: 해당 프로세스만 쓰며 즉시 회수하기 어려운 변경 page</li>
+<li>cgroup의 <code>memory.current</code>: 컨테이너/서비스 경계에서 실제 청구되는 메모리</li>
+<li>allocation profile: 어떤 호출 경로가 객체를 계속 보유하는지 보여 주는 증거</li>
+</ul>
+<pre><code class="language-bash">awk '/^(Rss|Pss|Private_Dirty):/ {sum[$1]+=$2} END {for (k in sum) print k, sum[k] &quot; kB&quot;}' \
+  /proc/$PID/smaps_rollup
+</code></pre>
+<p>현실 예시로 이미지 서버가 첫 요청에서 500MB 모델을 읽어 캐시하고 이후 500MB 근처에서 평평해진다면 warming일 가능성이 크다. 반대로 동일한 요청을 반복할 때 <code>Private_Dirty</code>와 live object 수가 매회 증가하고 유휴 시간에도 내려오지 않으면 누수 가설이 강해진다. 즉 <strong>증가 후 plateau인지, 작업량에 비례해 제한 없이 증가하는지</strong>를 본다.</p>
+<h3 id="2-cpu-100-는-원인이-아니라-결과다">2. CPU 100%는 원인이 아니라 결과다</h3>
+<p>프로세스 CPU가 높아도 상황은 다를 수 있다.</p>
+<ul>
+<li>계산량이 실제로 많음: 압축·암호화·행렬 연산</li>
+<li>busy wait: 일이 없는데 조건을 계속 검사</li>
+<li>lock 경합: 짧은 락을 수많은 스레드가 반복 시도</li>
+<li>재시도 폭주: 실패한 외부 호출을 지연 없이 다시 실행</li>
+<li>GC 압박: 객체 생성과 회수가 지나치게 잦음</li>
+</ul>
+<p>반대로 cgroup 제한 때문에 CPU가 throttling되면 프로세스 CPU는 낮아 보이는데 요청 지연은 커질 수 있다. 은행 창구 직원이 게으른 것이 아니라 관리자가 매초 일할 수 있는 시간을 제한한 상황과 같다.</p>
+<pre><code class="language-bash">cat /sys/fs/cgroup/cpu.stat   # nr_throttled, throttled_usec 확인
+cat /proc/pressure/cpu       # 일부 작업이 CPU를 기다린 시간 압력
+pidstat -p &quot;$PID&quot; 1
+</code></pre>
+<p>따라서 <code>%CPU</code>와 함께 처리량, run queue/PSI, cgroup throttling, 함수별 profile을 연결해야 한다. CPU를 낮춘 뒤 요청 처리량도 절반이 되었다면 장애가 해결된 것이 아니라 단순히 일을 덜 하게 만든 것일 수 있다.</p>
+<h3 id="3-deadlock-livelock-starvation은-겉모습이-비슷하다">3. Deadlock·livelock·starvation은 겉모습이 비슷하다</h3>
+<p>세 경우 모두 &quot;프로세스는 있지만 일이 끝나지 않는다&quot;로 보인다.</p>
+<table>
+<thead>
+<tr>
+<th>현상</th>
+<th>내부 움직임</th>
+<th>현실 비유</th>
+<th>구분할 증거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>deadlock</td>
+<td>서로의 자원을 기다려 멈춤</td>
+<td>두 차가 서로 비키기만 기다림</td>
+<td>고정된 wait-for cycle</td>
+</tr>
+<tr>
+<td>livelock</td>
+<td>상태는 계속 바꾸지만 진전 없음</td>
+<td>두 사람이 같은 방향으로 반복해 비킴</td>
+<td>CPU/로그 활동은 있으나 완료 수 0</td>
+</tr>
+<tr>
+<td>starvation</td>
+<td>일부 작업만 계속 기회를 못 얻음</td>
+<td>VIP 손님 때문에 일반 줄이 안 줄어듦</td>
+<td>특정 요청의 대기시간만 무한 증가</td>
+</tr>
+</tbody>
+</table>
+<p>앱 로그의 A→B, B→A는 deadlock을 설명하지만 실무 코드에서는 thread dump를 여러 시점에 채집해 같은 대기 관계가 유지되는지 확인한다. 한 장의 사진보다 10초 간격 사진 세 장이 &quot;정지&quot;를 더 잘 증명하는 것과 같다. Java라면 <code>jstack</code>, Go라면 goroutine dump, Python이라면 <code>faulthandler</code>처럼 런타임별 stack 증거를 사용한다.</p>
+<h3 id="4-wall-clock과-monotonic-clock의-역할은-다르다">4. wall clock과 monotonic clock의 역할은 다르다</h3>
+<p>ISO 시각은 여러 로그를 맞추는 데 좋지만 NTP 보정이나 관리자 변경으로 시간이 앞뒤로 움직일 수 있다. 실행 시간과 timeout을 벽시계 차이로 계산하면 실제 10초 작업이 음수나 40초로 기록될 위험이 있다.</p>
+<ul>
+<li>wall clock: <code>2026-09-03T10:00:00+09:00</code>처럼 사람이 사건을 대조할 때 사용</li>
+<li>monotonic clock: 부팅 이후 계속 증가해 경과 시간·timeout 계산에 사용</li>
+</ul>
+<p>현실적으로 로그에는 둘 다 필요하다. &quot;언제 발생했나&quot;는 wall clock, &quot;경고 후 몇 초 만에 종료됐나&quot;는 monotonic duration으로 기록한다. 컨테이너 여러 개의 로그를 비교할 때는 timezone을 UTC로 통일하고, 보고서에서만 현지 시각으로 표시하면 혼동이 줄어든다.</p>
+<h3 id="5-장애-격리는-자원별-보호보다-한-단계-넓은-설계다">5. 장애 격리는 자원별 보호보다 한 단계 넓은 설계다</h3>
+<p>MemoryGuard나 CPU 제한은 한 프로세스가 호스트 전체를 망가뜨리는 것을 줄인다. 그러나 재시작된 프로세스가 같은 문제를 즉시 반복하면 restart storm이 되어 오히려 의존 서비스와 로그 시스템을 압박할 수 있다.</p>
+<p>실무에서는 여러 보호 장치를 조합한다.</p>
+<ul>
+<li><strong>backpressure</strong>: 처리 능력보다 요청이 많으면 무한 적재 대신 거절하거나 생산자를 늦춘다.</li>
+<li><strong>bulkhead</strong>: 작업 종류별 worker pool을 나눠 한 종류의 정체가 전체를 막지 않게 한다.</li>
+<li><strong>circuit breaker</strong>: 실패하는 의존 서비스 호출을 잠시 중단해 재시도 폭주를 막는다.</li>
+<li><strong>restart backoff</strong>: 재시작 간격을 점차 늘리고 일정 횟수 뒤 운영자 개입을 요구한다.</li>
+</ul>
+<p>예를 들어 이미지 변환 작업이 메모리를 모두 써도 로그인 요청용 worker와 quota가 분리되어 있으면 사용자는 계속 로그인할 수 있다. 이것이 단순한 &quot;프로세스 종료&quot;를 넘어 장애 반경(blast radius)을 줄이는 접근이다.</p>
+<h3 id="6-한-변수-실험도-반복과-대조군이-있어야-강해진다">6. 한 변수 실험도 반복과 대조군이 있어야 강해진다</h3>
+<p>한 번의 Before/After는 우연한 트래픽, 캐시 warming, CPU 배치 차이의 영향을 받을 수 있다. 더 신뢰할 수 있는 실험은 정상 대조군과 장애 조건을 같은 순서·시간으로 여러 번 실행하고 다음을 비교한다.</p>
+<pre><code class="language-text">control 3회: 종료까지 시간 = 없음, RSS 기울기 ≈ 0 MB/min
+fault   3회: 종료까지 시간 = 31s, 29s, 32s, RSS 기울기 ≈ 18 MB/min
+</code></pre>
+<p>결과를 단순 PASS가 아니라 <code>효과 크기 + 변동성</code>으로 기록하면 재현성을 설명할 수 있다. 환경 변수 값을 바꾼 후 종료만 사라지고 RSS 기울기가 그대로라면 보호 임계치만 늦춘 것이며, 기울기까지 0에 가까워져야 누수 원인 수정이라는 주장이 가능하다.</p>
+<h2 id="실무에서-바로-쓰는-접근법">실무에서 바로 쓰는 접근법</h2>
+<h3 id="접근법-1-첫-5분에는-복구와-증거-보존을-동시에-설계한다">접근법 1. 첫 5분에는 복구와 증거 보존을 동시에 설계한다</h3>
+<p>장애 인스턴스를 로드밸런서에서 제외해 사용자 피해를 줄인 뒤, PID·시작 시각·자원 snapshot·최근 로그·thread dump를 정해진 스크립트로 빠르게 수집한다. 그 다음 재시작한다. 메모리가 고갈 직전이면 긴 profile보다 짧은 증거만 남기고 가용성을 우선한다. 이 우선순위를 runbook에 미리 적어 두면 사고 중 판단 시간을 줄일 수 있다.</p>
+<h3 id="접근법-2-신호를-사용자-서비스-런타임-커널-순으로-연결한다">접근법 2. 신호를 <code>사용자 → 서비스 → 런타임 → 커널</code> 순으로 연결한다</h3>
+<p>먼저 오류율·지연·처리량으로 실제 영향을 확인하고, 서비스 queue와 완료 수, 런타임 heap/GC/thread, 마지막으로 RSS·PSI·cgroup 이벤트를 본다. 커널 CPU 100%만 보고 앱을 범인으로 정하는 대신 각 층의 시간축이 맞는지 확인한다. 서로 다른 두 층 이상에서 같은 가설을 지지할 때 원인 확신도를 높인다.</p>
+<h3 id="접근법-3-완화와-근본-해결에-서로-다른-완료-조건을-둔다">접근법 3. 완화와 근본 해결에 서로 다른 완료 조건을 둔다</h3>
+<p>멀티스레드 비활성화로 deadlock이 사라진 것은 완화 완료다. 전역 lock order 적용, 동시성 회귀 테스트, 정상 처리량 회복까지 확인해야 근본 해결 완료다. OOM과 CPU도 각각 &quot;프로세스 생존&quot;만 보지 말고 메모리 증가 기울기와 요청당 CPU가 개선됐는지 검증한다. 이 구분이 임시 설정이 영구 해결책으로 굳는 일을 막는다.</p>
+</article>
+    </main>
+  </div>
+  <footer>이 HTML은 16_README_answer.md 전체 본문을 기준으로 생성되었습니다.</footer>
+  <script>
+    const progress=document.querySelector('#progress'); const onScroll=()=>{const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%'}; addEventListener('scroll',onScroll,{passive:true}); onScroll();
+    document.querySelectorAll('pre').forEach(pre=>{const button=document.createElement('button');button.className='copy';button.type='button';button.textContent='복사';button.addEventListener('click',async()=>{const code=pre.querySelector('code');await navigator.clipboard.writeText(code?code.innerText:pre.innerText);button.textContent='완료';setTimeout(()=>button.textContent='복사',1200)});pre.append(button)});
+    const links=[...document.querySelectorAll('#toc a')]; const filter=document.querySelector('#toc-filter'); filter.addEventListener('input',()=>{const q=filter.value.trim().toLowerCase();links.forEach(a=>a.hidden=q&&!a.textContent.toLowerCase().includes(q))});
+    const observed=links.map(a=>document.getElementById(decodeURIComponent(a.hash.slice(1)))).filter(Boolean); const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.hash==='#'+entry.target.id))}})},{rootMargin:'0px 0px -72% 0px'}); observed.forEach(node=>observer.observe(node));
+  </script>
+</body>
+</html>
