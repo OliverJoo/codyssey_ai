@@ -1,0 +1,15 @@
+graph TD
+    A[macOS: M3 또는 Intel] --> B[Linux 실행 환경]
+    B --> C[일반 사용자와 필수 경로]
+    C --> D[환경변수와 secret.key 검증]
+    D --> E[정상 기준 실행]
+    E --> F{장애 실험 선택}
+    F -->|50 vs 100MB| G[OOM과 메모리 증가]
+    F -->|100 vs 10%| H[CPU Spike와 Watchdog]
+    F -->|true vs false| I[Deadlock과 락 대기]
+    G --> J[04_monitor.sh와 앱 로그]
+    H --> J
+    I --> J
+    J --> K[Before와 After 비교]
+    K --> L[GitHub Issue 리포트 3개]
+    L --> M[검증 후 제출]
