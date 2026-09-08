@@ -1,0 +1,17 @@
+graph TD
+    U[사용자 행동] --> E{이벤트 종류}
+    E -->|테마 클릭| T[theme 상태 변경]
+    E -->|GitHub 조회| A[projects 상태 loading]
+    E -->|폼 입력| F[form 오류 상태 변경]
+    T --> L[localStorage 저장]
+    L --> RT[renderTheme]
+    A --> Q[fetch + async/await]
+    Q -->|성공| S[success + 저장소 배열]
+    Q -->|실패| X[error + 재시도]
+    S --> RP[map/filter 카드 렌더]
+    X --> RP
+    F --> RF[필드 오류 렌더]
+    RT --> D[DOM 화면 업데이트]
+    RP --> D
+    RF --> D
+    D --> U
