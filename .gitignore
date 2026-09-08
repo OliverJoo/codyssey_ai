@@ -20,7 +20,7 @@ claude.md
 !AI_SW/01_Basic/b2-2/*README_Answer.*
 *.log
 !AI_SW/01_Basic/b1-2/*.log
-
+tmp/
 
 ### Flask ###
 instance/*
