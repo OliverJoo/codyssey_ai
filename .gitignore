@@ -21,6 +21,9 @@ claude.md
 *.log
 !AI_SW/01_Basic/b1-2/*.log
 tmp/
+*.class
+classes/
+**/classes/
 
 ### Flask ###
 instance/*
