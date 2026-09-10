@@ -63,10 +63,10 @@ PDF가 `css/`, `js/`, `images/` 역할 분리를 요구하므로 모든 산출�
 
 ## 4. GitHub 사용자 이름 바꾸기
 
-첫 화면은 GitHub 공식 데모 계정 `octocat`의 공개 저장소를 불러온다. Projects 영역 입력창에 본인 아이디를 입력하면 즉시 바꿀 수 있다. 기본값 자체를 바꾸려면 `index.html`의 다음 속성을 수정한다.
+첫 화면은 기본적으로 `OliverJoo` 계정의 공개 저장소를 불러온다. Projects 영역 입력창에 다른 사용자 아이디를 입력하면 즉시 바꿀 수 있다. 기본값 자체를 바꾸려면 `index.html`의 다음 속성을 수정한다.
 
 ```html
-<body data-github-username="본인아이디">
+<body data-github-username="OliverJoo">
 ```
 
 API 주소는 다음과 같다.
@@ -75,7 +75,7 @@ API 주소는 다음과 같다.
 https://api.github.com/users/{username}/repos?sort=updated&per_page=12
 ```
 
-인증 없는 GitHub API는 호출 제한이 있으므로 짧은 시간에 반복 새로고침하지 않는다. 403 응답이면 화면에 오류 메시지와 `다시 시도` 버튼이 표시된다.
+인증 없는 GitHub API는 호출 제한(시간당 60회)이 있으므로 짧은 시간에 반복 새로고침하지 않는다. 403 응답이나 네트워크 에러 발생 시 화면에 오류 메시지와 함께 `다시 시도` 버튼 및 내장된 `샘플 데이터 보기` 버튼이 표시되어 중단 없는 열람을 지원한다.
 
 ## 5. 이벤트 → 상태 → 렌더링 구조
 
@@ -182,15 +182,15 @@ input 또는 submit
 
 제출할 때 아래 값을 실제 주소로 교체한다.
 
-- GitHub 저장소 URL: `https://github.com/<username>/<repository>`
-- 배포 URL: `https://<username>.github.io/<repository>/`
+- GitHub 저장소 URL: `https://github.com/OliverJoo/codyssey_missions`
+- 배포 URL: `https://OliverJoo.github.io/codyssey_missions/`
 
 ## 12. 제출 체크리스트
 
-- [ ] 본인 이름·소개·링크·GitHub 기본 아이디로 수정
-- [ ] 데스크톱·모바일·다크 모드 확인
-- [ ] API 로딩·성공·에러·빈 상태 확인
-- [ ] 폼의 빈 값·이메일 형식 오류 확인
-- [ ] `04_verify_submission.sh` PASS
-- [ ] GitHub Pages 배포 URL 기록
-- [ ] 최신 스크린샷으로 교체
+- [x] 본인 이름·소개·링크·GitHub 기본 아이디로 수정 (`OliverJoo`)
+- [x] 데스크톱·모바일·다크 모드 확인
+- [x] API 로딩·성공·에러·빈 상태 확인 및 Fallback 구현
+- [x] 폼의 빈 값·이메일 형식 오류 확인
+- [x] `04_verify_submission.sh` PASS
+- [x] GitHub Pages 배포 URL 기록
+- [x] 최신 스크린샷으로 교체 (desktop-light, mobile-dark)

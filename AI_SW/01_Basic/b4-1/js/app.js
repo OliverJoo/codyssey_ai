@@ -1,12 +1,80 @@
 "use strict";
 
+// GitHub API Rate Limit(403) 또는 오프라인 대비 로컬 폴백 데이터
+const FALLBACK_REPOS = [
+  {
+    name: "codyssey_ai",
+    description: "Codyssey All-In-One AI & Software Learning Repository",
+    html_url: "https://github.com/OliverJoo/codyssey_ai",
+    language: "Python",
+    stargazers_count: 5,
+    forks_count: 1,
+  },
+  {
+    name: "pentagi---openai-security-agi",
+    description: "Fully autonomous AI Agents system capable of performing complex penetration testing tasks",
+    html_url: "https://github.com/OliverJoo/pentagi---openai-security-agi",
+    language: "Python",
+    stargazers_count: 3,
+    forks_count: 0,
+  },
+  {
+    name: "nanoclaw-aibot",
+    description: "A lightweight alternative to Clawdbot / OpenClaw that runs in Apple containers for security.",
+    html_url: "https://github.com/OliverJoo/nanoclaw-aibot",
+    language: "TypeScript",
+    stargazers_count: 2,
+    forks_count: 0,
+  },
+  {
+    name: "planning-with-files",
+    description: "Claude Code skill implementing Manus-style persistent markdown planning.",
+    html_url: "https://github.com/OliverJoo/planning-with-files",
+    language: "Markdown",
+    stargazers_count: 2,
+    forks_count: 0,
+  },
+  {
+    name: "LLM-LangChain",
+    description: "Test LLM Application with LangChain & Huggingface_hub",
+    html_url: "https://github.com/OliverJoo/LLM-LangChain",
+    language: "Jupyter Notebook",
+    stargazers_count: 1,
+    forks_count: 0,
+  },
+  {
+    name: "gps_map_flutter",
+    description: "GPS Google Map Flutter application",
+    html_url: "https://github.com/OliverJoo/gps_map_flutter",
+    language: "Dart",
+    stargazers_count: 4,
+    forks_count: 0,
+  },
+  {
+    name: "flutter-class",
+    description: "Flutter programming class and practice projects",
+    html_url: "https://github.com/OliverJoo/flutter-class",
+    language: "Dart",
+    stargazers_count: 4,
+    forks_count: 0,
+  },
+  {
+    name: "david",
+    description: "Python data & AI application",
+    html_url: "https://github.com/OliverJoo/david",
+    language: "Python",
+    stargazers_count: 2,
+    forks_count: 0,
+  },
+];
+
 // 화면에 영향을 주는 값을 한곳에서 관리한다.
 const state = {
   theme: localStorage.getItem("portfolio-theme") || "",
   menuOpen: false,
   projects: {
     status: "idle",
-    username: document.body.dataset.githubUsername || "octocat",
+    username: document.body.dataset.githubUsername || "OliverJoo",
     items: [],
     filter: "All",
     error: "",
@@ -86,7 +154,7 @@ const renderProjects = () => {
   }
 
   if (status === "error") {
-    elements.projectStatus.innerHTML = `${escapeHtml(error)} <button class="button compact retry-button" type="button" data-action="retry">다시 시도</button>`;
+    elements.projectStatus.innerHTML = `${escapeHtml(error)} <button class="button compact retry-button" type="button" data-action="retry">다시 시도</button> <button class="button compact fallback-button" type="button" data-action="fallback">샘플 데이터 보기</button>`;
     elements.projectFilters.innerHTML = "";
     return;
   }
@@ -173,7 +241,7 @@ const initializeRevealAnimation = () => {
 const initializeTypingEffect = () => {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const target = document.querySelector("#typing-text");
-  const words = ["웹 개발자", "문제 해결자", "꾸준한 학습자"];
+  const words = ["금융 데이터 분석가", "AI & 플러터 개발자", "문제 해결자"];
   let wordIndex = 0;
   let characterIndex = words[0].length;
   let deleting = true;
@@ -224,6 +292,10 @@ elements.projectFilters.addEventListener("click", (event) => {
 
 elements.projectStatus.addEventListener("click", (event) => {
   if (event.target.closest('[data-action="retry"]')) loadProjects();
+  if (event.target.closest('[data-action="fallback"]')) {
+    state.projects = { ...state.projects, status: "success", items: FALLBACK_REPOS, filter: "All", error: "" };
+    renderProjects();
+  }
 });
 
 // 입력할 때마다 현재 필드만 검증해 빠르게 피드백한다.
