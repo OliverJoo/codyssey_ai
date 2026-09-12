@@ -1,6 +1,6 @@
 ===== EXPERIMENT =====
 CASE=oom-before
-STARTED_AT=2026-09-02T01:23:07+00:00
+STARTED_AT=2026-09-12T00:59:43+00:00
 PID=31
 LAUNCHER_PID=26
 ARCH=aarch64
@@ -13,12 +13,12 @@ PROCESS_EXIT_STATUS=137
 
 ===== MONITOR =====
 TIMESTAMP,PID,CPU_PERCENT,RSS_KB,MEM_MB,STATE,THREADS,ELAPSED
-2026-09-02T01:23:07+00:00,31,0.0,16720,16.33,SN,1,00:00
-2026-09-02T01:23:08+00:00,31,2.0,16720,16.33,SN,1,00:01
-2026-09-02T01:23:09+00:00,31,1.0,42324,41.33,SN,1,00:02
-2026-09-02T01:23:10+00:00,31,0.6,42324,41.33,SN,1,00:03
-2026-09-02T01:23:11+00:00,31,0.5,42324,41.33,SN,1,00:04
-2026-09-02T01:23:12+00:00,31,EXITED,,,,,
+2026-09-12T00:59:43+00:00,31,0.0,16728,16.34,SN,1,00:00
+2026-09-12T00:59:44+00:00,31,2.0,16728,16.34,SN,1,00:01
+2026-09-12T00:59:45+00:00,31,1.0,42332,41.34,SN,1,00:02
+2026-09-12T00:59:46+00:00,31,0.6,42332,41.34,SN,1,00:03
+2026-09-12T00:59:47+00:00,31,0.5,42332,41.34,SN,1,00:04
+2026-09-12T00:59:48+00:00,31,EXITED,,,,,
 
 ===== APPLICATION =====
 >>> Starting Agent Boot Sequence...
@@ -31,14 +31,14 @@ TIMESTAMP,PID,CPU_PERCENT,RSS_KB,MEM_MB,STATE,THREADS,ELAPSED
 [4/6] Checking Port Availability          [OK]
    ... Port 15034 is available.
 [5/6] Verifying Log Permission            [OK]
-   ... Log directory is writable: /tmp/agent-b1-2.zVBiyp/home/logs
+   ... Log directory is writable: /tmp/agent-b1-2.8OliWV/home/logs
 [6/6] Verifying Mission Environment       [OK]
    ... MEMORY_LIMIT=50MB, CPU_MAX_OCCUPY=10%, MULTI_THREAD_ENABLE=False
 ------------------------------------------------------------
 All Boot Checks Passed!
 Agent READY
-2026-09-02 01:23:07,436 [INFO] [SafetyGuard] Process priority lowered (nice=10).
-2026-09-02 01:23:07,436 [INFO] Agent listening at port 15034
+2026-09-12 00:59:43,600 [INFO] [SafetyGuard] Process priority lowered (nice=10).
+2026-09-12 00:59:43,600 [INFO] Agent listening at port 15034
 
 ==================================================
  [ Agent Initiate ] Resource Check 
@@ -50,9 +50,9 @@ Agent READY
  >>> SYSTEM STATUS: STABLE. STARTING WORKLOAD MONITORING...
 ==================================================
 
-2026-09-02 01:23:09,453 [INFO] [MemoryWorker] Current Heap: 25MB
-2026-09-02 01:23:12,475 [INFO] [MemoryWorker] Current Heap: 50MB
-2026-09-02 01:23:12,475 [CRITICAL] [MemoryGuard] Memory limit exceeded (50MB >= 50MB) / (Recommend Over 256MB)
-2026-09-02 01:23:12,477 [CRITICAL] [MemoryGuard] Self-terminating process 31 to prevent system instability.
+2026-09-12 00:59:45,615 [INFO] [MemoryWorker] Current Heap: 25MB
+2026-09-12 00:59:48,638 [INFO] [MemoryWorker] Current Heap: 50MB
+2026-09-12 00:59:48,639 [CRITICAL] [MemoryGuard] Memory limit exceeded (50MB >= 50MB) / (Recommend Over 256MB)
+2026-09-12 00:59:48,640 [CRITICAL] [MemoryGuard] Self-terminating process 31 to prevent system instability.
 
 ===== END =====
