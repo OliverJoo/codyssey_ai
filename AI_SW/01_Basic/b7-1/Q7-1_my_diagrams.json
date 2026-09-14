@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-09-10T00:00:00+09:00",
+  "repository": "https://github.com/jhj9109/B7-1_project_codyssey",
+  "identity": {
+    "preferred_name": "oliverjoo",
+    "github_login": "OliverJoo",
+    "github_public_email": "jjaemoon@gmail.com",
+    "legacy_commit_email": "jjaemoon@nate.com",
+    "identity_note": "GitHub API maps the legacy commit metadata to the same OliverJoo account. No repository commit uses jjaemoon@gamil.com."
+  },
+  "evidence_snapshot": {
+    "github_linked_commits": 20,
+    "non_merge_commits": 19,
+    "merge_commits": 1,
+    "current_main_blame_lines": 241,
+    "local_worktree_test_result": "10 passed",
+    "local_test_fix": "tests/core/test_schemas.py:L35-L44 now supplies refresh_token and asserts all three Token fields",
+    "github_main_test_result": "9 passed, 1 failed until the local fixture update is pushed",
+    "publication_state": "The test fix is local and uncommitted as of 2026-09-10"
+  },
+  "question_scope": {
+    "direct_deep_answers": [2, 3, 4, 5, 6, 7, 12, 16, 17, 19, 22, 24, 29, 30, 31],
+    "indirect_boundary_answers": [1, 8, 13, 15, 20, 21, 23, 27, 28],
+    "excluded_as_not_credibly_attributable": [9, 10, 11, 14, 18, 25, 26]
+  },
+  "diagrams": [
+    {
+      "id": "contribution-architecture",
+      "type": "architecture",
+      "size": "doc-wide",
+      "detail": "balanced",
+      "audience": "engineer",
+      "nodes": [
+        {"id": "main", "label": "FastAPI 조립", "sublabel": "main.py · 3 surviving lines", "ownership": "direct-partial"},
+        {"id": "config", "label": "환경 설정", "sublabel": "core/config.py · 3 surviving lines", "ownership": "direct-partial"},
+        {"id": "database", "label": "DB 세션 경계", "sublabel": "core/database.py · 26 lines", "ownership": "direct"},
+        {"id": "schemas", "label": "API 데이터 계약", "sublabel": "core/schemas.py · 52 lines", "ownership": "direct"},
+        {"id": "models", "label": "영속 모델", "sublabel": "User + ChatLog · 33 lines", "ownership": "direct"},
+        {"id": "sqlite", "label": "SQLite", "sublabel": "chatbot.db", "ownership": "runtime"},
+        {"id": "checklogs", "label": "운영 조회", "sublabel": "scripts/check_logs.sql · 15 lines", "ownership": "direct"},
+        {"id": "tests", "label": "Core 검증", "sublabel": "tests/core + conftest · 106 lines", "ownership": "direct"}
+      ],
+      "edges": [
+        ["main", "config", "READ"], ["main", "database", "BOOT"], ["database", "config", "DATABASE_URL"],
+        ["database", "models", "BASE / SESSION"], ["schemas", "main", "REQUEST CONTRACT"],
+        ["models", "sqlite", "CREATE / WRITE"], ["checklogs", "sqlite", "SELECT"], ["tests", "database", "VERIFY"]
+      ]
+    },
+    {
+      "id": "db-session-sequence",
+      "type": "sequence",
+      "size": "doc-wide",
+      "detail": "balanced",
+      "audience": "engineer",
+      "lifelines": ["Client", "FastAPI Router", "get_db", "ChatLog ORM", "SQLite"],
+      "messages": [
+        ["Client", "FastAPI Router", "POST /api/chat"],
+        ["FastAPI Router", "get_db", "Depends(get_db)"],
+        ["get_db", "SQLite", "SessionLocal()"],
+        ["FastAPI Router", "ChatLog ORM", "ChatLog(user_id, message)"],
+        ["ChatLog ORM", "SQLite", "INSERT + COMMIT"],
+        ["SQLite", "FastAPI Router", "id + created_at"],
+        ["FastAPI Router", "Client", "ChatResponse"],
+        ["get_db", "SQLite", "finally: db.close()"]
+      ]
+    },
+    {
+      "id": "conversation-er",
+      "type": "er",
+      "size": "doc-inline",
+      "detail": "faithful",
+      "audience": "engineer",
+      "entities": [
+        {"name": "users", "fields": ["# id", "username UNIQUE", "hashed_password", "created_at"]},
+        {"name": "chat_logs", "fields": ["# id", "→ user_id", "user_message", "ai_response?", "error_status?", "created_at"]}
+      ],
+      "relationship": "users 1 — N chat_logs"
+    },
+    {
+      "id": "tdd-commit-timeline",
+      "type": "timeline",
+      "size": "doc-wide",
+      "detail": "faithful",
+      "audience": "engineer",
+      "date": "2026-08-07",
+      "pairs": [
+        ["15:31:50", "c6ebab3", "test config", "16:34:06", "83324af", "feat config"],
+        ["16:34:24", "fd32812", "test DB", "16:34:45", "31cd047", "feat DB"],
+        ["16:35:02", "ee25530", "test User model", "16:35:21", "4654687", "feat User model"],
+        ["16:35:40", "5308ad1", "test ChatLog", "16:36:02", "8b4f8af", "feat ChatLog"],
+        ["16:36:20", "60fe743", "test User schema", "16:36:39", "10b8698", "feat User schema"],
+        ["16:36:57", "f063390", "test Chat schema", "16:37:16", "fda7c56", "feat Chat schema"]
+      ]
+    }
+  ],
+  "source_links": {
+    "database_session": "https://github.com/jhj9109/B7-1_project_codyssey/blob/main/core/database.py#L7-L26",
+    "user_model": "https://github.com/jhj9109/B7-1_project_codyssey/blob/main/core/models.py#L5-L16",
+    "chatlog_model": "https://github.com/jhj9109/B7-1_project_codyssey/blob/main/core/models.py#L18-L33",
+    "api_schemas": "https://github.com/jhj9109/B7-1_project_codyssey/blob/main/core/schemas.py#L8-L59",
+    "application_boot": "https://github.com/jhj9109/B7-1_project_codyssey/blob/main/main.py#L7-L12",
+    "runtime_chat_path": "https://github.com/jhj9109/B7-1_project_codyssey/blob/main/ai_chat/router.py#L25-L84",
+    "operations_query": "https://github.com/jhj9109/B7-1_project_codyssey/blob/main/scripts/check_logs.sql#L1-L15",
+    "schema_tests": "https://github.com/jhj9109/B7-1_project_codyssey/blob/main/tests/core/test_schemas.py#L8-L55"
+  },
+  "commit_evidence": [
+    ["4c5b5a8", "chore", "core/tests 초기 구조"],
+    ["c6ebab3", "test", "설정 기본값 테스트"],
+    ["83324af", "feat", "config 설정 완료 표식"],
+    ["fd32812", "test", "DB 세션 테스트"],
+    ["31cd047", "feat", "database.py 생성"],
+    ["ee25530", "test", "User 모델 테스트"],
+    ["4654687", "feat", "User 모델 생성"],
+    ["5308ad1", "test", "ChatLog 모델 테스트"],
+    ["8b4f8af", "feat", "ChatLog 모델 생성"],
+    ["60fe743", "test", "User 스키마 테스트"],
+    ["10b8698", "feat", "User 스키마 생성"],
+    ["f063390", "test", "Chat 스키마 테스트"],
+    ["fda7c56", "feat", "Chat 스키마 생성"],
+    ["0e0ed2f", "docs", "check_logs.sql 생성"],
+    ["8552f24", "chore", ".vscode ignore"],
+    ["1b7f08d", "refactor", "검증 규칙 일원화"],
+    ["59a8da9", "merge", "로컬 이력의 PR #7 merge commit"],
+    ["b3dce21", "feat", "DB create_all 및 Pydantic v2 연동"],
+    ["ac0e24d", "test", "tests/conftest.py 추가"],
+    ["08cecbc", "fix", "모델 등록 import 추가"]
+  ]
+}
