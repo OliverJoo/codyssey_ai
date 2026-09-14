@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic_settings
+bcrypt
+python-jose[cryptography]
+sqlalchemy
+pydantic
+python-multipart
+google-genai
