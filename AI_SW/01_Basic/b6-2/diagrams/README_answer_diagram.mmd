@@ -1,0 +1,26 @@
+graph TD
+    CLI["commit 또는 pr 명령"] --> GIT["Git 상태·diff 수집"]
+    GIT --> CHANGED{"변경 파일 있음?"}
+    CHANGED -->|"없음"| STOP["API 없이 종료"]
+    CHANGED -->|"있음"| DIFF["비신뢰 입력: diff"]
+    DIFF --> SAFE["마스킹·파일·줄 제한"]
+    SAFE --> DRY{"dry-run인가?"}
+    DRY -->|"예"| PREVIEW["전송 프롬프트 미리보기"]
+    PREVIEW -->|"확인 후 다시 실행"| CLI
+    DRY -->|"아니오"| PROMPT["규칙과 diff를 프롬프트로 결합"]
+    PROMPT -->|"외부 전송 경계"| API["외부 AI API"]
+    API --> DRAFT["비신뢰 출력: AI 초안"]
+    DRAFT --> VALIDATE{"JSON·필수 항목 유효?"}
+    VALIDATE -->|"아니오"| ERROR["오류 표시·자동 작업 중단"]
+    VALIDATE -->|"예: 제목 정리"| HUMAN{"사람이 diff·테스트와 대조"}
+    HUMAN -->|"불일치"| CLI
+    HUMAN -->|"승인"| COPY["초안 출력만·commit push 없음"]
+
+    classDef local fill:#DBEAFE,stroke:#2563EB,color:#172554;
+    classDef boundary fill:#FEF3C7,stroke:#D97706,color:#451A03;
+    classDef untrusted fill:#FEE2E2,stroke:#DC2626,color:#450A0A;
+    classDef success fill:#DCFCE7,stroke:#16A34A,color:#052E16;
+    class CLI,GIT,SAFE,PREVIEW,PROMPT local;
+    class CHANGED,DRY,VALIDATE,HUMAN boundary;
+    class DIFF,API,DRAFT,ERROR untrusted;
+    class STOP,COPY success;
