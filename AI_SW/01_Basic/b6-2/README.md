@@ -1,116 +1,91 @@
-# b6-2 — AI 기반 Git 메시지 생성기
+# b6-2 — AI 기반 Git 커밋 및 PR 초안 생성기 (`ai_gitgen`)
 
-Git 저장소의 `git status`와 `git diff`를 읽어 AI API로 commit 메시지 또는 PR 제목·본문 초안을 만드는 Python 3.10+ 터미널 프로그램입니다. 실제 commit, push, PR 생성은 하지 않습니다.
+Git 저장소의 스테이징/비스테이징 변경 사항(`git status`, `git diff`)을 분석하고, OpenAI 호환 AI API를 호출하여 Conventional Commits 커밋 메시지 또는 규격화된 PR(Pull Request) 제목·본문 초안을 생성하는 Python 3.10+ 기반 CLI 도구입니다.
 
-처리 흐름은 [diagram-design 인터랙티브 다이어그램](diagrams/04_ai-gitgen-flow.html)에서 확인하세요. 브라우저에서 확대·축소하거나 드래그해 이동할 수 있습니다. 기존 파일명을 사용해야 하는 경우 [05_diagram_viewer.html](05_diagram_viewer.html)이 같은 다이어그램을 엽니다.
+실제 `git commit`, `git push`, PR 생성을 임의로 수행하지 않으며, 개발자가 검토 후 적용할 수 있도록 안전하게 초안을 터미널에 출력합니다.
 
-## 1. 학습·시연 순서
+전체 처리 흐름은 [04_ai-gitgen-flow.html](diagrams/04_ai-gitgen-flow.html) 또는 [05_diagram_viewer.html](05_diagram_viewer.html) 인터랙티브 다이어그램에서 확대·축소 및 드래그하며 확인할 수 있습니다.
 
-| 순서 | 파일 | 역할 |
-|---:|---|---|
-| 1 | [01_setup.sh](01_setup.sh) | Git과 Python 3.10+ 확인 |
-| 2 | [02_run_demo.sh](02_run_demo.sh) | 임시 저장소·모의 API로 commit/PR 전체 시연 |
-| 3 | [03_run_tests.sh](03_run_tests.sh) | 자동 테스트 실행 |
-| 4 | [04_ai-gitgen-flow.html](diagrams/04_ai-gitgen-flow.html) | 프로그램 처리 흐름과 확대·축소·드래그 보기 |
-| 5 | [05_diagram_viewer.html](05_diagram_viewer.html) | 이전 파일명과 호환되는 다이어그램 입구 |
-| 6 | [06_verify_submission.sh](06_verify_submission.sh) | 파일명, 링크, 문법, 테스트 최종 검사 |
+---
 
-질문별 답은 [README_answer.md](README_answer.md), 스크롤형 설명은 [README_answer.html](README_answer.html)에서 확인합니다. 원본 질문 사본은 [b6-2-question.png](b6-2-question.png)입니다.
+## 📌 주요 특징
 
-## 2. 준비 환경
+- **Git 변경 내역 자동 수집**: Git 저장소 루트를 자동 감지하고 `git status --short` 및 `git diff`를 수집 (변경 사항이 없을 경우 불필요한 API 호출 차단)
+- **안전 모드 (Safe Mode)**:
+  - 개인정보 및 민감정보(이메일, 전화번호, API Key, Bearer Token, Password 등)를 정규식으로 감지하여 `[MASKED]` 치환
+  - 컨텍스트 초과 및 비용 방지를 위해 전송 파일 수(기본 10개) 및 diff 줄 수(기본 200줄) 제한
+- **규격 검증 및 포맷터**:
+  - `commit`: 첫 줄 50~72자 제한 및 본문 핵심 불릿 요약
+  - `pr`: 제목 80자 제한 및 필수 3대 섹션(`## Why`, `## What`, `## How to Test`) 보정
+- **무의존성 순수 표준 라이브러리**: 외부 패키지 설치 없이 Python 3.10+ 내장 라이브러리(`urllib`, `json`, `argparse` 등)만으로 구동
+- **팀 커스텀 컨벤션 지원**: JSON 규칙 파일(`--convention-file`)을 주입하여 프로젝트별 커밋 컨벤션 커스터마이징 가능
+- **Dry-run 지원**: API 호출 없이 AI에 전달될 프롬프트와 보안 마스킹 결과를 사전 점검
 
-필수 도구는 Git과 Python 3.10 이상뿐이며 외부 Python 패키지는 사용하지 않습니다.
+---
 
-### macOS — Homebrew 사용
+## 🚀 시작하기
 
-```bash
-brew install git python@3.12
-bash 01_setup.sh
-```
+### 1. 준비 환경
+- Python 3.10 이상
+- Git
 
-### Ubuntu/Debian 또는 Linux VM
-
-```bash
-sudo apt update
-sudo apt install -y git python3
-bash 01_setup.sh
-```
-
-`python3 --version`이 3.10 미만이면 운영체제의 최신 Python 저장소나 `pyenv`로 3.10 이상을 설치하세요.
-
-## 3. 3분 실행
-
-### 비용 없는 로컬 시연
+### 2. 환경 변수 설정
+OpenAI Chat Completions 형식과 호환되는 API 키를 환경 변수에 등록합니다. API 키는 코드에 하드코딩하거나 파일에 기록하지 않습니다.
 
 ```bash
-bash 01_setup.sh
-bash 02_run_demo.sh
-bash 03_run_tests.sh
+# 필수: API 키 등록
+export AI_API_KEY="your-api-key"
+
+# 선택: 사용자 지정 엔드포인트 URL (기본값: https://copa.codyssey.kr/v1/chat/completions)
+export AI_API_URL="https://copa.codyssey.kr/v1/chat/completions"
 ```
 
-`02_run_demo.sh`는 임시 Git 저장소와 로컬 모의 HTTP API를 만든 뒤 모두 자동 정리합니다. 현재 작업 저장소, 외부 API, 실제 비용에 영향을 주지 않습니다.
+---
 
-### 실제 AI API 사용
+## 💻 사용법
 
-OpenAI Chat Completions 형식과 호환되는 API 키와 URL을 환경 변수로 지정합니다. 키를 파일에 쓰거나 commit하지 마세요.
+> ⚠️ 변경 사항이 있는 **Git 저장소 루트 디렉터리**에서 실행합니다.
+
+### 1. 커밋 메시지 초안 생성 (`commit`)
 
 ```bash
-export AI_API_KEY='발급받은-키'
-export AI_API_URL='https://api.openai.com/v1/chat/completions'
+# 기본 실행 (기본 모델: gpt-5.4-mini)
+python AI_SW/01_Basic/b6-2/main.py commit
+
+# 옵션 지정 (모델, 창의성, 토큰 수 등)
+python AI_SW/01_Basic/b6-2/main.py commit --model gpt-5.4-mini --temperature 0.1 --max-tokens 300
+
+# API 호출 없이 프롬프트와 마스킹 결과만 확인 (비용 0원)
+python AI_SW/01_Basic/b6-2/main.py commit --dry-run
 ```
 
-변경 사항이 있는 Git 저장소의 **루트**에서 이 프로젝트의 `main.py`를 실행합니다.
-
-```bash
-python3 /절대/경로/b6-2/main.py commit
-python3 /절대/경로/b6-2/main.py pr
-```
-
-## 4. 명령과 옵션
-
+#### 터미널 출력 예시
 ```text
-python3 main.py {commit,pr} [옵션]
+[INFO] safe-mode=ON, 파일 2/2, diff 1줄, 마스킹 0건
 
---model MODEL                 기본: gpt-4o-mini
---temperature 0..2           기본: 0.2
---max-tokens 64..2000        기본: 500
---safe-mode / --no-safe-mode 기본: ON
---max-files N                기본: 10
---max-diff-lines N           기본: 200
---dry-run                     API 호출 없이 프롬프트 표시
---convention-file FILE        보너스: JSON 규칙 적용
-```
-
-PDF 표기와 호환되도록 `-model`, `-temperature`, `-max_tokens` 별칭도 지원합니다.
-
-예시:
-
-```bash
-python3 main.py commit --model gpt-4o-mini --temperature 0.1 --max-tokens 300
-python3 main.py pr --temperature 0.4 --max-tokens 700
-python3 main.py commit --dry-run
-```
-
-변경이 없으면 API를 호출하지 않고 정상 종료합니다. 환경 변수 누락, 인증 실패, 사용량 제한, 네트워크 실패, 잘못된 JSON 응답은 원인별 오류 메시지를 출력합니다.
-
-## 5. 출력 형식
-
-commit 출력:
-
-```text
 === COMMIT TITLE ===
-feat: AI Git 메시지 생성기 추가
+b6-1, b6-2 디렉터리 추가
 
 === COMMIT BODY ===
-- src/ai_gitgen 모듈 추가
-- Git 변경 기반 초안 생성
+- AI_SW/01_Basic 아래 b6-1, b6-2 경로가 새로 추가됨
+
+[INFO] API 호출 횟수: 1
+[NOTICE] AI 초안입니다. 복사하기 전에 diff와 함께 사람이 검토하세요.
 ```
 
-commit 제목은 한 줄, 권장 50자, 최대 72자입니다. 본문이 있으면 최대 2개 핵심 항목을 출력합니다.
+---
 
-PR 출력:
+### 2. PR 제목 및 본문 초안 생성 (`pr`)
 
+```bash
+# PR 초안 생성 실행
+python AI_SW/01_Basic/b6-2/main.py pr --temperature 0.2 --max-tokens 500
+```
+
+#### 터미널 출력 예시
 ```markdown
+[INFO] safe-mode=ON, 파일 1/1, diff 9줄, 마스킹 0건
+
 === PR TITLE ===
 Git 변경 기반 PR 초안 생성 기능 추가
 
@@ -123,68 +98,124 @@ Git 변경 기반 PR 초안 생성 기능 추가
 
 ## How to Test
 - 자동 테스트와 로컬 시연 스크립트 실행
+
+[INFO] API 호출 횟수: 1
+[NOTICE] AI 초안입니다. 복사하기 전에 diff와 함께 사람이 검토하세요.
 ```
 
-PR 제목은 최대 80자이며 본문의 세 제목과 각 한 개 이상의 bullet을 검증합니다. 규칙을 어긴 AI 응답은 후처리하거나 명확한 오류로 중단합니다.
+---
 
-## 6. 코드 구조
+### 3. 예외 및 특수 상황 처리
+
+- **변경 사항이 없는 경우**:
+  ```text
+  [INFO] 변경 사항이 없습니다. AI API를 호출하지 않습니다.
+  ```
+- **API Key가 설정되지 않은 경우**:
+  ```text
+  [ERROR] AI_API_KEY 환경 변수가 없습니다. README의 설정 방법을 확인하세요.
+  ```
+- **인증 실패 / 네트워크 오류 시**:
+  ```text
+  [ERROR] API 키가 거부되었습니다. AI_API_KEY를 확인하세요.
+  [ERROR] 네트워크 연결에 실패했습니다: <상세 원인>
+  ```
+
+---
+
+## ⚙️ CLI 옵션 상세 안내
+
+```text
+python main.py {commit,pr} [옵션]
+```
+
+| 옵션 | 단축 별칭 | 기본값 | 허용 범위 | 설명 |
+|---|---|---|---|---|
+| `--model` | `-model` | `gpt-5.4-mini` | 문자열 | 사용할 AI 모델 이름 |
+| `--temperature` | `-temperature` | `0.2` | `0.0` ~ `2.0` | 생성 창의성 정도 |
+| `--max-tokens` | `-max_tokens` | `500` | `64` ~ `2000` | 최대 출력 토큰 수 |
+| `--safe-mode` | `--no-safe-mode` | `True` (ON) | 불리언 | 민감정보 마스킹 및 diff 제한 활성화 |
+| `--max-files` | - | `10` | `1` ~ `100` | AI에 전송할 최대 파일 수 |
+| `--max-diff-lines` | - | `200` | `1` ~ `5000` | AI에 전송할 최대 diff 줄 수 |
+| `--dry-run` | - | `False` | 플래그 | API 호출 없이 생성된 프롬프트만 출력 |
+| `--convention-file` | - | `None` | 파일 경로 | 커스텀 컨벤션 JSON 파일 경로 |
+
+---
+
+## 🛡️ 안전 모드 및 운영/비용 관리
+
+1. **민감정보 보호**:
+   - `safe-mode`가 켜져 있으면 diff 내 이메일, 전화번호, API Key 패턴(`sk-...`, Bearer 등), 비밀번호 등이 자동 감지되어 `[MASKED]`로 치환됩니다.
+2. **토큰 및 비용 제한**:
+   - diff 크기가 과도하게 커지면 기본 최대 10개 파일, 200줄까지만 잘라서 전송하므로 컨텍스트 초과 및 비용 급증을 방지합니다.
+   - 단일 실행 시 AI API를 정확히 **1회**만 호출하며, 실행 종료 시 `API 호출 횟수: 1`을 명시합니다.
+3. **사람 중심의 최종 검토**:
+   - AI가 생성한 결과는 초안이므로, 직접 변경 diff와 대조하여 검토 후 `git commit -m` 또는 GitHub PR에 복사·붙여넣기하여 반영합니다.
+
+---
+
+## 📂 프로젝트 구조
 
 ```text
 b6-2/
-├── main.py                         # 실행 진입점
-├── src/ai_gitgen/
-│   ├── cli.py                      # 옵션과 전체 흐름
-│   ├── git_reader.py               # status/diff 수집
-│   ├── safety.py                   # 마스킹·파일/줄 제한
-│   ├── prompts.py                  # commit/PR 프롬프트
-│   ├── api_client.py               # AI API 1회 호출
-│   ├── validators.py               # JSON·제목·본문 검증
-│   ├── config.py                   # 보너스 규칙 파일
-│   └── models.py                   # 데이터 구조
-├── tests/                          # 모의 API와 자동 테스트
-├── diagrams/                       # diagram-design 독립 실행형 HTML
-└── bonus/                          # 기본 평가와 분리한 보너스 자료
+├── main.py                         # CLI 진입점
+├── src/
+│   └── ai_gitgen/
+│       ├── __init__.py             # 패키지 메타데이터
+│       ├── cli.py                  # 옵션 파서 및 전체 파이프라인
+│       ├── git_reader.py           # 저장소 검증 및 git status/diff 수집
+│       ├── safety.py               # 마스킹 및 전송 크기 제어
+│       ├── prompts.py              # 모드별 프롬프트 빌더
+│       ├── api_client.py           # OpenAI 호환 Chat Completions 클라이언트
+│       ├── validators.py           # 길이 및 마크다운 헤더 유효성 검증
+│       ├── config.py               # JSON 기반 컨벤션 로더
+│       └── models.py               # 데이터 구조체 (GitChanges, SafeChanges 등)
+├── tests/                          # 단위 테스트 및 로컬 모의 API
+│   ├── mock_ai_server.py           # 외부 비용 없는 로컬 모의 HTTP 서버
+│   ├── test_cli.py                 # CLI 옵션 및 엔드투엔드 테스트
+│   ├── test_validators.py          # 길이/섹션 유효성 검증 테스트
+│   └── verify_links.py             # 문서 링크 및 파일 정합성 검사기
+├── diagrams/                       # 아키텍처 및 처리 흐름 다이어그램
+│   └── 04_ai-gitgen-flow.html      # Pan/Zoom 지원 인터랙티브 흐름도
+├── bonus/                          # 보너스 과제 자료
+│   ├── README_BONUS.md             # 보너스 설명서
+│   ├── PR_EVIDENCE_TEMPLATE.md     # 실제 PR 증빙 템플릿
+│   ├── convention_example.json     # 커스텀 컨벤션 규칙 예시
+│   ├── 01_compare_convention.sh    # 컨벤션 적용 전/후 비교 스크립트
+│   └── 02_compare_safe_mode.sh     # safe-mode ON/OFF 비교 스크립트
+├── 01_setup.sh                     # 환경 확인 스크립트
+├── 02_run_demo.sh                  # 로컬 모의 서버 기반 전체 시연 스크립트
+├── 03_run_tests.sh                 # 자동 테스트 실행 스크립트
+├── 05_diagram_viewer.html          # 다이어그램 뷰어
+└── 06_verify_submission.sh         # 제출물 최종 정합성 검증 스크립트
 ```
 
-처리 순서는 `collect_changes()` → `protect_changes()` → `build_prompt()` → `request_completion()` → `format_commit()` 또는 `format_pr()`입니다. 이 관계는 [처리 흐름도](diagrams/04_ai-gitgen-flow.html)에도 같은 순서로 표현했습니다.
+---
 
-## 7. 안전성과 비용
+## 🧪 테스트 및 시연 스크립트
 
-- API 키는 `AI_API_KEY`에서만 읽고 코드·설정·로그에 저장하지 않습니다.
-- safe mode는 이메일, `sk-...`, Bearer 토큰, key/secret/password/token 값을 `[MASKED]`로 바꿉니다.
-- 기본 입력은 10개 파일, diff 200줄로 제한해 민감정보 노출과 토큰 비용을 줄입니다.
-- 명령 하나당 API는 한 번만 호출하며 마지막에 호출 횟수를 표시합니다.
-- `--dry-run`으로 실제 전송 내용을 먼저 확인할 수 있습니다.
-- `--no-safe-mode`는 교육용 비교 외에는 사용하지 마세요.
-- AI 결과는 사실이 아닐 수 있으므로 실제 diff와 비교한 뒤 사람이 수정·사용해야 합니다.
-
-## 8. 테스트
+외부 API 호출 비용 없이 로컬 모의 API 서버를 활용해 모든 기능을 검증할 수 있습니다.
 
 ```bash
-bash 03_run_tests.sh
+# 1. 환경 확인 (Git 및 Python 3.10+)
+bash AI_SW/01_Basic/b6-2/01_setup.sh
+
+# 2. 임시 저장소와 모의 API 서버를 통한 전체 시연 (commit / pr)
+bash AI_SW/01_Basic/b6-2/02_run_demo.sh
+
+# 3. 단위 테스트 실행 (CLI 및 유효성 검증기)
+bash AI_SW/01_Basic/b6-2/03_run_tests.sh
+
+# 4. 제출 전 파일명, 링크, 문법, 테스트 종합 검증
+bash AI_SW/01_Basic/b6-2/06_verify_submission.sh
 ```
 
-검사 항목은 변경 없음, API 키 누락, 실제 로컬 HTTP commit/PR 생성, 옵션 전달, safe-mode 마스킹, 제목 길이, PR 필수 섹션입니다.
+---
 
-최종 제출 전:
+## 🎁 보너스 과제 안내
 
-```bash
-bash 06_verify_submission.sh
-```
+보너스 과제에 대한 상세 설명 및 실습 파일은 [bonus/README_BONUS.md](bonus/README_BONUS.md)를 참조하세요.
 
-## 9. 보너스 문제
-
-보너스는 [bonus/README_BONUS.md](bonus/README_BONUS.md)에 분리했습니다.
-
-- 실제 PR 증빙 양식
-- JSON 기반 팀 컨벤션 적용 전·후 비교
-- safe mode ON/OFF 비교
-
-실제 PR 링크는 학습자가 본인 저장소에서 수행한 뒤 증빙 양식에 직접 입력해야 합니다.
-
-## 10. 다이어그램 보기
-
-- [diagram-design 흐름도](diagrams/04_ai-gitgen-flow.html): inline SVG, 설명 텍스트와 확대·축소·드래그 기능을 포함한 독립 실행형 HTML
-- [호환용 뷰어](05_diagram_viewer.html): 기존 학습 순서의 파일명을 유지하면서 새 흐름도를 표시
-
-다이어그램은 Codex CLI에 설치된 `diagram-design` 플러그인 2.6.12의 기본 라이트 스타일로 작성했습니다. Git 변경 수집, safe mode, 프롬프트, 외부 AI API, 규칙 검증, 사람 최종 검토의 책임 경계를 색과 행으로 구분합니다.
+1. **실제 리포지토리 PR 적용 증빙**: [bonus/PR_EVIDENCE_TEMPLATE.md](bonus/PR_EVIDENCE_TEMPLATE.md) 양식 활용
+2. **팀 컨벤션 커스터마이징 비교**: [bonus/01_compare_convention.sh](bonus/01_compare_convention.sh) 실행
+3. **안전 모드 ON/OFF 비교**: [bonus/02_compare_safe_mode.sh](bonus/02_compare_safe_mode.sh) 실행
