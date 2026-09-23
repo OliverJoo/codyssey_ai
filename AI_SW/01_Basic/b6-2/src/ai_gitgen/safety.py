@@ -8,9 +8,13 @@ from .models import GitChanges, SafetyReport
 
 
 MASK_PATTERNS = (
+    # 이메일 주소
     re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"),
+    # sk-로 시작하는 API 키
     re.compile(r"\bsk-[A-Za-z0-9_-]{12,}\b"),
+    # Authorization 헤더 등에 쓰이는 Bearer 토큰
     re.compile(r"(?i)\bBearer\s+[A-Za-z0-9._~+/-]{12,}=*"),
+    # api_key, secret, password, token 형태의 키-값 쌍
     re.compile(
         r"(?i)(api[_-]?key|secret|password|token)(\s*[:=]\s*)([^\s,;]+)"
     ),
