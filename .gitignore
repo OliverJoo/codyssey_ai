@@ -25,6 +25,9 @@ tmp/
 classes/
 **/classes/
 
+# temp
+AI_SW/01_Basic/b6-1
+
 ### Flask ###
 instance/*
 !instance/.gitignore
