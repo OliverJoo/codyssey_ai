@@ -67,7 +67,7 @@ def collect_changes() -> GitChanges:
         sections.append("[UNSTAGED]\n" + unstaged)
     if not sections:
         sections.append("[DIFF 없음: 새 파일 경로는 status에서 확인]")
- 
+
     return GitChanges(
         root=str(root),
         branch=_run_git("branch", "--show-current") or "(detached HEAD)",
