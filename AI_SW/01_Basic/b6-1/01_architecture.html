@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>b6-1 AWS 공개 웹 서비스 아키텍처</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f3f5f7;--ink:#14213d;--muted:#475569;--soft:#64748b;--rule:#b8c2cf;--accent:#a67c20;--link:#1d4ed8}
+    *{box-sizing:border-box}body{margin:0;padding:48px;background:var(--paper);color:var(--ink);font-family:Geist,"Noto Sans KR",sans-serif}.page{max-width:1280px;margin:auto}.eyebrow{margin:0;color:var(--muted);font:500 12px/1.4 "Geist Mono",monospace;letter-spacing:.16em}.title{margin:8px 0 12px;font:400 clamp(36px,5vw,64px)/1.08 "Instrument Serif","Noto Serif KR",serif}.lede{max-width:840px;margin:0 0 28px;color:var(--muted);font-size:17px}.controls{display:flex;align-items:center;gap:10px;margin-bottom:16px}.controls input{position:absolute;opacity:0;pointer-events:none}.controls label{padding:9px 14px;border:1px solid var(--rule);border-radius:6px;background:#fff;cursor:pointer;font-weight:600}.controls input:focus-visible+label{outline:3px solid #1d4ed844}.controls input:checked+label{border-color:var(--accent);color:var(--accent);background:#fbf7ec}.hint{margin-left:auto;color:var(--soft);font-size:13px}.viewport{overflow:auto;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:20px 0}.canvas{width:100%;transform-origin:top left;transition:width .18s ease}.canvas svg{display:block;width:100%;height:auto}
+    #z75:checked~.viewport .canvas{width:75%}#z100:checked~.viewport .canvas{width:100%}#z125:checked~.viewport .canvas{width:125%}#z150:checked~.viewport .canvas{width:150%}#z200:checked~.viewport .canvas{width:200%}
+    footer{margin-top:20px;color:var(--soft);font:12px/1.6 "Geist Mono",monospace}.fallback{font-family:Geist,"Noto Sans KR",sans-serif}.tech{font-family:"Geist Mono",monospace}
+    @media(max-width:720px){body{padding:24px}.controls{flex-wrap:wrap}.hint{width:100%;margin:0}.viewport{padding-bottom:12px}.canvas{min-width:900px}}
+    @media(prefers-reduced-motion:reduce){.canvas{transition:none}}@media print{body{padding:20px}.controls{display:none}.viewport{overflow:visible}.canvas{width:100%!important}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <p class="eyebrow">ARCHITECTURE · SECURE PAVED ROAD · AWS SEOUL</p>
+    <h1 class="title">b6-1 공개 웹 서비스의 안전한 요청 경로</h1>
+    <p class="lede">외부 HTTP 요청은 하나의 승인된 경로만 따라 EC2에 도착하고, 공개 SSH 우회는 Security Group 앞에서 차단됩니다. IAM 작업과 제출 증거는 별도의 제어 흐름으로 표시했습니다.</p>
+
+    <div class="controls" role="radiogroup" aria-label="다이어그램 확대 비율">
+      <input id="z75" name="zoom" type="radio"><label for="z75">75%</label>
+      <input id="z100" name="zoom" type="radio" checked><label for="z100">100%</label>
+      <input id="z125" name="zoom" type="radio"><label for="z125">125%</label>
+      <input id="z150" name="zoom" type="radio"><label for="z150">150%</label>
+      <input id="z200" name="zoom" type="radio"><label for="z200">200%</label>
+      <span class="hint">Tab과 방향키로 배율 선택 · 확대 후 가로 스크롤</span>
+    </div>
+
+    <div class="viewport">
+      <div class="canvas">
+        <svg viewBox="0 0 1200 680" role="img" aria-labelledby="b6-architecture-title b6-architecture-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="b6-architecture-title">b6-1 AWS 공개 웹 서비스 아키텍처</title>
+          <desc id="b6-architecture-desc">외부 사용자의 HTTP 요청이 Internet Gateway, Public Route Table, Public Subnet의 Security Group을 지나 EC2 Nginx에 도착하고 공개 SSH는 차단되며 IAM 변경과 증거 수집이 분리된 구조다.</desc>
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#475569"/></marker>
+            <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#a67c20"/></marker>
+            <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#1d4ed8"/></marker>
+          </defs>
+          <rect width="1200" height="680" fill="#f3f5f7"/>
+
+          <!-- 신뢰 영역을 먼저 그린다. -->
+          <rect x="40" y="96" width="180" height="440" rx="8" fill="rgba(20,33,61,.02)" stroke="rgba(20,33,61,.12)"/>
+          <rect x="52" y="100" width="72" height="16" rx="2" fill="#f3f5f7"/><text x="88" y="112" fill="#64748b" font-size="8" class="tech" text-anchor="middle" letter-spacing="1.2">INTERNET</text>
+          <rect x="252" y="96" width="696" height="440" rx="8" fill="rgba(20,33,61,.02)" stroke="rgba(166,124,32,.5)" stroke-dasharray="4 4"/>
+          <rect x="264" y="100" width="136" height="16" rx="2" fill="#f3f5f7"/><text x="332" y="112" fill="#a67c20" font-size="8" class="tech" text-anchor="middle" letter-spacing="1.2">VPC 10.0.0.0/16</text>
+          <rect x="580" y="160" width="340" height="240" rx="8" fill="rgba(29,78,216,.025)" stroke="rgba(29,78,216,.38)" stroke-dasharray="4 4"/>
+          <rect x="592" y="164" width="176" height="16" rx="2" fill="#f3f5f7"/><text x="680" y="176" fill="#1d4ed8" font-size="8" class="tech" text-anchor="middle" letter-spacing="1">PUBLIC SUBNET 10.0.1.0/24</text>
+          <rect x="972" y="96" width="188" height="440" rx="8" fill="rgba(20,33,61,.02)" stroke="rgba(20,33,61,.12)"/>
+          <rect x="984" y="100" width="120" height="16" rx="2" fill="#f3f5f7"/><text x="1044" y="112" fill="#64748b" font-size="8" class="tech" text-anchor="middle" letter-spacing="1.2">CONTROL / AUDIT</text>
+
+          <!-- 승인된 HTTP 경로를 노드보다 먼저 그린다. -->
+          <line x1="192" y1="296" x2="292" y2="296" stroke="#1d4ed8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+          <line x1="412" y1="296" x2="444" y2="296" stroke="#1d4ed8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+          <line x1="564" y1="296" x2="596" y2="296" stroke="#1d4ed8" stroke-width="1.2" marker-end="url(#arrow-link)"/>
+          <line x1="716" y1="296" x2="760" y2="296" stroke="#a67c20" stroke-width="1.2" marker-end="url(#arrow-accent)"/>
+          <rect x="208" y="268" width="68" height="16" rx="2" fill="#f3f5f7"/><text x="242" y="280" fill="#1d4ed8" font-size="8" class="tech" text-anchor="middle">HTTP :80</text>
+
+          <!-- IAM 승인 변경 경로와 증거 수집 경로다. -->
+          <path d="M1004 216 H840 Q832 216 832 224 V232" fill="none" stroke="#475569" stroke-width="1.2" marker-end="url(#arrow)"/>
+          <rect x="892" y="188" width="88" height="16" rx="2" fill="#f3f5f7"/><text x="936" y="200" fill="#475569" font-size="8" class="tech" text-anchor="middle">AWS API</text>
+          <path d="M904 328 H940 Q948 328 948 336 V416 H1004" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+          <rect x="912" y="348" width="72" height="16" rx="2" fill="#f3f5f7"/><text x="948" y="360" fill="#64748b" font-size="8" class="tech" text-anchor="middle">EVIDENCE</text>
+
+          <!-- 공개 SSH 우회는 SG 앞에서 멈춘다. -->
+          <path d="M132 336 V464 Q132 472 140 472 H576" fill="none" stroke="#475569" stroke-width="1" stroke-dasharray="5 4"/>
+          <line x1="576" y1="460" x2="576" y2="484" stroke="#a67c20" stroke-width="2"/>
+          <circle cx="576" cy="472" r="12" fill="#f3f5f7" stroke="#a67c20" stroke-width="1.2"/><line x1="568" y1="464" x2="584" y2="480" stroke="#a67c20" stroke-width="1.2"/><line x1="584" y1="464" x2="568" y2="480" stroke="#a67c20" stroke-width="1.2"/>
+          <rect x="260" y="444" width="232" height="16" rx="2" fill="#f3f5f7"/><text x="376" y="456" fill="#475569" font-size="8" class="tech" text-anchor="middle">SSH :22 FROM 0.0.0.0/0 — BLOCKED</text>
+
+          <!-- 구성요소 노드 -->
+          <rect x="72" y="256" width="120" height="80" rx="6" fill="#fff" stroke="#64748b"/>
+          <text x="132" y="288" fill="#14213d" font-size="12" font-weight="600" class="fallback" text-anchor="middle">외부 사용자</text><text x="132" y="308" fill="#64748b" font-size="8" class="tech" text-anchor="middle">GET /health</text>
+
+          <rect x="292" y="256" width="120" height="80" rx="6" fill="#fff" stroke="#14213d"/>
+          <text x="352" y="288" fill="#14213d" font-size="12" font-weight="600" class="fallback" text-anchor="middle">Internet Gateway</text><text x="352" y="308" fill="#64748b" font-size="8" class="tech" text-anchor="middle">igw-* · attached</text>
+
+          <rect x="444" y="256" width="120" height="80" rx="6" fill="#fff" stroke="#14213d"/>
+          <text x="504" y="288" fill="#14213d" font-size="12" font-weight="600" class="fallback" text-anchor="middle">Public Route</text><text x="504" y="308" fill="#64748b" font-size="8" class="tech" text-anchor="middle">0.0.0.0/0 → IGW</text>
+
+          <rect x="596" y="256" width="120" height="80" rx="6" fill="rgba(166,124,32,.08)" stroke="#a67c20" stroke-width="1.2"/>
+          <text x="656" y="288" fill="#14213d" font-size="12" font-weight="600" class="fallback" text-anchor="middle">Security Group</text><text x="656" y="308" fill="#a67c20" font-size="8" class="tech" text-anchor="middle">80:any · 22:my /32</text>
+
+          <rect x="760" y="232" width="144" height="128" rx="6" fill="#fff" stroke="#14213d" stroke-width="1.2"/>
+          <rect x="772" y="244" width="44" height="16" rx="2" fill="rgba(20,33,61,.05)"/><text x="794" y="256" fill="#475569" font-size="8" class="tech" text-anchor="middle">EC2</text>
+          <text x="832" y="284" fill="#14213d" font-size="12" font-weight="600" class="fallback" text-anchor="middle">Nginx 웹 서버</text><text x="832" y="308" fill="#64748b" font-size="8" class="tech" text-anchor="middle">Public IPv4 · :80</text><text x="832" y="328" fill="#1d4ed8" font-size="8" class="tech" text-anchor="middle">/health → 200 OK</text>
+
+          <rect x="1004" y="176" width="128" height="80" rx="6" fill="#fff" stroke="#14213d"/>
+          <text x="1068" y="208" fill="#14213d" font-size="12" font-weight="600" class="fallback" text-anchor="middle">학습용 IAM</text><text x="1068" y="228" fill="#64748b" font-size="8" class="tech" text-anchor="middle">least privilege</text>
+
+          <rect x="1004" y="376" width="128" height="80" rx="6" fill="rgba(20,33,61,.05)" stroke="#475569"/>
+          <text x="1068" y="408" fill="#14213d" font-size="12" font-weight="600" class="fallback" text-anchor="middle">제출 증거</text><text x="1068" y="428" fill="#64748b" font-size="8" class="tech" text-anchor="middle">CLI · screenshot</text>
+
+          <!-- 하단 범례 -->
+          <line x1="40" y1="580" x2="1160" y2="580" stroke="rgba(20,33,61,.12)"/>
+          <text x="40" y="608" fill="#475569" font-size="8" class="tech" letter-spacing="1.2">LEGEND</text>
+          <line x1="132" y1="604" x2="180" y2="604" stroke="#1d4ed8" stroke-width="1.2" marker-end="url(#arrow-link)"/><text x="196" y="608" fill="#475569" font-size="8" class="tech">PERMITTED HTTP</text>
+          <line x1="356" y1="604" x2="404" y2="604" stroke="#475569" stroke-dasharray="5 4"/><text x="420" y="608" fill="#475569" font-size="8" class="tech">FORBIDDEN BYPASS</text>
+          <rect x="600" y="592" width="40" height="24" rx="4" fill="rgba(166,124,32,.08)" stroke="#a67c20"/><text x="656" y="608" fill="#475569" font-size="8" class="tech">ENFORCEMENT</text>
+          <rect x="820" y="592" width="40" height="24" rx="4" fill="none" stroke="rgba(166,124,32,.5)" stroke-dasharray="4 4"/><text x="876" y="608" fill="#475569" font-size="8" class="tech">TRUST BOUNDARY</text>
+        </svg>
+      </div>
+    </div>
+    <footer>b6-1 requirement map · financial-services profile · static accessible SVG</footer>
+  </main>
+</body>
+</html>
