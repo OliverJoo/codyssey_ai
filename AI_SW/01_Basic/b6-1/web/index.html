@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AWS 서울 리전에 배포한 Codyssey b6-1 웹 서비스">
+  <title>Codyssey Cloud Lab · b6-1</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --navy: #08111f;
+      --panel: rgba(19, 35, 55, .78);
+      --line: rgba(169, 190, 213, .18);
+      --text: #f4f7fb;
+      --muted: #9fb0c3;
+      --gold: #e7b95d;
+      --green: #68d391;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 82% 12%, rgba(41, 100, 146, .32), transparent 34rem),
+        radial-gradient(circle at 10% 90%, rgba(231, 185, 93, .12), transparent 28rem),
+        var(--navy);
+    }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    header { display: flex; align-items: center; justify-content: space-between; padding: 30px 0; }
+    .brand { display: flex; gap: 12px; align-items: center; font-weight: 750; letter-spacing: -.02em; }
+    .mark { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--gold); border-radius: 10px; color: var(--gold); }
+    .region { color: var(--muted); font: 600 13px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    main { padding: 88px 0 70px; }
+    .eyebrow { margin: 0 0 22px; color: var(--gold); font: 700 13px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { max-width: 860px; margin: 0; font-size: clamp(46px, 8vw, 92px); line-height: .98; letter-spacing: -.065em; }
+    .lead { max-width: 650px; margin: 30px 0 0; color: var(--muted); font-size: clamp(18px, 2.2vw, 23px); line-height: 1.65; }
+    .status { display: inline-flex; align-items: center; gap: 10px; margin-top: 34px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 999px; background: rgba(8, 17, 31, .5); color: #c8d4e1; font: 650 14px/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 5px rgba(231, 185, 93, .1); }
+    .status.ok .dot { background: var(--green); box-shadow: 0 0 0 5px rgba(104, 211, 145, .1); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 88px; }
+    .card { min-height: 188px; padding: 26px; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); backdrop-filter: blur(12px); }
+    .card small { color: var(--gold); font: 700 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; }
+    .card h2 { margin: 32px 0 10px; font-size: 22px; letter-spacing: -.025em; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 26px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    code { color: #dbe7f4; }
+    @media (max-width: 760px) {
+      header { align-items: flex-start; }
+      .region { text-align: right; }
+      main { padding-top: 58px; }
+      .grid { grid-template-columns: 1fr; margin-top: 60px; }
+      .card { min-height: 150px; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body data-project="codyssey-b6-1">
+  <div class="wrap">
+    <header>
+      <div class="brand"><span class="mark">C</span><span>Codyssey Cloud Lab</span></div>
+      <div class="region">AWS · ap-northeast-2<br>Amazon Linux 2023</div>
+    </header>
+    <main>
+      <p class="eyebrow">Mission b6-1 · Public Web Service</p>
+      <h1>서울 리전에서<br>안전하게 연결되었습니다.</h1>
+      <p class="lead">VPC와 Public Subnet을 직접 구성하고, Internet Gateway를 통해 Nginx 웹 서비스를 외부에 공개했습니다.</p>
+      <div class="status" id="service-status" role="status" aria-live="polite"><span class="dot"></span><span>상태 확인 중 · GET /health</span></div>
+      <section class="grid" aria-label="인프라 구성">
+        <article class="card"><small>NETWORK</small><h2>격리된 VPC</h2><p><code>10.0.0.0/16</code> 안의 Public Subnet과 Internet Gateway로 외부 트래픽 흐름을 구성했습니다.</p></article>
+        <article class="card"><small>COMPUTE</small><h2>EC2 + Nginx</h2><p>micro 인스턴스와 8GiB gp3 볼륨에서 정적 페이지와 헬스체크를 제공합니다.</p></article>
+        <article class="card"><small>SECURITY</small><h2>필요한 포트만</h2><p>HTTP 80은 공개하고 SSH 22는 학습자 IPv4 하나의 <code>/32</code>로 제한했습니다.</p></article>
+      </section>
+    </main>
+    <footer><span>Codyssey · AI/SW Basic</span><span>Health endpoint: <code>/health</code></span></footer>
+  </div>
+  <script>
+    fetch('/health', { cache: 'no-store' })
+      .then((response) => {
+        if (!response.ok) throw new Error(String(response.status));
+        return response.text();
+      })
+      .then((body) => {
+        if (body.trim() !== 'OK') throw new Error('unexpected response');
+        const status = document.querySelector('#service-status');
+        status.classList.add('ok');
+        status.lastElementChild.textContent = '서비스 정상 · GET /health → 200 OK';
+      })
+      .catch(() => {
+        document.querySelector('#service-status').lastElementChild.textContent = '헬스체크 응답을 확인하세요';
+      });
+  </script>
+</body>
+</html>
