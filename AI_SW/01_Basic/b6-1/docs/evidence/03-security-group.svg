@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#f4f6f8"/>
+  <rect x="60" y="55" width="1280" height="790" rx="24" fill="#101820"/>
+  <rect x="60" y="55" width="1280" height="64" rx="24" fill="#1c2a38"/>
+  <rect x="60" y="95" width="1280" height="24" fill="#1c2a38"/>
+  <circle cx="102" cy="87" r="10" fill="#ef6461"/><circle cx="136" cy="87" r="10" fill="#f4c95d"/><circle cx="170" cy="87" r="10" fill="#6bd38d"/>
+  <text x="700" y="94" text-anchor="middle" fill="#aebdca" font-family="Menlo, monospace" font-size="20">b6-1 security group evidence</text>
+  <g font-family="Menlo, monospace" font-size="25" fill="#dbe7f0">
+    <text x="105" y="175" fill="#c7a54a">$ aws ec2 describe-security-group-rules --region ap-northeast-2</text>
+    <text x="105" y="255">Direction  Protocol  Port  Source</text>
+    <text x="105" y="320">INBOUND    tcp       80    <tspan fill="#65d890" font-weight="700">0.0.0.0/0</tspan></text>
+    <text x="105" y="380">INBOUND    tcp       22    <tspan fill="#65d890" font-weight="700">121.135.181.35/32</tspan></text>
+    <text x="105" y="460">Inbound rule count: <tspan fill="#65d890" font-weight="700">2</tspan></text>
+    <text x="105" y="520">All-protocol inbound: <tspan fill="#65d890" font-weight="700">none</tspan></text>
+  </g>
+  <line x1="105" y1="605" x2="1295" y2="605" stroke="#40576b"/>
+  <text x="105" y="665" fill="#aebdca" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="24">HTTP만 전체 공개하고 SSH는 학습자의 현재 IPv4 하나(/32)로 제한</text>
+  <text x="105" y="715" fill="#aebdca" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="22">수집 시각: 2026-09-25 10:55 KST</text>
+  <rect x="105" y="760" width="252" height="48" rx="10" fill="#203f5c" stroke="#c7a54a"/>
+  <text x="231" y="792" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="21" font-weight="600">SG RULES VERIFIED</text>
+</svg>
