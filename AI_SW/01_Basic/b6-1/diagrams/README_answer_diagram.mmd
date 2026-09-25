@@ -1,0 +1,28 @@
+graph TD
+    USER["외부 사용자"] -->|"GET /health"| PUBLIC_IP["EC2 퍼블릭 IPv4"]
+    PUBLIC_IP --> IGW["인터넷 게이트웨이"]
+    IGW --> ROUTE["퍼블릭 서브넷 경로"]
+    ROUTE --> SG{"SG가 80 허용?"}
+    SG -->|"예"| NGINX["EC2 Nginx /health"]
+    NGINX -->|"고정 응답"| OK["200 OK"]
+    SG -->|"아니오"| NETWORK["Route·IGW·IP·SG 점검"]
+
+    VERIFY["06 검증 스크립트"] --> TOPOLOGY{"구성 조회 통과?"}
+    TOPOLOGY -->|"예"| EXTERNAL{"외부 응답 OK?"}
+    TOPOLOGY -->|"아니오"| NETWORK
+    EXTERNAL -->|"예"| EVIDENCE["동일 요청 재검증·증거"]
+    EXTERNAL -->|"아니오"| LOCAL{"localhost는 OK?"}
+    LOCAL -->|"예"| NETWORK
+    LOCAL -->|"아니오"| APP["cloud-init·Nginx 점검"]
+    NETWORK --> FIX["한 계층만 수정"]
+    APP --> FIX
+    FIX -->|"같은 검사 반복"| VERIFY
+
+    classDef request fill:#DBEAFE,stroke:#2563EB,color:#172554;
+    classDef decision fill:#FEF3C7,stroke:#D97706,color:#451A03;
+    classDef recover fill:#FEE2E2,stroke:#DC2626,color:#450A0A;
+    classDef success fill:#DCFCE7,stroke:#16A34A,color:#052E16;
+    class USER,PUBLIC_IP,IGW,ROUTE,NGINX,VERIFY request;
+    class SG,TOPOLOGY,EXTERNAL,LOCAL decision;
+    class NETWORK,APP,FIX recover;
+    class OK,EVIDENCE success;
