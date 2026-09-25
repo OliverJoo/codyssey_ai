@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>b6-1 외부 접속 장애 진단 흐름</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; --paper:#f3f5f7; --ink:#14213d; --muted:#475569; --soft:#64748b; --rule:#b8c2cf; --accent:#a67c20; --link:#1d4ed8; }
+    * { box-sizing:border-box; }
+    body { margin:0; padding:20px; background:var(--paper); color:var(--ink); font:15px/1.55 'Geist','Noto Sans KR',sans-serif; }
+    header { max-width:960px; margin:0 auto 8px; }
+    .eyebrow { margin:0 0 4px; color:var(--muted); font:500 12px/1.4 'Geist Mono',monospace; letter-spacing:.12em; }
+    h1 { margin:0; font:400 clamp(24px,3vw,30px)/1.25 'Instrument Serif','Noto Serif KR',serif; }
+    svg { display:block; width:100%; max-width:960px; height:auto; margin:auto; }
+    .caption { max-width:880px; margin:0 auto; padding:12px 16px; border-left:3px solid var(--accent); color:var(--muted); background:#fff; }
+    .caption strong { color:var(--ink); }
+    @media print { body { padding:0; } }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">B6-1 · TROUBLESHOOTING</p>
+    <h1>외부 /health가 실패할 때의 첫 분기</h1>
+  </header>
+  <svg viewBox="0 0 960 600" role="img" aria-labelledby="troubleshooting-flow-title troubleshooting-flow-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="troubleshooting-flow-title">외부 헬스체크 실패 시 내부 서비스와 외부 경로를 구분하는 흐름도</title>
+    <desc id="troubleshooting-flow-desc">외부 요청 실패 후 EC2 내부의 localhost 헬스체크 결과에 따라 Nginx와 cloud-init 또는 공인 IP, 보안 그룹, 라우팅과 Internet Gateway를 조사한다. 실제 장애는 Nginx 설치 실패 경로였다.</desc>
+    <defs>
+      <marker id="troubleshooting-flow-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#475569"/></marker>
+      <marker id="troubleshooting-flow-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#a67c20"/></marker>
+      <marker id="troubleshooting-flow-arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#1d4ed8"/></marker>
+    </defs>
+    <rect width="960" height="600" fill="#f3f5f7"/>
+    <!-- Connectors are behind the nodes. -->
+    <line x1="480" y1="116" x2="480" y2="168" stroke="#475569" stroke-width="2" marker-end="url(#troubleshooting-flow-arrow)"/>
+    <line x1="592" y1="232" x2="656" y2="232" stroke="#1d4ed8" stroke-width="2" marker-end="url(#troubleshooting-flow-arrow-link)"/>
+    <line x1="480" y1="296" x2="480" y2="344" stroke="#a67c20" stroke-width="2" marker-end="url(#troubleshooting-flow-arrow-accent)"/>
+    <!-- Branch labels are separated from their strokes by at least 8px. -->
+    <rect x="608" y="196" width="32" height="16" rx="4" fill="#f3f5f7"/>
+    <text x="624" y="208" text-anchor="middle" fill="#1d4ed8" font-size="12" font-family="'Geist Mono',monospace">YES</text>
+    <rect x="500" y="312" width="32" height="16" rx="4" fill="#f3f5f7"/>
+    <text x="516" y="324" text-anchor="middle" fill="#a67c20" font-size="12" font-family="'Geist Mono',monospace">NO</text>
+    <!-- Start -->
+    <rect x="352" y="52" width="256" height="64" rx="32" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+    <text x="480" y="80" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">External /health fails</text>
+    <text x="480" y="100" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Geist Mono',monospace">PUBLIC_IP:80</text>
+    <!-- Decision -->
+    <path d="M 480 168 L 592 232 L 480 296 L 368 232 Z" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+    <text x="480" y="228" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">localhost/health</text>
+    <text x="480" y="248" text-anchor="middle" fill="#475569" font-size="12" font-family="'Geist Mono',monospace">returns 200 + OK?</text>
+    <!-- External route branch -->
+    <rect x="656" y="188" width="256" height="88" rx="8" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+    <text x="784" y="220" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">Check network path</text>
+    <text x="784" y="244" text-anchor="middle" fill="#475569" font-size="12" font-family="'Geist Mono',monospace">IP · SG:80 · route · IGW</text>
+    <!-- Service branch -->
+    <rect x="352" y="344" width="256" height="88" rx="8" fill="rgba(166,124,32,.09)" stroke="#a67c20" stroke-width="2"/>
+    <text x="480" y="376" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">Check service startup</text>
+    <text x="480" y="400" text-anchor="middle" fill="#475569" font-size="12" font-family="'Geist Mono',monospace">cloud-init · Nginx · listen:80</text>
+    <line x1="40" y1="516" x2="920" y2="516" stroke="#b8c2cf"/>
+    <text x="40" y="544" fill="#475569" font-size="12" font-family="'Geist Mono',monospace">ACTUAL INCIDENT</text>
+    <text x="40" y="572" fill="#14213d" font-size="16" font-family="'Geist','Noto Sans KR',sans-serif">EC2와 네트워크는 정상 → curl-minimal 충돌로 Nginx 설치 실패 → 설치 명령 수정 후 재검증</text>
+  </svg>
+  <p class="caption"><strong>실제 조사 경로:</strong> 내부 응답도 실패한 가지를 따라 cloud-init 로그를 확인했다. 조치와 재발 방지는 원문 <a href="../docs/troubleshooting.md">트러블슈팅 보고서</a>에 기록돼 있다.</p>
+</body>
+</html>

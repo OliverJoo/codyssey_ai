@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VPC 실습 핵심 용어 관계도</title>
+  <style>
+    :root {
+      --paper: #f3f5f7;
+      --paper-2: #e7ebf0;
+      --ink: #14213d;
+      --muted: #475569;
+      --soft: #64748b;
+      --rule: rgba(20, 33, 61, .14);
+      --rule-solid: #b8c2cf;
+      --accent: #a67c20;
+      --accent-tint: rgba(166, 124, 32, .09);
+      --link: #1d4ed8;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Segoe UI", sans-serif;
+    }
+    .frame {
+      width: min(1280px, 100%);
+      margin: 0 auto;
+      padding: 24px 28px 20px;
+    }
+    .eyebrow {
+      margin: 0 0 7px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.2;
+    }
+    .intro {
+      max-width: 900px;
+      margin: 9px 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .legend i { display: inline-block; width: 21px; height: 9px; border-radius: 6px; }
+    .legend .packet i { background: var(--link); }
+    .legend .control i { border-top: 2px dashed var(--soft); }
+    .legend .boundary i { border: 1px dashed var(--accent); background: var(--accent-tint); }
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+    .zone { fill: rgba(255,255,255,.55); stroke: var(--rule-solid); stroke-width: 2; stroke-dasharray: 9 7; }
+    .zone.vpc { fill: rgba(231,235,240,.45); stroke: rgba(20,33,61,.4); }
+    .zone.subnet { fill: rgba(255,255,255,.8); stroke: rgba(166,124,32,.72); }
+    .zone-label { fill: var(--ink); font-size: 16px; font-weight: 700; }
+    .zone-note { fill: var(--soft); font-size: 12px; }
+    .node { fill: var(--white); stroke: var(--rule-solid); stroke-width: 2; }
+    .node.focus { stroke: var(--accent); stroke-width: 3; }
+    .node-title { fill: var(--ink); font-size: 16px; font-weight: 700; }
+    .node-sub { fill: var(--muted); font-size: 12px; }
+    .node-mono { fill: var(--soft); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; }
+    .flow { fill: none; stroke: var(--link); stroke-width: 3; marker-end: url(#concept-vocabulary-map-arrow); }
+    .flow-dashed { fill: none; stroke: var(--soft); stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#concept-vocabulary-map-arrow-muted); }
+    .flow-label { fill: var(--link); font-size: 12px; font-weight: 700; }
+    .flow-label-muted { fill: var(--soft); font-size: 11px; font-weight: 600; }
+    .label-bg { fill: var(--paper); opacity: .97; }
+    .callout { fill: var(--accent-tint); stroke: rgba(166,124,32,.42); stroke-width: 1; }
+    .callout-text { fill: #6a4d0b; font-size: 12px; font-weight: 600; }
+    .footer-note { fill: var(--soft); font-size: 12px; }
+    @media (max-width: 800px) {
+      .frame { padding: 18px 12px 14px; }
+      .intro { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="frame">
+    <p class="eyebrow">B6-1 · beginner vocabulary map</p>
+    <h1>VPC 실습 용어가 실제 요청과 관리 작업에서 만나는 지점</h1>
+    <p class="intro">파란 선은 브라우저의 <code>GET /health</code>가 지나가는 데이터 경로이고, 점선은 AWS CLI·IAM이 리소스를 만들고 조회하는 관리 경로입니다. VPC와 Public Subnet은 경계와 주소를, Route Table·IGW·Security Group은 통신 조건을, EC2·Nginx·EBS는 실행 대상을 설명합니다.</p>
+    <div class="legend" aria-label="도식 범례">
+      <span class="packet"><i></i>서비스 요청 경로</span>
+      <span class="control"><i></i>AWS 관리 경로</span>
+      <span class="boundary"><i></i>주소·보안 경계</span>
+    </div>
+
+    <svg viewBox="0 0 1280 720" role="img" aria-labelledby="concept-vocabulary-map-title concept-vocabulary-map-desc">
+      <title id="concept-vocabulary-map-title">VPC 실습 핵심 용어 관계도</title>
+      <desc id="concept-vocabulary-map-desc">외부 브라우저의 HTTP 요청이 인터넷 게이트웨이, 라우트 테이블, 보안 그룹을 거쳐 Public Subnet 안의 EC2와 Nginx에 도달한다. EC2에는 EBS가 연결되고, 오른쪽의 IAM 정책과 AWS API는 별도의 관리 경로로 리소스를 제어한다.</desc>
+      <defs>
+        <marker id="concept-vocabulary-map-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d4ed8"></path>
+        </marker>
+        <marker id="concept-vocabulary-map-arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"></path>
+        </marker>
+      </defs>
+
+      <!-- trust boundaries -->
+      <rect class="zone" x="28" y="170" width="178" height="282" rx="16"></rect>
+      <rect class="zone vpc" x="230" y="72" width="780" height="504" rx="20"></rect>
+      <rect class="zone subnet" x="620" y="170" width="365" height="350" rx="16"></rect>
+      <rect class="zone" x="1040" y="170" width="210" height="350" rx="16"></rect>
+      <text class="zone-label" x="250" y="104">VPC · 10.0.0.0/16</text>
+      <text class="zone-note" x="250" y="126">실습 네트워크 전체 주소 범위</text>
+      <text class="zone-label" x="640" y="202">Public Subnet · 10.0.1.0/24</text>
+      <text class="zone-note" x="640" y="224">한 AZ에 배정한 리소스 구역</text>
+      <text class="zone-label" x="1060" y="202">AWS 관리 평면</text>
+      <text class="zone-note" x="1060" y="224">패킷 경로와 분리된 제어 작업</text>
+
+      <!-- data plane arrows are placed before boxes so they stay behind nodes -->
+      <path class="flow" d="M 206 310 H 286"></path>
+      <path class="flow" d="M 402 310 H 448"></path>
+      <path class="flow" d="M 580 310 H 650"></path>
+      <path class="flow" d="M 780 310 H 818"></path>
+      <path class="flow" d="M 887 362 V 399"></path>
+      <rect class="label-bg" x="223" y="274" width="116" height="24" rx="6"></rect>
+      <text class="flow-label" x="231" y="290">TCP 80 / HTTP</text>
+      <rect class="label-bg" x="407" y="274" width="150" height="24" rx="6"></rect>
+      <text class="flow-label" x="415" y="290">0.0.0.0/0 → IGW</text>
+      <rect class="label-bg" x="574" y="274" width="105" height="24" rx="6"></rect>
+      <text class="flow-label" x="582" y="290">local route</text>
+      <rect class="label-bg" x="758" y="274" width="109" height="24" rx="6"></rect>
+      <text class="flow-label" x="766" y="290">ingress :80</text>
+      <text class="flow-label" x="901" y="388">attached disk</text>
+
+      <!-- management plane arrows -->
+      <path class="flow-dashed" d="M 1145 335 V 370"></path>
+      <path class="flow-dashed" d="M 1040 416 H 1000 V 230 H 887 V 242"></path>
+      <rect class="label-bg" x="1152" y="341" width="80" height="23" rx="6"></rect>
+      <text class="flow-label-muted" x="1159" y="356">assume role</text>
+      <rect class="label-bg" x="941" y="204" width="113" height="23" rx="6"></rect>
+      <text class="flow-label-muted" x="948" y="219">run/describe</text>
+
+      <!-- nodes -->
+      <rect class="node" x="52" y="274" width="154" height="72" rx="12"></rect>
+      <text class="node-title" x="129" y="302" text-anchor="middle">외부 브라우저</text>
+      <text class="node-sub" x="129" y="323" text-anchor="middle">curl / 평가자 PC</text>
+      <text class="node-mono" x="129" y="340" text-anchor="middle">GET /health</text>
+
+      <rect class="node" x="286" y="274" width="116" height="72" rx="12"></rect>
+      <text class="node-title" x="344" y="302" text-anchor="middle">Internet</text>
+      <text class="node-title" x="344" y="322" text-anchor="middle">Gateway</text>
+      <text class="node-sub" x="344" y="339" text-anchor="middle">IGW · VPC 출입구</text>
+
+      <rect class="node" x="448" y="274" width="132" height="72" rx="12"></rect>
+      <text class="node-title" x="514" y="302" text-anchor="middle">Route Table</text>
+      <text class="node-sub" x="514" y="322" text-anchor="middle">길 찾기 규칙</text>
+      <text class="node-mono" x="514" y="339" text-anchor="middle">local + 0.0.0.0/0</text>
+
+      <rect class="node focus" x="650" y="274" width="130" height="72" rx="12"></rect>
+      <text class="node-title" x="715" y="302" text-anchor="middle">Security Group</text>
+      <text class="node-sub" x="715" y="322" text-anchor="middle">stateful 방화벽</text>
+      <text class="node-mono" x="715" y="339" text-anchor="middle">80 공개 · 22 /32</text>
+
+      <rect class="node focus" x="818" y="242" width="138" height="120" rx="12"></rect>
+      <text class="node-title" x="887" y="274" text-anchor="middle">EC2</text>
+      <text class="node-sub" x="887" y="296" text-anchor="middle">가상 서버 · public IPv4</text>
+      <text class="node-mono" x="887" y="319" text-anchor="middle">52.78.119.46</text>
+      <text class="node-title" x="887" y="344" text-anchor="middle">Nginx :80</text>
+
+      <rect class="node" x="818" y="399" width="138" height="64" rx="12"></rect>
+      <text class="node-title" x="887" y="426" text-anchor="middle">EBS gp3</text>
+      <text class="node-sub" x="887" y="446" text-anchor="middle">영구 디스크 · 8 GiB</text>
+
+      <rect class="node" x="1060" y="236" width="170" height="76" rx="12"></rect>
+      <text class="node-title" x="1145" y="266" text-anchor="middle">AWS CLI / API</text>
+      <text class="node-sub" x="1145" y="287" text-anchor="middle">run · describe · delete</text>
+      <text class="node-mono" x="1145" y="304" text-anchor="middle">control plane</text>
+
+      <rect class="node" x="1060" y="370" width="170" height="92" rx="12"></rect>
+      <text class="node-title" x="1145" y="400" text-anchor="middle">IAM 정책</text>
+      <text class="node-sub" x="1145" y="421" text-anchor="middle">누가 어떤 API를 실행할까?</text>
+      <text class="node-mono" x="1145" y="441" text-anchor="middle">최소권한 · 리전 조건</text>
+
+      <rect class="callout" x="52" y="392" width="154" height="40" rx="9"></rect>
+      <text class="callout-text" x="129" y="417" text-anchor="middle">Public IPv4로 접근</text>
+      <rect class="callout" x="650" y="478" width="305" height="28" rx="8"></rect>
+      <text class="callout-text" x="802" y="497" text-anchor="middle">Public = 경로 + 주소 + 허용 규칙이 모두 맞음</text>
+
+      <text class="footer-note" x="28" y="622">읽는 순서: 주소 범위(VPC/CIDR) → 구역(Subnet) → 길(Route Table/IGW) → 문(Security Group) → 서버(EC2/Nginx/EBS)</text>
+      <text class="footer-note" x="28" y="646">관리 작업은 IAM이 허용한 AWS API를 통해 일어나며, 웹 요청이 통과하는 보안 그룹 규칙과는 별개의 판단이다.</text>
+      <line x1="28" y1="674" x2="1252" y2="674" stroke="rgba(20,33,61,.14)" stroke-width="1"></line>
+      <text class="footer-note" x="28" y="698">B6-1 학습용 도식 · 세부 값은 README_answer.md의 스크립트·증거 링크에서 확인</text>
+    </svg>
+  </main>
+</body>
+</html>

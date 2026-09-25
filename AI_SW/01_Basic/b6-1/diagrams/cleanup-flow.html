@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>b6-1 AWS 리소스 정리와 잔존 검증</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme:light; --paper:#f3f5f7; --ink:#14213d; --muted:#475569; --accent:#a67c20; }
+    * { box-sizing:border-box; }
+    body { margin:0; padding:20px; background:var(--paper); color:var(--ink); font:15px/1.55 'Geist','Noto Sans KR',sans-serif; }
+    header { max-width:960px; margin:0 auto 8px; }
+    .eyebrow { margin:0 0 4px; color:var(--muted); font:500 12px/1.4 'Geist Mono',monospace; letter-spacing:.12em; }
+    h1 { margin:0; font:400 clamp(24px,3vw,30px)/1.25 'Instrument Serif','Noto Serif KR',serif; }
+    svg { display:block; width:100%; max-width:960px; height:auto; margin:auto; }
+    .caption { max-width:880px; margin:0 auto; padding:12px 16px; border-left:3px solid var(--accent); color:var(--muted); background:#fff; }
+    .caption strong { color:var(--ink); }
+    @media print { body { padding:0; } }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="eyebrow">B6-1 · RESOURCE LIFECYCLE</p>
+    <h1>정리 실행 순서와 완료 판정</h1>
+  </header>
+  <svg viewBox="0 0 960 600" role="img" aria-labelledby="cleanup-flow-title cleanup-flow-desc" xmlns="http://www.w3.org/2000/svg">
+    <title id="cleanup-flow-title">AWS 리소스 정리 순서와 잔존 수 검사 흐름도</title>
+    <desc id="cleanup-flow-desc">저장된 리소스 ID와 프로젝트 태그를 확인한 뒤 EC2를 종료하고 EBS 해제를 기다린다. 라우팅과 네트워크 의존성을 제거한 뒤 EC2, EBS, EIP, IGW, VPC 잔존 수가 모두 0이면 상태 파일을 지우고 Billing을 확인한다. 남아 있으면 상태 파일을 보존한다.</desc>
+    <defs>
+      <marker id="cleanup-flow-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#475569"/></marker>
+      <marker id="cleanup-flow-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#a67c20"/></marker>
+      <marker id="cleanup-flow-arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#1d4ed8"/></marker>
+    </defs>
+    <rect width="960" height="600" fill="#f3f5f7"/>
+    <!-- Connectors first: the sequence is top to bottom, then a guarded branch. -->
+    <line x1="480" y1="112" x2="480" y2="144" stroke="#475569" stroke-width="2" marker-end="url(#cleanup-flow-arrow)"/>
+    <line x1="480" y1="216" x2="480" y2="248" stroke="#475569" stroke-width="2" marker-end="url(#cleanup-flow-arrow)"/>
+    <line x1="480" y1="328" x2="480" y2="360" stroke="#475569" stroke-width="2" marker-end="url(#cleanup-flow-arrow)"/>
+    <line x1="584" y1="424" x2="680" y2="424" stroke="#a67c20" stroke-width="2" marker-end="url(#cleanup-flow-arrow-accent)"/>
+    <line x1="480" y1="488" x2="480" y2="516" stroke="#475569" stroke-width="2" marker-end="url(#cleanup-flow-arrow)"/>
+    <rect x="612" y="388" width="44" height="16" rx="4" fill="#f3f5f7"/>
+    <text x="634" y="400" text-anchor="middle" fill="#a67c20" font-size="12" font-family="'Geist Mono',monospace">ZERO</text>
+    <rect x="504" y="492" width="52" height="16" rx="4" fill="#f3f5f7"/>
+    <text x="530" y="504" text-anchor="middle" fill="#475569" font-size="12" font-family="'Geist Mono',monospace">REMAIN</text>
+    <!-- Gates and actions -->
+    <rect x="344" y="48" width="272" height="64" rx="32" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+    <text x="480" y="76" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">Confirm target</text>
+    <text x="480" y="96" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Geist Mono',monospace">resource ID + Project tag</text>
+    <rect x="344" y="144" width="272" height="72" rx="8" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+    <text x="480" y="176" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">Terminate EC2</text>
+    <text x="480" y="200" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Geist Mono',monospace">wait for EBS / ENI release</text>
+    <rect x="344" y="248" width="272" height="80" rx="8" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+    <text x="480" y="280" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">Remove dependencies</text>
+    <text x="480" y="304" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Geist Mono',monospace">route · SG · subnet · IGW · VPC</text>
+    <path d="M 480 360 L 584 424 L 480 488 L 376 424 Z" fill="rgba(166,124,32,.09)" stroke="#a67c20" stroke-width="2"/>
+    <text x="480" y="420" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">5 resource types</text>
+    <text x="480" y="440" text-anchor="middle" fill="#475569" font-size="12" font-family="'Geist Mono',monospace">remaining = 0?</text>
+    <rect x="680" y="380" width="232" height="88" rx="8" fill="#ffffff" stroke="#14213d" stroke-width="2"/>
+    <text x="796" y="412" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">Finish cleanup</text>
+    <text x="796" y="436" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Geist Mono',monospace">remove state + check Billing</text>
+    <rect x="344" y="516" width="272" height="64" rx="8" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+    <text x="480" y="544" text-anchor="middle" fill="#14213d" font-size="16" font-weight="600" font-family="'Geist','Noto Sans KR',sans-serif">Preserve state</text>
+    <text x="480" y="564" text-anchor="middle" fill="#64748b" font-size="12" font-family="'Geist Mono',monospace">inspect and retry safely</text>
+  </svg>
+  <p class="caption"><strong>상태 주의:</strong> 이 그림은 <a href="../08_cleanup_resources.sh">정리 스크립트의 실행 절차</a>다. <a href="../docs/cleanup-checklist.md">현재 체크리스트</a>의 빈 칸을 삭제 완료로 해석하면 안 된다.</p>
+</body>
+</html>
