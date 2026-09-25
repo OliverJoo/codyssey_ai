@@ -25,6 +25,11 @@ tmp/
 classes/
 **/classes/
 
+# AWS 자격 증명·개인키·자동 생성 상태를 버전 관리에서 제외한다.
+config.env
+.state/
+*.pem
+**/docs/evidence/*.txt
 
 ### Flask ###
 instance/*
