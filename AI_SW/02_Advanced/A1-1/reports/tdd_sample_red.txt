@@ -1,0 +1,23 @@
+test_sample (unittest.loader._FailedTest.test_sample) ... ERROR
+
+======================================================================
+ERROR: test_sample (unittest.loader._FailedTest.test_sample)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_sample
+Traceback (most recent call last):
+  File "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/lib/python3.12/unittest/loader.py", line 394, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/lib/python3.12/unittest/loader.py", line 337, in _get_module_from_name
+    __import__(name)
+  File "/Users/oliverjoo/Dev/codyssey/2026/codyssey_missions/AI_SW/02_Advanced/A1-1/tests/test_sample.py", line 8, in <module>
+    from src.make_sample_data import make_sample_data
+ModuleNotFoundError: No module named 'src.make_sample_data'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+ERROR conda.cli.main_run:execute(125): `conda run python -m unittest discover -s tests -p test_sample.py -v` failed. (See above for error)

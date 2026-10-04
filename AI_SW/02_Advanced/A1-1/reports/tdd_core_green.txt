@@ -1,0 +1,16 @@
+test_group_mean_and_empty_group_global_fallback (test_pipeline.PipelineTest.test_group_mean_and_empty_group_global_fallback) ... ok
+test_group_median_and_invalid_strategy (test_pipeline.PipelineTest.test_group_median_and_invalid_strategy) ... ok
+test_image_mean_population_std_and_word_count (test_pipeline.PipelineTest.test_image_mean_population_std_and_word_count) ... ok
+test_iqr_boundary_and_clipping_preserve_revenue (test_pipeline.PipelineTest.test_iqr_boundary_and_clipping_preserve_revenue) ... ok
+test_iqr_equal_boundary_is_not_outlier_and_zero_iqr (test_pipeline.PipelineTest.test_iqr_equal_boundary_is_not_outlier_and_zero_iqr) ... ok
+test_load_dates_and_image_mapping (test_pipeline.PipelineTest.test_load_dates_and_image_mapping) ... ok
+test_rfm_reference_date_totals_and_scores (test_pipeline.PipelineTest.test_rfm_reference_date_totals_and_scores) ... ok
+test_rfm_ties_have_same_scores (test_pipeline.PipelineTest.test_rfm_ties_have_same_scores) ... ok
+test_segmentation_priority_and_four_groups (test_pipeline.PipelineTest.test_segmentation_priority_and_four_groups) ... ok
+test_summary_uses_sample_standard_deviation (test_pipeline.PipelineTest.test_summary_uses_sample_standard_deviation) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.085s
+
+OK
+
