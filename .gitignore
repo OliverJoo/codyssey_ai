@@ -406,3 +406,9 @@ pyrightconfig.json
 
 # Ignore dummy directories anywhere in the repository
 **/dummy/
+
+# A1-1 analysis: keep reproducible inputs and report tables despite global *.csv
+!AI_SW/02_Advanced/A1-1/data/**/*.csv
+!AI_SW/02_Advanced/A1-1/data/*.csv
+!AI_SW/02_Advanced/A1-1/reports/*.csv
+/AI_SW/02_Advanced/A1-1/.cache/

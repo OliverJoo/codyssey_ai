@@ -1,0 +1,4 @@
+# 분석 알고리즘이 아닌 노트북 실행 도구
+nbformat==5.10.4
+nbclient==0.10.2
+ipykernel

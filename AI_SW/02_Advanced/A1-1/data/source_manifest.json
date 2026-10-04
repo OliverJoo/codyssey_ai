@@ -1,0 +1,25 @@
+{
+  "dataset": "UCI Online Retail",
+  "creator": "Daqing Chen",
+  "year": 2015,
+  "doi": "10.24432/C5BW33",
+  "license": "CC BY 4.0",
+  "source_page": "https://archive.ics.uci.edu/dataset/352/online+retail",
+  "csv_mirror": "https://raw.githubusercontent.com/dbdmg/data-science-lab/master/datasets/online_retail.csv",
+  "retrieved_on": "2026-10-04",
+  "raw_sha256": "c41dc0c7e3b6eef34ddd36a6813171dafda799ab4880476fc79a9db69248a53e",
+  "raw_rows": 541909,
+  "sample_customers": 240,
+  "sample_lines": 22488,
+  "sample_orders": 1038,
+  "sampling_seed": 42,
+  "sampling_unit": "customer; all valid purchase lines for each sampled customer",
+  "modifications": [
+    "exclude missing CustomerID/Description, cancellations, nonpositive quantity/price, exact duplicates",
+    "sample 240 customers with NumPy seed 42",
+    "rename columns, normalize dates, add original price * quantity as amount",
+    "add synthetic RGB array index, mask 1124 prices for imputation exercise"
+  ],
+  "image_origin": "synthetic NumPy pixel samples, not observed product photos",
+  "cohort_origin": "separate synthetic sample with signup_date; not UCI signup records"
+}

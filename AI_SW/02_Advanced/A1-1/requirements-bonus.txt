@@ -1,0 +1,3 @@
+-r requirements.txt
+# PDF 선택 과제 3에서만 사용
+plotly==6.3.0
