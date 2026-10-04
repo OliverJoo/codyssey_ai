@@ -1,0 +1,20 @@
+{
+  "runtime": "/Users/oliverjoo/.gstack/repos/gstack/node_modules/playwright",
+  "desktop": {
+    "overflow": false,
+    "svg": 2,
+    "font": "\"Instrument Serif\", \"Noto Serif KR\", serif",
+    "headings": 5,
+    "links": true
+  },
+  "mobile": {
+    "overflow": false
+  },
+  "print": "none",
+  "plotly": {
+    "traces": 4,
+    "points": 240
+  },
+  "interactive": true,
+  "errors": []
+}

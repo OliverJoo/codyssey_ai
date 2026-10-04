@@ -1,0 +1,7 @@
+Markdown relative paths and code line links: PASS
+analysis_report.ipynb: 12 executed code cells, no errors
+bonus_report.ipynb: 4 executed code cells, no errors
+No per-folder .gitignore: PASS
+Final tests: 18 passed; see tests_final.txt
+SVG self_check: PASS; geometry: 0 findings
+HTML browser: no desktop/mobile overflow; internal anchors PASS; Plotly 240 points and legend toggle PASS
