@@ -1,0 +1,42 @@
+{
+  "missing_docstrings": [],
+  "forbidden_imports": [],
+  "eig_verification_calls": [
+    "scripts/run_experiments.py:75",
+    "tests/test_core.py:54"
+  ],
+  "broken_local_links": [],
+  "notebooks": [
+    {
+      "file": "backprop_derivation.ipynb",
+      "executed_code_cells": 4,
+      "python_path_recorded": true
+    },
+    {
+      "file": "bonus_report.ipynb",
+      "executed_code_cells": 4,
+      "python_path_recorded": true
+    },
+    {
+      "file": "probability_loss.ipynb",
+      "executed_code_cells": 6,
+      "python_path_recorded": true
+    }
+  ],
+  "png_count": 15,
+  "pinned_versions": {
+    "numpy": "1.26.4",
+    "matplotlib": "3.10.1",
+    "nbformat": "5.10.4",
+    "nbclient": "0.10.2",
+    "ipykernel": "6.29.5",
+    "jupyter-client": "8.6.3",
+    "Markdown": "3.9",
+    "beautifulsoup4": "4.13.5"
+  },
+  "html": {
+    "no_remote_runtime_assets": true,
+    "source_citation_preserved": "https://people.math.sc.edu/Burkardt/data/pgma/pgma.html",
+    "diagram_design_self_check_exception": "remote reference on <a>: 공개 이미지 출처를 위한 일반 인용 링크. 외부 실행 자원이 아니며 원문 보존을 위해 유지했다."
+  }
+}

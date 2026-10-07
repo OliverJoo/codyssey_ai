@@ -1,0 +1,67 @@
+{
+  "report": [
+    {
+      "file": "README.html",
+      "width": 1440,
+      "title": "A2-1 README",
+      "svg": 2,
+      "math": 3,
+      "images": 10,
+      "documentWidth": 1440,
+      "viewport": 1440,
+      "visibleFractions": true,
+      "visibleSvg": true,
+      "font": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
+      "tocMissing": [],
+      "svgTextOverflow": []
+    },
+    {
+      "file": "README.html",
+      "width": 390,
+      "title": "A2-1 README",
+      "svg": 2,
+      "math": 3,
+      "images": 10,
+      "documentWidth": 390,
+      "viewport": 390,
+      "visibleFractions": true,
+      "visibleSvg": true,
+      "font": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
+      "tocMissing": [],
+      "svgTextOverflow": []
+    },
+    {
+      "file": "docs/code_walkthrough.html",
+      "width": 1440,
+      "title": "A2-1 개념·코드·실행·요구사항 통합 설명",
+      "svg": 7,
+      "math": 27,
+      "images": 15,
+      "documentWidth": 1440,
+      "viewport": 1440,
+      "visibleFractions": true,
+      "visibleSvg": true,
+      "font": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
+      "tocMissing": [],
+      "svgTextOverflow": []
+    },
+    {
+      "file": "docs/code_walkthrough.html",
+      "width": 390,
+      "title": "A2-1 개념·코드·실행·요구사항 통합 설명",
+      "svg": 7,
+      "math": 27,
+      "images": 15,
+      "documentWidth": 390,
+      "viewport": 390,
+      "visibleFractions": true,
+      "visibleSvg": true,
+      "font": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
+      "tocMissing": [],
+      "svgTextOverflow": []
+    }
+  ],
+  "pageErrors": [],
+  "remoteRequests": [],
+  "offline": true
+}
