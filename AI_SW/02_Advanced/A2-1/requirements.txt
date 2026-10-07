@@ -1,0 +1,11 @@
+# 수학 구현 및 시각화
+numpy==1.26.4
+matplotlib==3.10.1
+# 요구된 노트북의 파일 처리 및 실행 도구 (수학 구현에는 사용하지 않았다)
+nbformat==5.10.4
+nbclient==0.10.2
+ipykernel==6.29.5
+jupyter-client==8.6.3
+# Markdown 문서의 로컬 HTML 변환 및 구조 검수
+Markdown==3.9
+beautifulsoup4==4.13.5
