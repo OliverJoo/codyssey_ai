@@ -1,0 +1,77 @@
+{
+  "plugin_checks": [
+    {
+      "file": "README.html",
+      "check": "geometry",
+      "exit_code": 0,
+      "output": "Summary: 1 file(s) checked, 0 finding(s).\n"
+    },
+    {
+      "file": "README.html",
+      "check": "self_check",
+      "exit_code": 1,
+      "output": "FAIL /Users/oliverjoo/Dev/codyssey/2026/codyssey_missions/AI_SW/02_Advanced/A2-1/README.html\n  - remote reference on <a>: https://people.math.sc.edu/Burkardt/data/pgma/pgma.html\n"
+    },
+    {
+      "file": "docs/code_walkthrough.html",
+      "check": "geometry",
+      "exit_code": 0,
+      "output": "Summary: 1 file(s) checked, 0 finding(s).\n"
+    },
+    {
+      "file": "docs/code_walkthrough.html",
+      "check": "self_check",
+      "exit_code": 1,
+      "output": "FAIL /Users/oliverjoo/Dev/codyssey/2026/codyssey_missions/AI_SW/02_Advanced/A2-1/docs/code_walkthrough.html\n  - remote reference on <a>: https://people.math.sc.edu/Burkardt/data/pgma/pgma.html\n"
+    }
+  ],
+  "prose_preservation": [
+    {
+      "source": "README.md",
+      "missing_prose": []
+    },
+    {
+      "source": "docs/code_walkthrough.md",
+      "missing_prose": []
+    },
+    {
+      "source": "docs/requirements_review.md",
+      "missing_prose": []
+    }
+  ],
+  "fidelity_ledger": {
+    "workflow": {
+      "source_nodes": 6,
+      "drawn_nodes": 6,
+      "source_edges": 5,
+      "drawn_edges": 5
+    },
+    "forward": {
+      "source_nodes": 6,
+      "drawn_nodes": 6,
+      "source_edges": 5,
+      "drawn_edges": 5
+    },
+    "backward": {
+      "source_nodes": 7,
+      "drawn_nodes": 7,
+      "source_edges": 6,
+      "drawn_edges": 6
+    },
+    "inheritance": {
+      "source_classes": 6,
+      "drawn_classes": 6,
+      "source_edges": 4,
+      "drawn_edges": 4
+    },
+    "merged": [],
+    "collapsed": [],
+    "dropped": [],
+    "added": "실제 코드의 대표 클래스 멤버, 실제 JSON의 수렴 횟수 막대 도식",
+    "profile": "financial-services",
+    "type": "flowchart / UML class / bar",
+    "format": "self-contained HTML",
+    "size": "doc-inline 960x600 / doc-wide 1280x720",
+    "audience": "beginner / reviewer"
+  }
+}

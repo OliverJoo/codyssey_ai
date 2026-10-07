@@ -1,0 +1,22 @@
+[
+  {
+    "file": "README.html",
+    "source_files": [
+      "README.md"
+    ],
+    "svg_count": 2,
+    "math_count": 3,
+    "embedded_png_count": 10
+  },
+  {
+    "file": "docs/code_walkthrough.html",
+    "source_files": [
+      "docs/code_walkthrough.md",
+      "README.md",
+      "docs/requirements_review.md"
+    ],
+    "svg_count": 7,
+    "math_count": 27,
+    "embedded_png_count": 15
+  }
+]
