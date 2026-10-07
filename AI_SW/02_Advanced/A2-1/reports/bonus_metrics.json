@@ -1,0 +1,70 @@
+{
+  "adam_comparison": {
+    "GD lr=0.01": {
+      "final_point": [
+        1.416189562727233e-17,
+        7.567352911521175e-194
+      ],
+      "final_loss": 2.005592877577551e-34,
+      "final_radius": 1.416189562727233e-17,
+      "first_update_loss_le_0.01": 194,
+      "updates": 2000
+    },
+    "Momentum lr=0.01": {
+      "final_point": [
+        8.672220178042903e-46,
+        -8.794988643572526e-46
+      ],
+      "final_loss": 8.487256552221516e-90,
+      "final_radius": 1.2351486876365298e-45,
+      "first_update_loss_le_0.01": 78,
+      "updates": 2000
+    },
+    "Adam lr=0.01": {
+      "final_point": [
+        3.263542196129379e-05,
+        3.263542042481277e-05
+      ],
+      "final_loss": 1.1715777429634562e-08,
+      "final_radius": 4.6153455264974296e-05,
+      "first_update_loss_le_0.01": 1242,
+      "updates": 2000
+    }
+  },
+  "newton_comparison": {
+    "GD lr=0.01": {
+      "final_point": [
+        0.6630977794737659,
+        1.018517988167243e-09
+      ],
+      "final_loss": 0.43969866514303907,
+      "final_radius": 0.6630977794737659,
+      "first_update_loss_le_0.01": null,
+      "updates": 100
+    },
+    "Newton": {
+      "final_point": [
+        0.0,
+        0.0
+      ],
+      "final_loss": 0.0,
+      "final_radius": 0.0,
+      "first_update_loss_le_0.01": 1,
+      "updates": 100
+    }
+  },
+  "information_theory": {
+    "p": [
+      0.3,
+      0.7
+    ],
+    "q": [
+      0.6,
+      0.4
+    ],
+    "unit": "nats",
+    "entropy": 0.6108643020548935,
+    "kl_divergence": 0.18378689738681217,
+    "cross_entropy": 0.7946511994417057
+  }
+}
