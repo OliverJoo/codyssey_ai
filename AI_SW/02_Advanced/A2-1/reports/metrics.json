@@ -1,0 +1,206 @@
+{
+  "seed": 42,
+  "image_shape": [
+    64,
+    64
+  ],
+  "area": {
+    "rotation": {
+      "determinant": 1.0,
+      "measured_area_ratio": 1.0,
+      "relative_error_percent": 0.0
+    },
+    "scaling": {
+      "determinant": 1.0,
+      "measured_area_ratio": 1.0,
+      "relative_error_percent": 0.0
+    },
+    "shear": {
+      "determinant": 1.0,
+      "measured_area_ratio": 1.0,
+      "relative_error_percent": 0.0
+    }
+  },
+  "power_iteration": {
+    "eigenvalue": 4.618033988749502,
+    "eigenvector": [
+      0.8506505878718328,
+      0.5257314688634355
+    ],
+    "iterations": 20,
+    "reference_eig": 4.618033988749895,
+    "relative_error_percent": 8.500908881654326e-12
+  },
+  "svd": [
+    {
+      "requested_k": 10,
+      "effective_k": 10,
+      "mse": 0.009078435873897225,
+      "original_values": 4096,
+      "factor_values": 1290
+    },
+    {
+      "requested_k": 50,
+      "effective_k": 50,
+      "mse": 9.018560609664049e-05,
+      "original_values": 4096,
+      "factor_values": 6450
+    },
+    {
+      "requested_k": 100,
+      "effective_k": 64,
+      "mse": 2.9025612139035137e-31,
+      "original_values": 4096,
+      "factor_values": 8256
+    }
+  ],
+  "derivative": {
+    "value": 6.000000000039306,
+    "absolute_error": 3.930633596382904e-11
+  },
+  "gradient_tangent_abs_dot": [
+    0.0,
+    0.0,
+    1.7763568394002505e-15
+  ],
+  "circle": {
+    "GD lr=0.1": {
+      "final_point": [
+        1.0185179881672439e-09,
+        1.0185179881672439e-09
+      ],
+      "final_loss": 2.0747577844404998e-18,
+      "final_radius": 1.4404019523870759e-09,
+      "first_update_loss_le_0.01": 20,
+      "updates": 100
+    },
+    "Momentum lr=0.1 beta=0.9": {
+      "final_point": [
+        -0.01425705560591328,
+        -0.01425705560591328
+      ],
+      "final_loss": 0.0004065272691002066,
+      "final_radius": 0.020162521397389926,
+      "first_update_loss_le_0.01": 10,
+      "updates": 100
+    }
+  },
+  "learning_rates": {
+    "GD lr=0.1": {
+      "final_point": [
+        0.057646075230342354,
+        0.057646075230342354
+      ],
+      "final_loss": 0.006646139978924581,
+      "final_radius": 0.0815238614083299,
+      "first_update_loss_le_0.01": 20,
+      "updates": 20
+    },
+    "GD lr=0.5": {
+      "final_point": [
+        0.0,
+        0.0
+      ],
+      "final_loss": 0.0,
+      "final_radius": 0.0,
+      "first_update_loss_le_0.01": 1,
+      "updates": 20
+    },
+    "GD lr=1.0": {
+      "final_point": [
+        5.0,
+        5.0
+      ],
+      "final_loss": 50.0,
+      "final_radius": 7.0710678118654755,
+      "first_update_loss_le_0.01": null,
+      "updates": 20
+    },
+    "GD lr=1.1": {
+      "final_point": [
+        191.68799962237426,
+        191.68799962237426
+      ],
+      "final_loss": 73488.57839845472,
+      "final_radius": 271.0877688101304,
+      "first_update_loss_le_0.01": null,
+      "updates": 20
+    }
+  },
+  "ellipse": {
+    "GD lr=0.01": {
+      "final_point": [
+        0.08793973302860783,
+        2.074757784440498e-19
+      ],
+      "final_loss": 0.0077333966451428185,
+      "final_radius": 0.08793973302860783,
+      "first_update_loss_le_0.01": 194,
+      "updates": 200
+    },
+    "Momentum lr=0.01 beta=0.9": {
+      "final_point": [
+        -1.0332674615785416e-05,
+        -6.710158824490631e-05
+      ],
+      "final_loss": 4.513299561460518e-08,
+      "final_radius": 6.789246872595403e-05,
+      "first_update_loss_le_0.01": 78,
+      "updates": 200
+    }
+  },
+  "softmax": {
+    "probabilities": [
+      0.09003057317038046,
+      0.24472847105479764,
+      0.6652409557748218
+    ],
+    "sum": 0.9999999999999999
+  },
+  "backprop": {
+    "forward": {
+      "z1": [
+        0.1,
+        0.3
+      ],
+      "a1": [
+        0.52497918747894,
+        0.574442516811659
+      ],
+      "z2": 0.6071551038264654,
+      "y_pred": 0.6472915699946178,
+      "loss": 0.4349584368514606
+    },
+    "backward": {
+      "dy_pred": -1.5448988467566709,
+      "dz2": -0.35270843000538216,
+      "dW2": [
+        -0.18516458500119812,
+        -0.2026107182329806
+      ],
+      "da1": [
+        -0.17635421500269108,
+        -0.21162505800322928
+      ],
+      "dz1": [
+        -0.043978515808697,
+        -0.0517335043909256
+      ],
+      "dW1": [
+        [
+          -0.043978515808697,
+          -0.0
+        ],
+        [
+          -0.0517335043909256,
+          -0.0
+        ]
+      ],
+      "db1": [
+        -0.043978515808697,
+        -0.0517335043909256
+      ],
+      "db2": -0.35270843000538216
+    }
+  }
+}
