@@ -1,0 +1,17 @@
+{
+  "provider": "John Burkardt, PGMA sample data",
+  "source_page": "https://people.math.sc.edu/Burkardt/data/pgma/pgma.html",
+  "download_url": "https://people.math.sc.edu/Burkardt/data/pgma/baboon.ascii.pgm",
+  "license_on_source_page": "GNU LGPL",
+  "retrieved_date": "2026-10-07",
+  "raw_sha256": "bf82d82e4f7597d4cea8672cf524c080fdfe307fced42d0b39b7427267eaa45b",
+  "raw_shape": [
+    512,
+    512
+  ],
+  "input_shape": [
+    64,
+    64
+  ],
+  "preprocessing": "P2 maximum value로 정규화; original[::8, ::8]"
+}
