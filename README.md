@@ -23,10 +23,14 @@ codyssey_missions/
     │   ├── b3-2/mini-git/     # Python 기반 모의 Git CLI (DAG 커밋 그래프 관리)
     │   ├── b4-1/              # 순수 HTML/CSS/JS 반응형 포트폴리오 웹사이트
     │   ├── b5-1/              # MariaDB 카페 주문 관리 시스템 DB 설계 및 분석 쿼리
+    │   ├── b6-1/              # AWS VPC·EC2·Nginx 안전한 공개 웹 서비스 배포
     │   ├── b6-2/              # AI 기반 Git 커밋 메시지 및 PR 초안 자동 생성 CLI
     │   └── b7-1/              # AI Chatbot 프로젝트 및 테스트 환경
     │
-    ├── 02_Advanced/           # 심화 트랙 (진행 예정)
+    ├── 02_Advanced/           # 심화 트랙 (Data, Math, CV, NLP, ML, DL)
+    │   ├── A1-1/              # EDA 및 RFM 고객 세분화 (NumPy, Pandas, Online Retail)
+    │   └── A2-1/              # AI 수학 기초 및 신경망 역전파 구현 (NumPy, SVD, Gradient Descent)
+    │
     └── 03_Master/             # 마스터 트랙 (진행 예정)
 ```
 
@@ -56,8 +60,18 @@ codyssey_missions/
 | **b3-2** | Mini Git | `Python`, `CLI` | Git 내부 원리(Blob, Tree, Commit DAG 및 refs)를 재현한 모의 Git 도구 |
 | **b4-1** | 순수 웹 포트폴리오 | `HTML5`, `CSS3`, `Vanilla JS` | 프레임워크 없이 구현한 반응형 웹 포트폴리오 (이벤트 루프 & DOM 제어) |
 | **b5-1** | 카페 주문 관리 DB | `MariaDB`, `SQL` | 3정규화 DB 모델링(ERD), 인덱스 설계, 매출 집계 윈도우 함수 및 뷰 작성 |
+| **b6-1** | AWS 웹 서비스 배포 | `AWS CLI`, `VPC`, `EC2`, `Nginx` | 서울 리전 VPC, 서브넷, 보안 그룹 구성 및 EC2/Nginx 기반 헬스체크 서비스 배포 |
 | **b6-2** | AI Git 메시지 생성기 | `Python 3.12`, `OpenAI API` | `git diff` 분석, 개인정보 마스킹(Safe Mode), Conventional Commits/PR 생성기 |
 | **b7-1** | AI 챗봇 시스템 | `Python`, `LLM` | AI Chatbot 구현 및 대화 테스트 파이프라인 |
+
+---
+
+### 3. AI/SW Advanced (02_Advanced)
+
+| 미션 | 프로젝트명 | 주요 기술 | 핵심 내용 |
+|---|---|---|---|
+| **A1-1** | 쇼핑몰 단골 찾기 (RFM) | `Python`, `NumPy`, `Pandas` | UCI Online Retail 데이터 전처리, 결측치·이상치 처리, EDA 및 RFM 고객 세분화 분석 파이프라인 |
+| **A2-1** | AI 수학 및 역전파 구현 | `Python`, `NumPy`, `Matplotlib` | 선형대수(행렬 변환·고유값·SVD), 미적분(중심차분), 2→2→1 신경망 순전파/역전파 유도 및 경사하강법 구현 |
 
 ---
 
