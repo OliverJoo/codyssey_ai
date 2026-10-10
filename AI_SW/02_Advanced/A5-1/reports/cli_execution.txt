@@ -1,0 +1,6 @@
+Command: python main.py --customer [six numeric features]
+{
+  "credit_score": 359.55816093414535,
+  "overdue_probability": 0.09855310482239606,
+  "model": "Ridge alpha=1 + balanced Logistic, Train only"
+}
