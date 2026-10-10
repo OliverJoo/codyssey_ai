@@ -1,0 +1,23 @@
+{
+  "python": "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/bin/python",
+  "dataset_source": "PDF supplied generator, exact reproduction",
+  "data_sha256": "4ddf83dd154ee23bb2374a2bbc1aa56d537ef7ad5114c2f162078756542fe1a2",
+  "rows": 10000,
+  "features": 6,
+  "targets": 2,
+  "train": 8000,
+  "test": 2000,
+  "split_disjoint": true,
+  "target_leakage": false,
+  "cv_folds": 5,
+  "grid_combinations": 4,
+  "plots": 5,
+  "tests": 19,
+  "pytest_summary": "19 passed in 1.51s",
+  "html_standalone": true,
+  "source_hashes_valid": true,
+  "code_references_valid": true,
+  "csv_git_ignored": true,
+  "categorical_note": "No categorical columns in supplied numeric-only data; encoding branch unused",
+  "git_note": "Existing parent Git repository used; A5-1 changes are managed as functional commits."
+}

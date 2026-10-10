@@ -1,0 +1,299 @@
+{
+  "documents": 2,
+  "viewports": [
+    {
+      "file": "README.html",
+      "width": 1440,
+      "documentWidth": 1440,
+      "diagrams": 2,
+      "mathml": 4,
+      "images": 5,
+      "missingLinks": [],
+      "svgOverflow": []
+    },
+    {
+      "file": "README.html",
+      "width": 390,
+      "documentWidth": 390,
+      "diagrams": 2,
+      "mathml": 4,
+      "images": 5,
+      "missingLinks": [],
+      "svgOverflow": []
+    },
+    {
+      "file": "docs/code_walkthrough.html",
+      "width": 1440,
+      "documentWidth": 1440,
+      "diagrams": 21,
+      "mathml": 21,
+      "images": 5,
+      "missingLinks": [],
+      "svgOverflow": []
+    },
+    {
+      "file": "docs/code_walkthrough.html",
+      "width": 390,
+      "documentWidth": 390,
+      "diagrams": 21,
+      "mathml": 21,
+      "images": 5,
+      "missingLinks": [],
+      "svgOverflow": []
+    }
+  ],
+  "clicks": [
+    {
+      "hash": "#code-data_gen-py-L9",
+      "visible": true,
+      "text": "9def generate_data(path=None):"
+    },
+    {
+      "hash": "#code-workflow-py-L19",
+      "visible": true,
+      "text": "19    def split(self, frame):"
+    },
+    {
+      "hash": "#code-workflow-py-L33",
+      "visible": true,
+      "text": "33    def regression(self, model, alpha):"
+    },
+    {
+      "hash": "#code-workflow-py-L43",
+      "visible": true,
+      "text": "43    def classifier(self):"
+    },
+    {
+      "hash": "#code-workflow-py-L49",
+      "visible": true,
+      "text": "49    def ensemble_search(self):"
+    },
+    {
+      "hash": "#code-bonus-py-L14",
+      "visible": true,
+      "text": "14    def transform(self, X):"
+    },
+    {
+      "hash": "#code-tests-test_finance-py-L54",
+      "visible": true,
+      "text": "54def test_train_only_fit_and_imputation(data):"
+    }
+  ],
+  "questions": [
+    {
+      "id": "qa-01",
+      "question": "data_gen.py를 실행하여 finance_data.csv(10,000건)가 정상 생성되는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-02",
+      "question": "규칙 기반 베이스라인이 5개 이상의 if-else 규칙으로 구현되어 있고, ML 모델과 성능 비교표(Accuracy, F1-Score, AUC)가 정량적으로 제시되어 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-03",
+      "question": "Scikit-learn의 Pipeline 또는 ColumnTransformer로 전처리가 모듈화되어 있고, fit/predict 실행 시 에러 없이 동작하는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-04",
+      "question": "불균형 처리(class_weight='balanced' 또는 SMOTE) 적용 후, 분류 모델의 Confusion Matrix와 ROC-AUC 곡선이 시각화되어 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-05",
+      "question": "Ridge/Lasso 모델에 Alpha 값 변화(0.01~100)에 따른 계수 변화 그래프가 있고, RMSE/MAE/R² 중 2개 이상이 산출되어 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-06",
+      "question": "앙상블 모델(Random Forest 또는 HistGradientBoosting)이 GridSearchCV로 튜닝되어 있고, 단일 모델 대비 성능 향상이 수치로 입증되어 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-07",
+      "question": "README.md에 프로젝트 개요, 실행 방법, 성능 비교 리포트가 포함되어 있고, requirements.txt가 존재하는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 1
+    },
+    {
+      "id": "qa-08",
+      "question": "전처리→학습→평가 흐름을 어떤 구조로 분리했는지 설명해 주세요. 각 모듈/셀/함수의 역할과 흐름을 코드를 보며 설명할 수 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-09",
+      "question": "데이터 누수(Data Leakage) 방지를 위해 전처리 기준(fit)을 어디서 수행했는지, 해당 코드를 직접 가리키며 설명할 수 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-10",
+      "question": "회귀 모델과 분류 모델을 동시에 다루는 구조에서, 공통 전처리와 개별 모델링을 어떻게 설계했는지 설명할 수 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-11",
+      "question": "이 문제에서 Accuracy 대신 F1-Score와 AUC를 평가지표로 선택한 이유는 무엇이며, 불균형 데이터에서 Accuracy가 왜 부적절한지 구체적인 수치로 설명할 수 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-12",
+      "question": "규제(Ridge/Lasso)가 모델의 복잡도를 어떻게 제어하는지, Alpha 값 변화에 따른 계수 변화 그래프를 근거로 설명할 수 있는가? L1과 L2의 차이를 이 데이터셋 결과에서 어떻게 확인했는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-13",
+      "question": "앙상블 기법(Random Forest/Boosting)이 단일 모델의 편향이나 분산을 줄이는 원리는 무엇이며, 실제 성능 결과에서 이 효과를 어떻게 확인했는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 1
+    },
+    {
+      "id": "qa-14",
+      "question": "불균형 데이터를 처리할 때 SMOTE나 class_weight를 선택한 이유는 무엇이며, 해당 방법을 Test Set에는 적용하지 않아야 하는 이유를 설명할 수 있는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-15",
+      "question": "실제 서비스라면 모델의 성능(정확도)과 예측 속도 중 무엇을 더 우선시하겠는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    },
+    {
+      "id": "qa-16",
+      "question": "이 모델이 실제 은행에 배포된다면, 오탐(정상인데 연체로 예측)과 미탐(연체인데 정상으로 예측) 중 어떤 것이 더 심각한가? 금융 의사결정 관점에서 임계값(threshold)을 어떻게 조정하겠는가?",
+      "answerFirst": true,
+      "examples": 3,
+      "diagrams": 1,
+      "codeLinks": 2
+    }
+  ],
+  "questionClicks": [
+    {
+      "question": "qa-01",
+      "hash": "#code-data_gen-py-L11",
+      "visible": true
+    },
+    {
+      "question": "qa-02",
+      "hash": "#code-baseline-py-L5",
+      "visible": true
+    },
+    {
+      "question": "qa-03",
+      "hash": "#code-workflow-py-L24",
+      "visible": true
+    },
+    {
+      "question": "qa-04",
+      "hash": "#code-workflow-py-L43",
+      "visible": true
+    },
+    {
+      "question": "qa-05",
+      "hash": "#code-workflow-py-L33",
+      "visible": true
+    },
+    {
+      "question": "qa-06",
+      "hash": "#code-workflow-py-L49",
+      "visible": true
+    },
+    {
+      "question": "qa-07",
+      "hash": "#code-tests-test_finance-py-L28",
+      "visible": true
+    },
+    {
+      "question": "qa-08",
+      "hash": "#code-experiment-py-L36",
+      "visible": true
+    },
+    {
+      "question": "qa-09",
+      "hash": "#code-experiment-py-L55",
+      "visible": true
+    },
+    {
+      "question": "qa-10",
+      "hash": "#code-workflow-py-L41",
+      "visible": true
+    },
+    {
+      "question": "qa-11",
+      "hash": "#code-workflow-py-L63",
+      "visible": true
+    },
+    {
+      "question": "qa-12",
+      "hash": "#code-workflow-py-L35",
+      "visible": true
+    },
+    {
+      "question": "qa-13",
+      "hash": "#code-workflow-py-L51",
+      "visible": true
+    },
+    {
+      "question": "qa-14",
+      "hash": "#code-workflow-py-L46",
+      "visible": true
+    },
+    {
+      "question": "qa-15",
+      "hash": "#code-main-py-L19",
+      "visible": true
+    },
+    {
+      "question": "qa-16",
+      "hash": "#code-experiment-py-L84",
+      "visible": true
+    }
+  ],
+  "sources": 14,
+  "readmeCodeBlocksMatch": true,
+  "requests": [],
+  "errors": [],
+  "offline": true
+}

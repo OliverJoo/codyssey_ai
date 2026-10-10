@@ -1,0 +1,19 @@
+{
+  "question_image": "/Users/oliverjoo/Dev/codyssey/2026/02_2extra_course_missions/심화 Questions/A5-1.png",
+  "image_sha256": "cd2d725e9dbb8a48464c71f930ac3e4070b3e6afa5e31596ff33939b39b34a1e",
+  "questions": 16,
+  "groups": [
+    7,
+    3,
+    4,
+    2
+  ],
+  "diagrams": 16,
+  "worked_examples": 48,
+  "code_excerpts": 30,
+  "source_excerpts_exact": true,
+  "existing_learning_content_unchanged": true,
+  "existing_footer_unchanged": true,
+  "readme_and_walkthrough_markdown_unchanged": true,
+  "appendix_is_last": true
+}

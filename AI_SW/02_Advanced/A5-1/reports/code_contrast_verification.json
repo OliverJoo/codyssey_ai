@@ -1,0 +1,57 @@
+{
+  "reference": "A2-1 code palette",
+  "minimumContrast": 4.5,
+  "samples": [
+    {
+      "scheme": "light",
+      "code": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(231, 235, 240)",
+        "contrast": 13.341258120609217
+      },
+      "line": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(231, 235, 240)",
+        "contrast": 13.341258120609217
+      },
+      "number": {
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(231, 235, 240)",
+        "contrast": 6.328926738697409
+      },
+      "target": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(244, 237, 223)",
+        "contrast": 13.711286209670325
+      },
+      "padding": "0px",
+      "codeBackground": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "scheme": "dark",
+      "code": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(231, 235, 240)",
+        "contrast": 13.341258120609217
+      },
+      "line": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(231, 235, 240)",
+        "contrast": 13.341258120609217
+      },
+      "number": {
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(231, 235, 240)",
+        "contrast": 6.328926738697409
+      },
+      "target": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(244, 237, 223)",
+        "contrast": 13.711286209670325
+      },
+      "padding": "0px",
+      "codeBackground": "rgba(0, 0, 0, 0)"
+    }
+  ],
+  "passed": true
+}
