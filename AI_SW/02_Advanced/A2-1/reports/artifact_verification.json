@@ -2,7 +2,7 @@
   "missing_docstrings": [],
   "forbidden_imports": [],
   "eig_verification_calls": [
-    "scripts/run_experiments.py:75",
+    "scripts/assessment.py:12",
     "tests/test_core.py:54"
   ],
   "broken_local_links": [],
@@ -10,20 +10,29 @@
     {
       "file": "backprop_derivation.ipynb",
       "executed_code_cells": 4,
-      "python_path_recorded": true
+      "python_path_recorded": true,
+      "embedded_png_outputs": 0
     },
     {
       "file": "bonus_report.ipynb",
       "executed_code_cells": 4,
-      "python_path_recorded": true
+      "python_path_recorded": true,
+      "embedded_png_outputs": 0
+    },
+    {
+      "file": "mathematics_experiments.ipynb",
+      "executed_code_cells": 9,
+      "python_path_recorded": true,
+      "embedded_png_outputs": 11
     },
     {
       "file": "probability_loss.ipynb",
-      "executed_code_cells": 6,
-      "python_path_recorded": true
+      "executed_code_cells": 7,
+      "python_path_recorded": true,
+      "embedded_png_outputs": 2
     }
   ],
-  "png_count": 15,
+  "png_count": 17,
   "pinned_versions": {
     "numpy": "1.26.4",
     "matplotlib": "3.10.1",
@@ -34,9 +43,17 @@
     "Markdown": "3.9",
     "beautifulsoup4": "4.13.5"
   },
+  "current_test_count": 32,
+  "evaluation_sections": 15,
+  "answer_svg_count": 15,
+  "answer_embedded_png_count": 13,
+  "code_snapshots_verified": 19,
+  "single_learning_document": "docs/code_walkthrough.html",
+  "total_embedded_png_count": 30,
+  "notebook_symbolic_derivations_verified": true,
   "html": {
     "no_remote_runtime_assets": true,
     "source_citation_preserved": "https://people.math.sc.edu/Burkardt/data/pgma/pgma.html",
-    "diagram_design_self_check_exception": "remote reference on <a>: 공개 이미지 출처를 위한 일반 인용 링크. 외부 실행 자원이 아니며 원문 보존을 위해 유지했다."
+    "diagram_design_checks": "reports/diagram_design_verification.json; 현재 HTML의 SVG·안전성·기하 검사는 예외 없이 실행한다."
   }
 }

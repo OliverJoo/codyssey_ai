@@ -1,0 +1,20 @@
+{
+  "plugin": "diagram-design",
+  "version": "2.6.12",
+  "profile": "financial-services",
+  "file": "docs/code_walkthrough.html",
+  "diagrams": 15,
+  "all_passed": true,
+  "checks": [
+    {
+      "checker": "skills/diagram-design/scripts/self_check.py",
+      "exit_code": 0,
+      "output": "OK A2-1/docs/code_walkthrough.html\n"
+    },
+    {
+      "checker": "scripts/verify-geometry.py",
+      "exit_code": 0,
+      "output": "Summary: 1 file(s) checked, 0 finding(s).\n"
+    }
+  ]
+}

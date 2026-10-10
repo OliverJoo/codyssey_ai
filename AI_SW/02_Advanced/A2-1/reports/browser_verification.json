@@ -1,67 +1,249 @@
 {
+  "documents": 1,
+  "viewports": 2,
   "report": [
     {
-      "file": "README.html",
+      "file": "docs/code_walkthrough.html",
       "width": 1440,
-      "title": "A2-1 README",
-      "svg": 2,
-      "math": 3,
-      "images": 10,
+      "title": "A2-1 · 개념·수식·실제 코드 통합 학습",
+      "sections": 15,
+      "svg": 15,
+      "images": 30,
       "documentWidth": 1440,
       "viewport": 1440,
-      "visibleFractions": true,
-      "visibleSvg": true,
       "font": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
-      "tocMissing": [],
-      "svgTextOverflow": []
-    },
-    {
-      "file": "README.html",
-      "width": 390,
-      "title": "A2-1 README",
-      "svg": 2,
-      "math": 3,
-      "images": 10,
-      "documentWidth": 390,
-      "viewport": 390,
-      "visibleFractions": true,
-      "visibleSvg": true,
-      "font": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
-      "tocMissing": [],
-      "svgTextOverflow": []
+      "actualHangulFont": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
+      "missingToc": [],
+      "svgTextOverflow": [],
+      "overflowElements": [],
+      "overflowingBlocks": [
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 2059,
+          "text": "141code{background:var(--paper2);padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}pre{background:#e7ebf0;border:1px solid var(--rule);border-radius:6px;"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 2090,
+          "text": "142table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.65;min-width:600px}th,td{text-align:left;vertical-align:top;padding:14px 16px;border-b"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 1151,
+          "text": "143.table-scroll{overflow-x:auto;max-width:100%;margin:28px 0}.table-scroll:focus-visible,.diagram:focus-visible{outline:2px solid var(--gold)}"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 1636,
+          "text": "145.diagram{margin:40px 0;overflow-x:auto;max-width:100%}.diagram svg{display:block;width:100%;min-width:760px;height:auto}.diagram figcaption{font-size:14px;co"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 1769,
+          "text": "146.formula{overflow-x:auto;max-width:100%;padding:20px 16px;margin:28px 0;background:#fff;border-left:3px solid var(--gold)}math{font-size:1.15em}math[display="
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 1660,
+          "text": "147.source-title{color:var(--muted);font-size:14px}.status{border-bottom:1px solid var(--rule);padding:12px 0;display:flex;gap:24px;flex-wrap:wrap;color:var(--m"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 2943,
+          "text": "149@media(max-width:900px){.layout{display:block;padding:24px 20px}aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--rule);paddi"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 2450,
+          "text": "150@media print{body{background:#fff;font-size:11pt}.top,aside{display:none}.layout{display:block;padding:0}.diagram svg{min-width:0}a{color:var(--ink)}pre,.for"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 1127,
+          "text": "185                                     'loss_increases_at_lr_0.5': bool(np.all(np.diff(ellipse_loss(ellipse_lr_paths['GD lr=0.5'])) > 0))},"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 1143,
+          "text": "87                          'embedded_png_outputs': sum('image/png' in output.get('data', {}) for cell in codes for output in cell.outputs)})"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 1130,
+          "text": "150                       'diagram_design_checks': 'reports/diagram_design_verification.json; 현재 HTML의 SVG·안전성·기하 검사는 예외 없이 실행한다.'}}"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 1070,
+          "scroll": 1080,
+          "text": "151    (ROOT/'reports/artifact_verification.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\\n', encoding='utf-8')"
+        }
+      ]
     },
     {
       "file": "docs/code_walkthrough.html",
-      "width": 1440,
-      "title": "A2-1 개념·코드·실행·요구사항 통합 설명",
-      "svg": 7,
-      "math": 27,
-      "images": 15,
-      "documentWidth": 1440,
-      "viewport": 1440,
-      "visibleFractions": true,
-      "visibleSvg": true,
-      "font": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
-      "tocMissing": [],
-      "svgTextOverflow": []
-    },
-    {
-      "file": "docs/code_walkthrough.html",
       "width": 390,
-      "title": "A2-1 개념·코드·실행·요구사항 통합 설명",
-      "svg": 7,
-      "math": 27,
-      "images": 15,
+      "title": "A2-1 · 개념·수식·실제 코드 통합 학습",
+      "sections": 15,
+      "svg": 15,
+      "images": 30,
       "documentWidth": 390,
       "viewport": 390,
-      "visibleFractions": true,
-      "visibleSvg": true,
       "font": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
-      "tocMissing": [],
-      "svgTextOverflow": []
+      "actualHangulFont": "Geist, \"Noto Sans KR\", \"Apple SD Gothic Neo\", \"Malgun Gothic\", sans-serif",
+      "missingToc": [],
+      "svgTextOverflow": [],
+      "overflowElements": [],
+      "overflowingBlocks": [
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 767,
+          "text": "173            self.assertAlmostEqual(float(ProbabilityLoss.normal_pdf(mean, mean, variance)),"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 595,
+          "text": "174                                   1 / np.sqrt(2 * np.pi * variance))"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 449,
+          "text": "177        \"\"\"B(.3), B(.7)의 0과 1 확률 합은 각각 1이다.\"\"\""
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 611,
+          "text": "179            values = ProbabilityLoss.bernoulli_pmf(np.array([0, 1]), p)"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 509,
+          "text": "180            np.testing.assert_allclose(values, [1 - p, p])"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 509,
+          "text": "181            self.assertAlmostEqual(float(values.sum()), 1)"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 540,
+          "text": "183    def test_softmax_sum_stability_and_shift_invariance(self):"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 538,
+          "text": "184        \"\"\"큰 로짓도 overflow 없이 합 1과 상수 이동 불변성을 만족한다.\"\"\""
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 626,
+          "text": "185        values = ProbabilityLoss.softmax(np.array([1000., 1001., 1002.]))"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 446,
+          "text": "186        self.assertTrue(np.isfinite(values).all())"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 501,
+          "text": "187        self.assertLessEqual(abs(values.sum() - 1), 1e-6)"
+        },
+        {
+          "tag": "SPAN",
+          "cls": "source-line",
+          "width": 332,
+          "scroll": 767,
+          "text": "188        np.testing.assert_allclose(values, ProbabilityLoss.softmax(np.array([0., 1., 2.])))"
+        }
+      ]
+    }
+  ],
+  "clickedLinks": [
+    {
+      "criterion": 1,
+      "hash": "#src-linear_algebra-py-L7",
+      "highlighted": true,
+      "visible": true,
+      "text": "7def unit_circle(count=100):"
+    },
+    {
+      "criterion": 3,
+      "hash": "#src-linear_algebra-py-L71",
+      "highlighted": true,
+      "visible": true,
+      "text": "71def power_iteration(matrix, tol=1e-6, max_iterations=1000):"
+    },
+    {
+      "criterion": 8,
+      "hash": "#scripts-assessment-py-L31",
+      "highlighted": true,
+      "visible": true,
+      "text": "31def hand_checkpoints():"
+    },
+    {
+      "criterion": 10,
+      "hash": "#src-optimizer-py-L42",
+      "highlighted": true,
+      "visible": true,
+      "text": "42def circle_gradient(point):"
+    },
+    {
+      "criterion": 15,
+      "hash": "#scripts-assessment-py-L91",
+      "highlighted": true,
+      "visible": true,
+      "text": "91def verify_loss_likelihood():"
     }
   ],
   "pageErrors": [],
   "remoteRequests": [],
-  "offline": true
+  "offline": true,
+  "browser": "Google Chrome via existing local Playwright"
 }
