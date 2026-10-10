@@ -1,0 +1,97 @@
+[
+  {
+    "path": "scripts/answer_content.py",
+    "sha256": "52c7fc1aabaca9d8655d7eb89286490f5fe6a9d651f950f3d6282ee1aba7474c",
+    "line_count": 232
+  },
+  {
+    "path": "scripts/assessment.py",
+    "sha256": "acc962cb2dfa5dafbc5edf2e5e962f49bf7f9974dc482ed5cdc09e89440b7447",
+    "line_count": 124
+  },
+  {
+    "path": "scripts/build_assessment.py",
+    "sha256": "ad89dd33db91d6bf34f127233469b060e25d969a6d13b3d894e485814aa43d25",
+    "line_count": 638
+  },
+  {
+    "path": "scripts/build_html.py",
+    "sha256": "7089feb89f210c283a72bfb4b4d2e539f7b35a35324379de0f8470aa3de5bb4c",
+    "line_count": 161
+  },
+  {
+    "path": "scripts/prepare_image.py",
+    "sha256": "e9bc185857c88bb524d3d56a7796f82ba99d121912a919bdbddf21a605e63d2d",
+    "line_count": 46
+  },
+  {
+    "path": "scripts/run_experiments.py",
+    "sha256": "2e03f73956c69891b236ff5ddbe3cf8a491f2390b260f265aca5ace462e1674a",
+    "line_count": 232
+  },
+  {
+    "path": "scripts/run_notebooks.py",
+    "sha256": "dee4b850f11179cc6d5d8ba9e09b01f4fe95937a5670a05ecf6a50a5184f7507",
+    "line_count": 47
+  },
+  {
+    "path": "scripts/verify_artifacts.py",
+    "sha256": "c804846ab9891020f655b8d70bbcf14d97c27078554cd4fca8b0a21d34a68324",
+    "line_count": 156
+  },
+  {
+    "path": "src/__init__.py",
+    "sha256": "fdf92f5bd15dcd11fb55447ec4ce4022c0be20eeb4a09e1d39704b1deba8254f",
+    "line_count": 1
+  },
+  {
+    "path": "src/backprop.py",
+    "sha256": "a929aae52d45cf82a4db74ed8dde2fb592d2ddca2cd6f823357801d0dcdc92fc",
+    "line_count": 38
+  },
+  {
+    "path": "src/bonus_optimizer.py",
+    "sha256": "2f37ea5bfcb03685a8758f4b67c7a07bc4ee43f1cf8476d525e9dc29860b0855",
+    "line_count": 45
+  },
+  {
+    "path": "src/bonus_probability.py",
+    "sha256": "a3f565eeaa1d89aead898d8fc79cde49fdc09b287508d04e0d003392200d3ca9",
+    "line_count": 47
+  },
+  {
+    "path": "src/calculus.py",
+    "sha256": "c3ae4459f9b5da889c58d2022359a7eb24a5fa36da0a7aee4831f2cdd847e4ae",
+    "line_count": 76
+  },
+  {
+    "path": "src/linear_algebra.py",
+    "sha256": "649cd3a836d0857f78edecee93b18bedd0e932837b441bd08aa187a7c6761271",
+    "line_count": 123
+  },
+  {
+    "path": "src/optimizer.py",
+    "sha256": "ed2b2bf273c4dc426072d3ce45de949679e594a49bbd08e58065410c85fe37ac",
+    "line_count": 102
+  },
+  {
+    "path": "src/probability.py",
+    "sha256": "dde5c8c2aeb13ff63cebb0fde89175de4d4982ce88399925dcd3e52761bb3db5",
+    "line_count": 54
+  },
+  {
+    "path": "tests/test_assessment.py",
+    "sha256": "3032a9ad0b673f0d893d148e1f6b544543fffef09f385f6e91465eb38161004d",
+    "line_count": 65
+  },
+  {
+    "path": "tests/test_bonus.py",
+    "sha256": "ad06072e1337843f952666238dbc1641c2626842ff2be37063e2635d6e3a9b44",
+    "line_count": 84
+  },
+  {
+    "path": "tests/test_core.py",
+    "sha256": "4cd44804de1fa9556ef4686e89c83a048289ad7bd40409382690df178c532ec7",
+    "line_count": 192
+  }
+]
