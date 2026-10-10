@@ -76,9 +76,12 @@ def plot_paths(loss_function, paths, title, extent=6):
     figure, axis = plt.subplots(figsize=(7, 6))
     axis.contour(x, y, loss_function(points), levels=20, colors='slategray', alpha=.5)
     for label, history in paths.items():
-        axis.plot(*history.T, '--', linewidth=1.5, label=label)
-        axis.scatter(*history[0], s=25)
-        axis.scatter(*history[-1], marker='x', s=40)
+        line, = axis.plot(*history.T, '--', linewidth=1.5, label=label)
+        axis.scatter(*history[0], s=40, color=line.get_color(), marker='o')
+        axis.scatter(*history[-1], marker='x', s=60, color=line.get_color())
+    axis.text(.02, .02, 'o: start   x: end\nLearning rates / beta in legend; fresh optimizer per run',
+              transform=axis.transAxes, fontsize=9,
+              bbox={'facecolor': 'white', 'edgecolor': 'none', 'alpha': .9})
     axis.set(title=title, xlabel='x', ylabel='y', xlim=(-extent, extent), ylim=(-extent, extent))
     axis.set_aspect('equal')
     axis.legend()

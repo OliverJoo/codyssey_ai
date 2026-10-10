@@ -46,13 +46,20 @@ def plot_transformations():
     figure, axes = plt.subplots(1, 3, figsize=(12, 4))
     for axis, (name, matrix) in zip(axes, matrices):
         transformed = transform_points(points, matrix)
-        ratio = polygon_area(transformed) / polygon_area(points)
+        before_area = polygon_area(points)
+        after_area = polygon_area(transformed)
+        determinant = float(np.linalg.det(matrix))
+        ratio = after_area / before_area
+        error_percent = abs(ratio - abs(determinant)) / abs(determinant) * 100
         axis.plot(*points.T, '--', label='Before')
         axis.plot(*transformed.T, label='After')
         # 회전 전후 원의 윤곽이 겹치므로 첫 점의 반지름선도 표시했다.
         axis.plot([0, points[0, 0]], [0, points[0, 1]], '--', color='C0')
         axis.plot([0, transformed[0, 0]], [0, transformed[0, 1]], color='C1')
-        axis.set_title(f'{name}\ndet={np.linalg.det(matrix):.3f}, area ratio={ratio:.3f}')
+        axis.set_title(f'{name}\ndet={determinant:.3f}, area ratio={ratio:.3f}\n'
+                       f'Area {before_area:.4f} -> {after_area:.4f}\n'
+                       f'Error={error_percent:.2e}% <= 1%: '
+                       f'{"PASS" if error_percent <= 1 else "FAIL"}', fontsize=10)
         axis.set_aspect('equal')
         axis.set(xlabel='x', ylabel='y', xlim=(-2.3, 2.3), ylim=(-2.3, 2.3))
         axis.grid(alpha=.3)
@@ -106,7 +113,10 @@ def plot_svd_reconstructions(image, ranks=(10, 50, 100)):
         reconstructed = svd_reconstruct(*factors)
         mse = np.mean((image - reconstructed) ** 2)
         axis.imshow(reconstructed, cmap='gray', vmin=0, vmax=1)
-        axis.set_title(f'Requested k={k}, used={len(factors[1])}\nMSE={mse:.6f}')
+        effective_k = len(factors[1])
+        storage_ratio = effective_k * (sum(image.shape) + 1) / image.size
+        axis.set_title(f'Requested k={k}, effective k={effective_k}\n'
+                       f'MSE={mse:.3e}\nFactor/original values={storage_ratio:.3f}', fontsize=10)
     for axis in axes:
         axis.axis('off')
     figure.tight_layout()

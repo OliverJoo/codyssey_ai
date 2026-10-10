@@ -19,13 +19,16 @@ from src.linear_algebra import (
     polygon_area, plot_transformations, power_iteration, svd_compress,
     svd_reconstruct, plot_svd_reconstructions,
 )
-from src.calculus import central_difference, numerical_gradient, plot_gradient
+from src.calculus import (central_difference, numerical_gradient, plot_gradient,
+                          derivative_sensitivity, plot_derivative_sensitivity)
 from src.backprop import fixed_example, forward_backward
 from src.optimizer import (
     VanillaGD, Momentum, optimize, circle_loss, circle_gradient,
     ellipse_loss, ellipse_gradient, plot_paths, plot_loss_curves,
 )
 from src.probability import ProbabilityLoss, plot_normal_distributions, plot_bernoulli_distributions
+from scripts.assessment import (compare_power_iteration, compare_hand_calculation, circle_stability,
+                                verify_softmax_cases, verify_loss_likelihood)
 
 
 def save_figure(figure, name):
@@ -43,10 +46,16 @@ def convergence_summary(paths, loss_function, threshold=.01):
     for label, history in paths.items():
         losses = loss_function(history)
         reached = np.flatnonzero(losses <= threshold)
+        radii = np.linalg.norm(history, axis=1)
+        sustained = np.flatnonzero(np.maximum.accumulate(losses[::-1])[::-1] <= threshold)
         result[label] = {'final_point': history[-1].tolist(),
                          'final_loss': float(losses[-1]),
                          'final_radius': float(np.linalg.norm(history[-1])),
                          'first_update_loss_le_0.01': int(reached[0]) if len(reached) else None,
+                         'first_sustained_update_loss_le_0.01': int(sustained[0]) if len(sustained) else None,
+                         'radius_threshold_pdf': .1,
+                         'within_pdf_radius_0.1': bool(radii[-1] <= .1),
+                         'within_review_radius_1': bool(radii[-1] <= 1),
                          'updates': len(history) - 1}
     return result
 
@@ -68,24 +77,35 @@ def run_required():
         ratio = polygon_area(transform_points(points, matrix)) / polygon_area(points)
         error_percent = abs(ratio - abs(determinant)) / abs(determinant) * 100
         assert error_percent <= 1
-        area_results[name] = {'determinant': determinant, 'measured_area_ratio': ratio,
-                              'relative_error_percent': error_percent}
+        area_results[name] = {'parameters': matrix.tolist(), 'determinant': determinant,
+                              'points_shape': list(points.shape), 'sample_count': len(points),
+                              'distinct_vertices': len(points) - 1,
+                              'before_area': polygon_area(points),
+                              'after_area': polygon_area(transform_points(points, matrix)),
+                              'measured_area_ratio': ratio, 'relative_error_percent': error_percent,
+                              'tolerance_percent': 1., 'passed': bool(error_percent <= 1)}
     matrix = np.array([[4., 1.], [1., 3.]])
     value, vector, iterations = power_iteration(matrix)
-    reference = float(np.linalg.eig(matrix)[0].max())  # 결과 비교 검증에만 사용했다.
-    eigen_error = abs(value - reference) / abs(reference) * 100
-    assert eigen_error <= 5
+    eigen_comparison = compare_power_iteration(matrix, value, vector)
+    assert eigen_comparison['passed'] and eigen_comparison['vector_passed'] and eigen_comparison['residual_passed']
     save_figure(plot_svd_reconstructions(image), 'svd_reconstructions.png')
     svd_results = []
     for k in [10, 50, 100]:
         factors = svd_compress(image, k)
         effective_k = len(factors[1])
+        reconstruction = svd_reconstruct(*factors)
         svd_results.append({'requested_k': k, 'effective_k': effective_k,
+                            'image_shape': list(image.shape),
                             'mse': float(np.mean((image - svd_reconstruct(*factors)) ** 2)),
+                            'max_absolute_pixel_error': float(np.max(np.abs(image - reconstruction))),
+                            'rank_cap': min(image.shape),
+                            'factor_to_original_ratio': float(effective_k * (sum(image.shape) + 1) / image.size),
                             'original_values': int(image.size),
                             'factor_values': int(effective_k * (sum(image.shape) + 1))})
     derivative = float(central_difference(lambda x: x ** 2, 3))
     assert abs(derivative - 6) <= 1e-4
+    sensitivity = derivative_sensitivity()
+    save_figure(plot_derivative_sensitivity(sensitivity), 'derivative_sensitivity.png')
     save_figure(plot_gradient(), 'gradient_contours.png')
     tangent_errors = []
     for point in np.array([[1., 2.], [-2., 1.], [2., -3.]]):
@@ -107,22 +127,68 @@ def run_required():
                                               ('Momentum lr=0.01 beta=0.9', Momentum(.01, .9))]}
     save_figure(plot_paths(ellipse_loss, ellipse_paths, 'Ellipse: GD vs Momentum (200 updates)'), 'ellipse_paths.png')
     save_figure(plot_loss_curves(ellipse_loss, ellipse_paths, 'Ellipse convergence'), 'ellipse_loss.png')
+    ellipse_lr_paths = {f'GD lr={lr}': optimize(VanillaGD(lr), ellipse_gradient, steps=20)
+                        for lr in [.01, .1, .5, .7]}
+    save_figure(plot_loss_curves(ellipse_loss, ellipse_lr_paths,
+                               'Ellipse: lr=0.5 / 0.7 diverge (y factor -9 / -13)'),
+                'ellipse_learning_rate_loss.png')
     save_figure(plot_normal_distributions(), 'normal_pdf.png')
     save_figure(plot_bernoulli_distributions(), 'bernoulli_pmf.png')
     probabilities = ProbabilityLoss.softmax([1000., 1001., 1002.])
     assert abs(probabilities.sum() - 1) <= 1e-6
     values, gradients = forward_backward(**fixed_example())
+    hand_comparison = compare_hand_calculation(values, gradients)
+    assert hand_comparison['passed']
+    softmax_cases = verify_softmax_cases()
+    likelihood_checks = verify_loss_likelihood()
+    assert all(row['passed'] for row in softmax_cases) and likelihood_checks['passed']
+    (ROOT / 'reports' / 'loss_likelihood_checks.json').write_text(
+        json.dumps(likelihood_checks, indent=2) + '\n', encoding='utf-8')
+    distribution_results = {'normal': [], 'bernoulli': []}
+    grid = np.linspace(-10, 10, 20001)
+    for mean, variance in [(0, 1), (2, .5)]:
+        integral = float(np.trapz(ProbabilityLoss.normal_pdf(grid, mean, variance), grid))
+        distribution_results['normal'].append({'mean': mean, 'variance': variance,
+                                                'standard_deviation': float(np.sqrt(variance)),
+                                                'integral': integral, 'passed': bool(abs(integral - 1) <= 1e-6)})
+    for p in [.3, .7]:
+        pmf = ProbabilityLoss.bernoulli_pmf([0, 1], p)
+        distribution_results['bernoulli'].append({'p': p, 'pmf': pmf.tolist(),
+                                                   'sum': float(pmf.sum()), 'passed': bool(abs(pmf.sum() - 1) <= 1e-6)})
+    lr_checks = [circle_stability(lr, lr_paths[f'GD lr={lr}']) for lr in [.1, .5, 1., 1.1]]
+    assert all(item['matches_recurrence'] for item in lr_checks)
     metrics = {'seed': 42, 'image_shape': list(image.shape), 'area': area_results,
+               'reproducibility': {'initial_point': [5., 5.], 'seed': 42,
+                                   'deterministic_gradient': True, 'fresh_optimizer_per_run': True,
+                                   'initial_velocity': [0., 0.], 'circle_steps': 100,
+                                   'learning_rate_steps': 20, 'ellipse_steps': 200,
+                                   'ellipse_lr_for_both': .01, 'momentum_beta': .9},
                'power_iteration': {'eigenvalue': value, 'eigenvector': vector.tolist(),
-                                   'iterations': iterations, 'reference_eig': reference,
-                                   'relative_error_percent': eigen_error},
+                                   'matrix': matrix.tolist(), 'matrix_shape': list(matrix.shape),
+                                   'iterations': iterations, **eigen_comparison},
                'svd': svd_results,
-               'derivative': {'value': derivative, 'absolute_error': abs(derivative - 6)},
+               'derivative': {'value': derivative, 'analytic_value': 6., 'h': 1e-5,
+                              'absolute_error': abs(derivative - 6), 'tolerance': 1e-4,
+                              'passed': bool(abs(derivative - 6) <= 1e-4)},
                'gradient_tangent_abs_dot': tangent_errors,
+               'derivative_sensitivity': sensitivity,
+               'gradient_visualization': {'points_shape': [8, 2], 'contour_levels': [1, 4, 9],
+                                          'gradient_norm_on_radius_2': 4., 'quiver_scale': 5.,
+                                          'displayed_arrow_length': .8},
                'circle': convergence_summary(circle_paths, circle_loss),
                'learning_rates': convergence_summary(lr_paths, circle_loss),
+               'learning_rate_stability': lr_checks,
                'ellipse': convergence_summary(ellipse_paths, ellipse_loss),
-               'softmax': {'probabilities': probabilities.tolist(), 'sum': float(probabilities.sum())},
+               'ellipse_learning_rates': convergence_summary(ellipse_lr_paths, ellipse_loss),
+               'ellipse_stability': {'gd_stable_lr_range': [0., .1], 'endpoints_excluded': True,
+                                     'y_factor_at_lr_0.5': -9.,
+                                     'loss_increases_at_lr_0.5': bool(np.all(np.diff(ellipse_loss(ellipse_lr_paths['GD lr=0.5'])) > 0))},
+               'distributions': distribution_results,
+               'softmax_cases': softmax_cases, 'loss_likelihood_checks': likelihood_checks,
+               'softmax': {'logits': [1000., 1001., 1002.], 'probabilities': probabilities.tolist(),
+                           'sum': float(probabilities.sum()), 'absolute_sum_error': float(abs(probabilities.sum() - 1)),
+                           'tolerance': 1e-6, 'passed': bool(abs(probabilities.sum() - 1) <= 1e-6)},
+               'backprop_comparison': hand_comparison,
                'backprop': {group: {key: np.asarray(value).tolist() for key, value in data.items()}
                             for group, data in [('forward', values), ('backward', gradients)]}}
     (ROOT / 'reports' / 'metrics.json').write_text(json.dumps(metrics, indent=2) + '\n', encoding='utf-8')
