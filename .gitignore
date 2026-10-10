@@ -24,13 +24,13 @@ tmp/
 *.class
 classes/
 **/classes/
-**/docs/
+AI_SW/02_Advanced/**/docs/
 
 # AWS 자격 증명·개인키·자동 생성 상태를 버전 관리에서 제외한다.
 config.env
 .state/
 *.pem
-**/docs/evidence/*.txt
+AI_SW/02_Advanced/**/docs/evidence/*.txt
 
 ### Flask ###
 instance/*
