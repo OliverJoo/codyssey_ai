@@ -391,6 +391,8 @@ def build_answer(metrics):
                     f'<p class="criterion">미션 근거: {esc(item["pdf"])} · <a href="#requirements-check">대조 기록</a></p>'
                     f'<h3>개념</h3><div class="concept"><p>{esc(item["concept"])}</p></div>'
                     f'<h3>현실적인 예시</h3><div class="example"><p>{esc(item["example"])}</p></div>')
+        body.append('<h3>예시를 단계별로 따라가기</h3><ol class="steps">'+''.join(
+            f'<li>{esc(text)}</li>' for text in item.get('worked_steps', []))+'</ol>')
         body.append(diagram(item))
         body.append('<h3>실제 코드가 수행하는 순서</h3><ol class="steps">'+''.join(
             f'<li><strong>{esc(title)}</strong>{esc(text)}</li>' for title, text in item['steps'])+'</ol>')

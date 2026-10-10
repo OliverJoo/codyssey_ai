@@ -1,8 +1,8 @@
 [
   {
     "path": "scripts/answer_content.py",
-    "sha256": "52c7fc1aabaca9d8655d7eb89286490f5fe6a9d651f950f3d6282ee1aba7474c",
-    "line_count": 232
+    "sha256": "ec7ac0e03284b7f765908cc19675ec728c509b1308c102d320ca08ebc2a24210",
+    "line_count": 255
   },
   {
     "path": "scripts/assessment.py",
@@ -11,8 +11,8 @@
   },
   {
     "path": "scripts/build_assessment.py",
-    "sha256": "ad89dd33db91d6bf34f127233469b060e25d969a6d13b3d894e485814aa43d25",
-    "line_count": 638
+    "sha256": "6f0e1bb09173621debe39340592427f58e6e01e1fdd26e2eb2ed419fe08406be",
+    "line_count": 640
   },
   {
     "path": "scripts/build_html.py",
