@@ -1,0 +1,411 @@
+EEEFFFFFFEEEFFFFFEE                                                      [100%]
+==================================== ERRORS ====================================
+___________ ERROR at setup of test_generator_exact_shape_and_targets ___________
+
+    @pytest.fixture(scope="module")
+    def data():
+>       return generate_data()
+               ^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = None
+
+    def generate_data(path=None):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/data_gen.py:2: NotImplementedError
+________________ ERROR at setup of test_generator_reproducible _________________
+
+    @pytest.fixture(scope="module")
+    def data():
+>       return generate_data()
+               ^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = None
+
+    def generate_data(path=None):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/data_gen.py:2: NotImplementedError
+____________________ ERROR at setup of test_generator_file _____________________
+
+    @pytest.fixture(scope="module")
+    def data():
+>       return generate_data()
+               ^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = None
+
+    def generate_data(path=None):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/data_gen.py:2: NotImplementedError
+_____________ ERROR at setup of test_stratified_reproducible_split _____________
+
+    @pytest.fixture(scope="module")
+    def data():
+>       return generate_data()
+               ^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = None
+
+    def generate_data(path=None):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/data_gen.py:2: NotImplementedError
+_____________ ERROR at setup of test_train_only_fit_and_imputation _____________
+
+    @pytest.fixture(scope="module")
+    def data():
+>       return generate_data()
+               ^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = None
+
+    def generate_data(path=None):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/data_gen.py:2: NotImplementedError
+____________ ERROR at setup of test_targets_excluded_and_regression ____________
+
+    @pytest.fixture(scope="module")
+    def data():
+>       return generate_data()
+               ^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = None
+
+    def generate_data(path=None):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/data_gen.py:2: NotImplementedError
+________ ERROR at setup of test_bonus_transformer_clone_and_no_mutation ________
+
+    @pytest.fixture(scope="module")
+    def data():
+>       return generate_data()
+               ^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = None
+
+    def generate_data(path=None):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/data_gen.py:2: NotImplementedError
+______________ ERROR at setup of test_bonus_inherits_and_pipeline ______________
+
+    @pytest.fixture(scope="module")
+    def data():
+>       return generate_data()
+               ^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = None
+
+    def generate_data(path=None):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/data_gen.py:2: NotImplementedError
+=================================== FAILURES ===================================
+_______________________ test_each_positive_rule[change0] _______________________
+
+change = {'overdue_count_6m': 3}
+
+    @pytest.mark.parametrize("change",[
+        {"overdue_count_6m":3}, {"debt_ratio":.71}, {"annual_income":2999},
+        {"credit_card_count":8}, {"overdue_count_6m":1,"debt_ratio":.46}])
+    def test_each_positive_rule(change):
+        normal=dict(age=40,annual_income=6000,spending_score=30,debt_ratio=.2,credit_card_count=2,overdue_count_6m=0)
+        normal.update(change)
+>       assert RuleBaseline().predict(pd.DataFrame([normal])).tolist() == [1]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <baseline.RuleBaseline object at 0x176454500>
+frame =    age  annual_income  ...  credit_card_count  overdue_count_6m
+0   40           6000  ...                  2                 3
+
+[1 rows x 6 columns]
+
+    def predict(self, frame):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/baseline.py:3: NotImplementedError
+_______________________ test_each_positive_rule[change1] _______________________
+
+change = {'debt_ratio': 0.71}
+
+    @pytest.mark.parametrize("change",[
+        {"overdue_count_6m":3}, {"debt_ratio":.71}, {"annual_income":2999},
+        {"credit_card_count":8}, {"overdue_count_6m":1,"debt_ratio":.46}])
+    def test_each_positive_rule(change):
+        normal=dict(age=40,annual_income=6000,spending_score=30,debt_ratio=.2,credit_card_count=2,overdue_count_6m=0)
+        normal.update(change)
+>       assert RuleBaseline().predict(pd.DataFrame([normal])).tolist() == [1]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <baseline.RuleBaseline object at 0x176454bc0>
+frame =    age  annual_income  ...  credit_card_count  overdue_count_6m
+0   40           6000  ...                  2                 0
+
+[1 rows x 6 columns]
+
+    def predict(self, frame):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/baseline.py:3: NotImplementedError
+_______________________ test_each_positive_rule[change2] _______________________
+
+change = {'annual_income': 2999}
+
+    @pytest.mark.parametrize("change",[
+        {"overdue_count_6m":3}, {"debt_ratio":.71}, {"annual_income":2999},
+        {"credit_card_count":8}, {"overdue_count_6m":1,"debt_ratio":.46}])
+    def test_each_positive_rule(change):
+        normal=dict(age=40,annual_income=6000,spending_score=30,debt_ratio=.2,credit_card_count=2,overdue_count_6m=0)
+        normal.update(change)
+>       assert RuleBaseline().predict(pd.DataFrame([normal])).tolist() == [1]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <baseline.RuleBaseline object at 0x176456fc0>
+frame =    age  annual_income  ...  credit_card_count  overdue_count_6m
+0   40           2999  ...                  2                 0
+
+[1 rows x 6 columns]
+
+    def predict(self, frame):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/baseline.py:3: NotImplementedError
+_______________________ test_each_positive_rule[change3] _______________________
+
+change = {'credit_card_count': 8}
+
+    @pytest.mark.parametrize("change",[
+        {"overdue_count_6m":3}, {"debt_ratio":.71}, {"annual_income":2999},
+        {"credit_card_count":8}, {"overdue_count_6m":1,"debt_ratio":.46}])
+    def test_each_positive_rule(change):
+        normal=dict(age=40,annual_income=6000,spending_score=30,debt_ratio=.2,credit_card_count=2,overdue_count_6m=0)
+        normal.update(change)
+>       assert RuleBaseline().predict(pd.DataFrame([normal])).tolist() == [1]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <baseline.RuleBaseline object at 0x176456990>
+frame =    age  annual_income  ...  credit_card_count  overdue_count_6m
+0   40           6000  ...                  8                 0
+
+[1 rows x 6 columns]
+
+    def predict(self, frame):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/baseline.py:3: NotImplementedError
+_______________________ test_each_positive_rule[change4] _______________________
+
+change = {'debt_ratio': 0.46, 'overdue_count_6m': 1}
+
+    @pytest.mark.parametrize("change",[
+        {"overdue_count_6m":3}, {"debt_ratio":.71}, {"annual_income":2999},
+        {"credit_card_count":8}, {"overdue_count_6m":1,"debt_ratio":.46}])
+    def test_each_positive_rule(change):
+        normal=dict(age=40,annual_income=6000,spending_score=30,debt_ratio=.2,credit_card_count=2,overdue_count_6m=0)
+        normal.update(change)
+>       assert RuleBaseline().predict(pd.DataFrame([normal])).tolist() == [1]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <baseline.RuleBaseline object at 0x176456e70>
+frame =    age  annual_income  ...  credit_card_count  overdue_count_6m
+0   40           6000  ...                  2                 1
+
+[1 rows x 6 columns]
+
+    def predict(self, frame):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/baseline.py:3: NotImplementedError
+______________________ test_rule_negative_and_boundaries _______________________
+
+    def test_rule_negative_and_boundaries():
+        normal=dict(age=40,annual_income=3000,spending_score=30,debt_ratio=.7,credit_card_count=7,overdue_count_6m=0)
+>       assert RuleBaseline().predict(pd.DataFrame([normal])).tolist() == [0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <baseline.RuleBaseline object at 0x176456f00>
+frame =    age  annual_income  ...  credit_card_count  overdue_count_6m
+0   40           3000  ...                  7                 0
+
+[1 rows x 6 columns]
+
+    def predict(self, frame):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/baseline.py:3: NotImplementedError
+_______________________ test_alpha_and_regressor[ridge] ________________________
+
+method = 'ridge'
+
+    @pytest.mark.parametrize("method",["ridge","lasso"])
+    def test_alpha_and_regressor(method):
+>       model=FinanceWorkflow().regression(method,100)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <workflow.FinanceWorkflow object at 0x1764cf320>, model = 'ridge'
+alpha = 100
+
+    def regression(self, model, alpha):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/workflow.py:9: NotImplementedError
+_______________________ test_alpha_and_regressor[lasso] ________________________
+
+method = 'lasso'
+
+    @pytest.mark.parametrize("method",["ridge","lasso"])
+    def test_alpha_and_regressor(method):
+>       model=FinanceWorkflow().regression(method,100)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <workflow.FinanceWorkflow object at 0x1764cca40>, model = 'lasso'
+alpha = 100
+
+    def regression(self, model, alpha):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/workflow.py:9: NotImplementedError
+______________________________ test_credit_range _______________________________
+
+    def test_credit_range():
+        class Fake:
+            def predict(self,x):return np.array([-10,500,1100])
+>       np.testing.assert_array_equal(FinanceWorkflow().predict_credit(Fake(),pd.DataFrame([{}, {}, {}])),[0,500,1000])
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <workflow.FinanceWorkflow object at 0x17520d730>
+pipeline = <test_finance.test_credit_range.<locals>.Fake object at 0x1764cd520>
+frame = Empty DataFrame
+Columns: []
+Index: [0, 1, 2]
+
+    def predict_credit(self, pipeline, frame):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/workflow.py:15: NotImplementedError
+_______________________ test_class_weight_and_small_grid _______________________
+
+    def test_class_weight_and_small_grid():
+        work=FinanceWorkflow()
+>       assert work.classifier().named_steps["model"].class_weight=="balanced"
+               ^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <workflow.FinanceWorkflow object at 0x176481a90>
+
+    def classifier(self):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/workflow.py:11: NotImplementedError
+__________________________ test_handcomputed_metrics ___________________________
+
+    def test_handcomputed_metrics():
+>       m=classification_metrics([0,0,1,1],[0,1,0,1],[.1,.8,.2,.9])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A5-1/tests/test_finance.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+actual = [0, 0, 1, 1], predicted = [0, 1, 0, 1], scores = [0.1, 0.8, 0.2, 0.9]
+
+    def classification_metrics(actual, predicted, scores):
+>       raise NotImplementedError
+E       NotImplementedError
+
+A5-1/workflow.py:17: NotImplementedError
+=========================== short test summary info ============================
+FAILED A5-1/tests/test_finance.py::test_each_positive_rule[change0] - NotImpl...
+FAILED A5-1/tests/test_finance.py::test_each_positive_rule[change1] - NotImpl...
+FAILED A5-1/tests/test_finance.py::test_each_positive_rule[change2] - NotImpl...
+FAILED A5-1/tests/test_finance.py::test_each_positive_rule[change3] - NotImpl...
+FAILED A5-1/tests/test_finance.py::test_each_positive_rule[change4] - NotImpl...
+FAILED A5-1/tests/test_finance.py::test_rule_negative_and_boundaries - NotImp...
+FAILED A5-1/tests/test_finance.py::test_alpha_and_regressor[ridge] - NotImple...
+FAILED A5-1/tests/test_finance.py::test_alpha_and_regressor[lasso] - NotImple...
+FAILED A5-1/tests/test_finance.py::test_credit_range - NotImplementedError
+FAILED A5-1/tests/test_finance.py::test_class_weight_and_small_grid - NotImpl...
+FAILED A5-1/tests/test_finance.py::test_handcomputed_metrics - NotImplemented...
+ERROR A5-1/tests/test_finance.py::test_generator_exact_shape_and_targets - No...
+ERROR A5-1/tests/test_finance.py::test_generator_reproducible - NotImplemente...
+ERROR A5-1/tests/test_finance.py::test_generator_file - NotImplementedError
+ERROR A5-1/tests/test_finance.py::test_stratified_reproducible_split - NotImp...
+ERROR A5-1/tests/test_finance.py::test_train_only_fit_and_imputation - NotImp...
+ERROR A5-1/tests/test_finance.py::test_targets_excluded_and_regression - NotI...
+ERROR A5-1/tests/test_finance.py::test_bonus_transformer_clone_and_no_mutation
+ERROR A5-1/tests/test_finance.py::test_bonus_inherits_and_pipeline - NotImple...
+11 failed, 8 errors in 1.96s
