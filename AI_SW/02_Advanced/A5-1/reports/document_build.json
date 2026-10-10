@@ -1,0 +1,412 @@
+{
+  "markdown_files": [
+    "README.md",
+    "docs/code_walkthrough.md"
+  ],
+  "html_files": [
+    "README.html",
+    "docs/code_walkthrough.html"
+  ],
+  "sections": 15,
+  "tests": 19,
+  "guide_diagrams": 21,
+  "readme_diagrams": 2,
+  "guide_mathml": 21,
+  "readme_mathml": 4,
+  "sources": [
+    {
+      "file": "baseline.py",
+      "sha256": "e052f9f31d848cbf9393a7a8d73084a3e20a80d7f4f28f560205c1a047e28a12",
+      "lines": 22
+    },
+    {
+      "file": "bonus.py",
+      "sha256": "1435e955b2717a6acda22d11f7574927a2bf120142d287aa32770624070ff275",
+      "lines": 28
+    },
+    {
+      "file": "bonus_experiment.py",
+      "sha256": "b6353c7e5c1e8636799fd467af32aa94308ca96ecfda21d283e752f44f914502",
+      "lines": 41
+    },
+    {
+      "file": "data_gen.py",
+      "sha256": "b581fc41f96852319bc3a72764f301a6b3dc2f985c01d1f3f1b735bb4443a37f",
+      "lines": 42
+    },
+    {
+      "file": "experiment.py",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc",
+      "lines": 133
+    },
+    {
+      "file": "main.py",
+      "sha256": "95024dd9ea13a1c8f9ea8e7b05b50cf3e17a04babe244b3cc7368e11660a6703",
+      "lines": 29
+    },
+    {
+      "file": "scripts/assessment_answers.py",
+      "sha256": "d35c1d2abc397ce6ea5f0f7a493b7cfcf9e76f8776466c13beb2bcf05341d5e7",
+      "lines": 325
+    },
+    {
+      "file": "scripts/build_docs.py",
+      "sha256": "7fe3e481af7d0ecf524975b63f3818d731e9a8559453752d3bef0a58aad3c1e9",
+      "lines": 253
+    },
+    {
+      "file": "scripts/doc_content.py",
+      "sha256": "4fa213ab20ef93567301f0353afddc9d6030f0b1a5600cc112f79ecda39aea1f",
+      "lines": 247
+    },
+    {
+      "file": "scripts/html_tools.py",
+      "sha256": "3f281fe079d05876835ccfd9b2ba576e52453fa31d73e49670564aeb64dbb558",
+      "lines": 173
+    },
+    {
+      "file": "scripts/verify_artifacts.py",
+      "sha256": "03c3da7a361c729fac71680a5048098afaad7887fb2be417bb625c3fd24b8721",
+      "lines": 63
+    },
+    {
+      "file": "tests/conftest.py",
+      "sha256": "61d917466d000f076e8c5ed631cbc461fbb128df7dc8b8dfc89aed11143b7a1e",
+      "lines": 3
+    },
+    {
+      "file": "tests/test_finance.py",
+      "sha256": "54a8f3d211d3430a89acd625ebb4609047b3ae342fdb4c44c01e1e6ea26beb03",
+      "lines": 118
+    },
+    {
+      "file": "workflow.py",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd",
+      "lines": 76
+    }
+  ],
+  "code_references": [
+    {
+      "section": "supervised",
+      "file": "data_gen.py",
+      "symbol": "generate_data",
+      "line": 9
+    },
+    {
+      "section": "noise",
+      "file": "data_gen.py",
+      "symbol": "generate_data",
+      "line": 9
+    },
+    {
+      "section": "baseline",
+      "file": "baseline.py",
+      "symbol": "RuleBaseline.predict_row",
+      "line": 5
+    },
+    {
+      "section": "split",
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.split",
+      "line": 19
+    },
+    {
+      "section": "preprocess",
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.preprocessor",
+      "line": 24
+    },
+    {
+      "section": "regression",
+      "file": "workflow.py",
+      "symbol": "regression_metrics",
+      "line": 72
+    },
+    {
+      "section": "regularization",
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.regression",
+      "line": 33
+    },
+    {
+      "section": "classification",
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.classifier",
+      "line": 43
+    },
+    {
+      "section": "metrics",
+      "file": "workflow.py",
+      "symbol": "classification_metrics",
+      "line": 63
+    },
+    {
+      "section": "ensemble",
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.ensemble_search",
+      "line": 49
+    },
+    {
+      "section": "importance",
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 27
+    },
+    {
+      "section": "inference",
+      "file": "main.py",
+      "symbol": "main",
+      "line": 8
+    },
+    {
+      "section": "custom",
+      "file": "bonus.py",
+      "symbol": "DerivedFeatures.transform",
+      "line": 14
+    },
+    {
+      "section": "learning",
+      "file": "bonus_experiment.py",
+      "symbol": "run_bonus",
+      "line": 12
+    },
+    {
+      "section": "tdd",
+      "file": "tests/test_finance.py",
+      "symbol": "test_train_only_fit_and_imputation",
+      "line": 54
+    }
+  ],
+  "broken_internal_links": 0,
+  "assessment_questions": 16,
+  "assessment_question_texts": [
+    "data_gen.py를 실행하여 finance_data.csv(10,000건)가 정상 생성되는가?",
+    "규칙 기반 베이스라인이 5개 이상의 if-else 규칙으로 구현되어 있고, ML 모델과 성능 비교표(Accuracy, F1-Score, AUC)가 정량적으로 제시되어 있는가?",
+    "Scikit-learn의 Pipeline 또는 ColumnTransformer로 전처리가 모듈화되어 있고, fit/predict 실행 시 에러 없이 동작하는가?",
+    "불균형 처리(class_weight='balanced' 또는 SMOTE) 적용 후, 분류 모델의 Confusion Matrix와 ROC-AUC 곡선이 시각화되어 있는가?",
+    "Ridge/Lasso 모델에 Alpha 값 변화(0.01~100)에 따른 계수 변화 그래프가 있고, RMSE/MAE/R² 중 2개 이상이 산출되어 있는가?",
+    "앙상블 모델(Random Forest 또는 HistGradientBoosting)이 GridSearchCV로 튜닝되어 있고, 단일 모델 대비 성능 향상이 수치로 입증되어 있는가?",
+    "README.md에 프로젝트 개요, 실행 방법, 성능 비교 리포트가 포함되어 있고, requirements.txt가 존재하는가?",
+    "전처리→학습→평가 흐름을 어떤 구조로 분리했는지 설명해 주세요. 각 모듈/셀/함수의 역할과 흐름을 코드를 보며 설명할 수 있는가?",
+    "데이터 누수(Data Leakage) 방지를 위해 전처리 기준(fit)을 어디서 수행했는지, 해당 코드를 직접 가리키며 설명할 수 있는가?",
+    "회귀 모델과 분류 모델을 동시에 다루는 구조에서, 공통 전처리와 개별 모델링을 어떻게 설계했는지 설명할 수 있는가?",
+    "이 문제에서 Accuracy 대신 F1-Score와 AUC를 평가지표로 선택한 이유는 무엇이며, 불균형 데이터에서 Accuracy가 왜 부적절한지 구체적인 수치로 설명할 수 있는가?",
+    "규제(Ridge/Lasso)가 모델의 복잡도를 어떻게 제어하는지, Alpha 값 변화에 따른 계수 변화 그래프를 근거로 설명할 수 있는가? L1과 L2의 차이를 이 데이터셋 결과에서 어떻게 확인했는가?",
+    "앙상블 기법(Random Forest/Boosting)이 단일 모델의 편향이나 분산을 줄이는 원리는 무엇이며, 실제 성능 결과에서 이 효과를 어떻게 확인했는가?",
+    "불균형 데이터를 처리할 때 SMOTE나 class_weight를 선택한 이유는 무엇이며, 해당 방법을 Test Set에는 적용하지 않아야 하는 이유를 설명할 수 있는가?",
+    "실제 서비스라면 모델의 성능(정확도)과 예측 속도 중 무엇을 더 우선시하겠는가?",
+    "이 모델이 실제 은행에 배포된다면, 오탐(정상인데 연체로 예측)과 미탐(연체인데 정상으로 예측) 중 어떤 것이 더 심각한가? 금융 의사결정 관점에서 임계값(threshold)을 어떻게 조정하겠는가?"
+  ],
+  "assessment_code_references": [
+    {
+      "file": "data_gen.py",
+      "symbol": "generate_data",
+      "line": 11,
+      "snippet": "    np.random.seed(RANDOM_STATE)\n    data = {\n        \"age\": np.random.randint(20, 70, N_SAMPLES),\n        \"annual_income\": np.random.normal(5000, 2000, N_SAMPLES).round(0),\n        \"spending_score\": np.random.randint(1, 100, N_SAMPLES),\n        \"debt_ratio\": np.random.uniform(0, 1, N_SAMPLES).round(2),\n        \"credit_card_count\": np.random.randint(1, 10, N_SAMPLES),\n        \"overdue_count_6m\": np.random.poisson(0.5, N_SAMPLES),\n    }\n    df = pd.DataFrame(data)",
+      "sha256": "b581fc41f96852319bc3a72764f301a6b3dc2f985c01d1f3f1b735bb4443a37f"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 35,
+      "snippet": "    pd.testing.assert_frame_equal(frame, generate_data())\n    workflow = FinanceWorkflow()\n    train, test = workflow.split(frame)\n    xtrain, xtest = train[FEATURES], test[FEATURES]\n    ytrain, ytest = train.is_overdue, test.is_overdue\n    result = dict(data=dict(shape=list(frame.shape),sha256=hashlib.sha256(path.read_bytes()).hexdigest(),\n                            positive_rate=float(frame.is_overdue.mean()),features=FEATURES,",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "baseline.py",
+      "symbol": "RuleBaseline.predict_row",
+      "line": 5,
+      "snippet": "    def predict_row(self, row):\n        \"\"\"위에서부터 처음 만족하는 규칙으로 연체 위험(1)을 반환한다.\"\"\"\n        if row[\"overdue_count_6m\"] >= 3:\n            return 1\n        elif row[\"debt_ratio\"] > 0.7:\n            return 1\n        elif row[\"annual_income\"] < 3000:\n            return 1\n        elif row[\"credit_card_count\"] > 7:\n            return 1\n        elif row[\"overdue_count_6m\"] >= 1 and row[\"debt_ratio\"] > 0.45:\n            return 1\n        else:\n            return 0",
+      "sha256": "e052f9f31d848cbf9393a7a8d73084a3e20a80d7f4f28f560205c1a047e28a12"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 72,
+      "snippet": "    rule = RuleBaseline().predict(xtest)\n    result[\"classification\"][\"Rule baseline\"]=classification_metrics(ytest,rule,rule)\n    result[\"classification\"][\"Rule baseline\"][\"score_type\"]=\"binary flag, not calibrated probability\"\n    logistic = workflow.classifier().fit(xtrain,ytrain)\n    search = workflow.ensemble_search().fit(xtrain,ytrain)\n    result[\"grid_search\"]=dict(best_params=search.best_params_,best_cv_f1=float(search.best_score_),\n                              combinations=len(search.cv_results_[\"params\"]),folds=5,selection_scope=\"Train only\",",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.preprocessor",
+      "line": 24,
+      "snippet": "    def preprocessor(self):\n        \"\"\"수치 6개를 median 대치→표준화; 원본에는 범주형 열이 없다.\"\"\"\n        numeric = Pipeline([(\"impute\", SimpleImputer(strategy=\"median\")),\n                            (\"scale\", StandardScaler())])\n        categorical = Pipeline([(\"impute\", SimpleImputer(strategy=\"most_frequent\")),\n                                (\"encode\", OneHotEncoder(handle_unknown=\"ignore\"))])\n        return ColumnTransformer([(\"numeric\", numeric, FEATURES),\n                                  (\"categorical\", categorical, [])], remainder=\"drop\")",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "tests/test_finance.py",
+      "symbol": "test_train_only_fit_and_imputation",
+      "line": 63,
+      "snippet": "    original=numeric.named_steps[\"scale\"].mean_.copy()\n    test=data[FEATURES].iloc[100:102].copy();test[\"annual_income\"]=1e12\n    assert np.isfinite(processor.transform(test)).all()\n    np.testing.assert_array_equal(numeric.named_steps[\"scale\"].mean_,original)\n    cat=dict((name,(transformer,cols)) for name,transformer,cols in processor.transformers)[\"categorical\"]",
+      "sha256": "54a8f3d211d3430a89acd625ebb4609047b3ae342fdb4c44c01e1e6ea26beb03"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.classifier",
+      "line": 43,
+      "snippet": "    def classifier(self):\n        \"\"\"불균형 보정은 Train 빈도로 계산하는 balanced class weight 사용.\"\"\"\n        return Pipeline([(\"prepare\", self.preprocessor()),\n                         (\"model\", LogisticRegression(class_weight=\"balanced\",\n                                                      max_iter=2000, random_state=RANDOM_STATE))])",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 83,
+      "snippet": "        probability = model.predict_proba(xtest)[:,1]\n        prediction = (probability>=0.5).astype(int)\n        result[\"classification\"][name]=classification_metrics(ytest,prediction,probability)\n        result[\"classification\"][name][\"threshold\"]=0.5\n        scores[name]=probability\n    weights = logistic.named_steps[\"model\"].class_weight",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.regression",
+      "line": 33,
+      "snippet": "    def regression(self, model, alpha):\n        \"\"\"전처리까지 CV fold 내부에서 학습되도록 하나의 Pipeline으로 묶는다.\"\"\"\n        if model == \"ridge\":\n            estimator = Ridge(alpha=alpha)\n        elif model == \"lasso\":\n            estimator = Lasso(alpha=alpha, max_iter=10000, random_state=RANDOM_STATE)\n        else:\n            raise ValueError(\"model must be ridge or lasso\")\n        return Pipeline([(\"prepare\", self.preprocessor()), (\"model\", estimator)])",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 55,
+      "snippet": "            cv = -cross_val_score(model,xtrain,train.credit_score,cv=folds,\n                                  scoring=\"neg_root_mean_squared_error\",n_jobs=1)\n            model.fit(xtrain,train.credit_score)\n            predictions = workflow.predict_credit(model,xtest)\n            rows.append(dict(alpha=alpha,cv_rmse=float(cv.mean()),cv_rmse_folds=cv.tolist(),\n                             coefficients=model.named_steps[\"model\"].coef_.tolist(),\n                             intercept=float(model.named_steps[\"model\"].intercept_),\n                             **regression_metrics(test.credit_score,predictions)))\n        best = min(rows,key=lambda row:row[\"cv_rmse\"])\n        result[\"regression\"][method]=dict(selected_alpha=best[\"alpha\"],selection=\"minimum Train CV RMSE\",",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.ensemble_search",
+      "line": 49,
+      "snippet": "    def ensemble_search(self):\n        \"\"\"작은 4조합·5-fold F1 탐색; 외부 Test는 탐색에서 사용하지 않는다.\"\"\"\n        forest = RandomForestClassifier(n_estimators=100, class_weight=\"balanced\",\n                                        random_state=RANDOM_STATE, n_jobs=1)\n        pipeline = Pipeline([(\"prepare\", self.preprocessor()), (\"model\", forest)])\n        folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)\n        return GridSearchCV(pipeline, {\"model__max_depth\": [5, None],\n                                     \"model__min_samples_leaf\": [1, 5]},\n                            scoring=\"f1\", cv=folds, n_jobs=1, refit=True)",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 76,
+      "snippet": "    search = workflow.ensemble_search().fit(xtrain,ytrain)\n    result[\"grid_search\"]=dict(best_params=search.best_params_,best_cv_f1=float(search.best_score_),\n                              combinations=len(search.cv_results_[\"params\"]),folds=5,selection_scope=\"Train only\",\n                              candidates=[dict(params=params,mean_f1=float(score),std_f1=float(std)) for params,score,std in\n                                          zip(search.cv_results_[\"params\"],search.cv_results_[\"mean_test_score\"],search.cv_results_[\"std_test_score\"])])\n    scores = {\"Rule baseline\":rule}\n    for name, model in [(\"Balanced Logistic\",logistic),(\"Tuned Random Forest\",search.best_estimator_)]:",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "tests/test_finance.py",
+      "symbol": "test_generator_file",
+      "line": 28,
+      "snippet": "def test_generator_file(tmp_path,data):\n    p=tmp_path/\"finance_data.csv\"\n    generate_data(p)\n    pd.testing.assert_frame_equal(data,pd.read_csv(p))",
+      "sha256": "54a8f3d211d3430a89acd625ebb4609047b3ae342fdb4c44c01e1e6ea26beb03"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 36,
+      "snippet": "    workflow = FinanceWorkflow()\n    train, test = workflow.split(frame)\n    xtrain, xtest = train[FEATURES], test[FEATURES]\n    ytrain, ytest = train.is_overdue, test.is_overdue\n    result = dict(data=dict(shape=list(frame.shape),sha256=hashlib.sha256(path.read_bytes()).hexdigest(),\n                            positive_rate=float(frame.is_overdue.mean()),features=FEATURES,\n                            source=\"PDF exact synthetic generator\",external_data=False),\n                  split=dict(random_state=42,train_size=len(train),test_size=len(test),\n                             train_ids=train.index.tolist(),test_ids=test.index.tolist(),",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "main.py",
+      "symbol": "main",
+      "line": 22,
+      "snippet": "    ridge=work.regression(\"ridge\",1).fit(train[FEATURES],train.credit_score)\n    logistic=work.classifier().fit(train[FEATURES],train.is_overdue)\n    print(json.dumps(dict(credit_score=float(work.predict_credit(ridge,customer)[0]),\n                          overdue_probability=float(logistic.predict_proba(customer)[0,1]),\n                          model=\"Ridge alpha=1 + balanced Logistic, Train only\"),ensure_ascii=False,indent=2))",
+      "sha256": "95024dd9ea13a1c8f9ea8e7b05b50cf3e17a04babe244b3cc7368e11660a6703"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 55,
+      "snippet": "            cv = -cross_val_score(model,xtrain,train.credit_score,cv=folds,\n                                  scoring=\"neg_root_mean_squared_error\",n_jobs=1)\n            model.fit(xtrain,train.credit_score)\n            predictions = workflow.predict_credit(model,xtest)\n            rows.append(dict(alpha=alpha,cv_rmse=float(cv.mean()),cv_rmse_folds=cv.tolist(),\n                             coefficients=model.named_steps[\"model\"].coef_.tolist(),",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "tests/test_finance.py",
+      "symbol": "test_train_only_fit_and_imputation",
+      "line": 63,
+      "snippet": "    original=numeric.named_steps[\"scale\"].mean_.copy()\n    test=data[FEATURES].iloc[100:102].copy();test[\"annual_income\"]=1e12\n    assert np.isfinite(processor.transform(test)).all()\n    np.testing.assert_array_equal(numeric.named_steps[\"scale\"].mean_,original)\n    cat=dict((name,(transformer,cols)) for name,transformer,cols in processor.transformers)[\"categorical\"]",
+      "sha256": "54a8f3d211d3430a89acd625ebb4609047b3ae342fdb4c44c01e1e6ea26beb03"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.regression",
+      "line": 41,
+      "snippet": "        return Pipeline([(\"prepare\", self.preprocessor()), (\"model\", estimator)])",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.classifier",
+      "line": 43,
+      "snippet": "    def classifier(self):\n        \"\"\"불균형 보정은 Train 빈도로 계산하는 balanced class weight 사용.\"\"\"\n        return Pipeline([(\"prepare\", self.preprocessor()),\n                         (\"model\", LogisticRegression(class_weight=\"balanced\",\n                                                      max_iter=2000, random_state=RANDOM_STATE))])",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "classification_metrics",
+      "line": 63,
+      "snippet": "def classification_metrics(actual, predicted, scores):\n    \"\"\"1=연체 양성. AUC에는 ML 확률, 규칙의 경우 binary flag를 전달한다.\"\"\"\n    return dict(accuracy=float(accuracy_score(actual,predicted)),\n                precision=float(precision_score(actual,predicted,zero_division=0)),\n                recall=float(recall_score(actual,predicted,zero_division=0)),\n                f1=float(f1_score(actual,predicted,zero_division=0)),\n                auc=float(roc_auc_score(actual,scores)),\n                confusion_matrix=confusion_matrix(actual,predicted,labels=[0,1]).tolist())",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.ensemble_search",
+      "line": 57,
+      "snippet": "                            scoring=\"f1\", cv=folds, n_jobs=1, refit=True)",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.regression",
+      "line": 35,
+      "snippet": "        if model == \"ridge\":\n            estimator = Ridge(alpha=alpha)\n        elif model == \"lasso\":\n            estimator = Lasso(alpha=alpha, max_iter=10000, random_state=RANDOM_STATE)\n        else:\n            raise ValueError(\"model must be ridge or lasso\")\n        return Pipeline([(\"prepare\", self.preprocessor()), (\"model\", estimator)])",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 60,
+      "snippet": "                             coefficients=model.named_steps[\"model\"].coef_.tolist(),\n                             intercept=float(model.named_steps[\"model\"].intercept_),\n                             **regression_metrics(test.credit_score,predictions)))\n        best = min(rows,key=lambda row:row[\"cv_rmse\"])\n        result[\"regression\"][method]=dict(selected_alpha=best[\"alpha\"],selection=\"minimum Train CV RMSE\",\n                                         rows=rows,selected_test={key:best[key] for key in [\"rmse\",\"mae\",\"r2\"]})",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.ensemble_search",
+      "line": 51,
+      "snippet": "        forest = RandomForestClassifier(n_estimators=100, class_weight=\"balanced\",\n                                        random_state=RANDOM_STATE, n_jobs=1)\n        pipeline = Pipeline([(\"prepare\", self.preprocessor()), (\"model\", forest)])\n        folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)\n        return GridSearchCV(pipeline, {\"model__max_depth\": [5, None],\n                                     \"model__min_samples_leaf\": [1, 5]},\n                            scoring=\"f1\", cv=folds, n_jobs=1, refit=True)",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.classifier",
+      "line": 46,
+      "snippet": "                         (\"model\", LogisticRegression(class_weight=\"balanced\",\n                                                      max_iter=2000, random_state=RANDOM_STATE))])",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 89,
+      "snippet": "    result[\"class_balance\"] = dict(method=weights,formula=\"n_train / (2 * n_class)\",\n                                   weights={str(c):len(train)/(2*int((ytrain==c).sum())) for c in [0,1]},\n                                   smote_used=False)\n    figure, axis = plt.subplots(figsize=(7,5))",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "main.py",
+      "symbol": "main",
+      "line": 19,
+      "snippet": "    frame=generate_data()\n    work=FinanceWorkflow();train,_=work.split(frame)\n    customer=pd.DataFrame([values])[FEATURES]\n    ridge=work.regression(\"ridge\",1).fit(train[FEATURES],train.credit_score)\n    logistic=work.classifier().fit(train[FEATURES],train.is_overdue)\n    print(json.dumps(dict(credit_score=float(work.predict_credit(ridge,customer)[0]),\n                          overdue_probability=float(logistic.predict_proba(customer)[0,1]),\n                          model=\"Ridge alpha=1 + balanced Logistic, Train only\"),ensure_ascii=False,indent=2))",
+      "sha256": "95024dd9ea13a1c8f9ea8e7b05b50cf3e17a04babe244b3cc7368e11660a6703"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "FinanceWorkflow.ensemble_search",
+      "line": 51,
+      "snippet": "        forest = RandomForestClassifier(n_estimators=100, class_weight=\"balanced\",\n                                        random_state=RANDOM_STATE, n_jobs=1)",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    },
+    {
+      "file": "experiment.py",
+      "symbol": "run_experiment",
+      "line": 84,
+      "snippet": "        prediction = (probability>=0.5).astype(int)\n        result[\"classification\"][name]=classification_metrics(ytest,prediction,probability)\n        result[\"classification\"][name][\"threshold\"]=0.5\n        scores[name]=probability\n    weights = logistic.named_steps[\"model\"].class_weight",
+      "sha256": "170a674a422deb5685368eaa4ff9bf9cc221c3519b1b1ebe9237134c41eaffbc"
+    },
+    {
+      "file": "workflow.py",
+      "symbol": "classification_metrics",
+      "line": 70,
+      "snippet": "                confusion_matrix=confusion_matrix(actual,predicted,labels=[0,1]).tolist())",
+      "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
+    }
+  ]
+}
