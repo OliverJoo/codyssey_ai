@@ -8,6 +8,10 @@
       "final_loss": 2.005592877577551e-34,
       "final_radius": 1.416189562727233e-17,
       "first_update_loss_le_0.01": 194,
+      "first_sustained_update_loss_le_0.01": 194,
+      "radius_threshold_pdf": 0.1,
+      "within_pdf_radius_0.1": true,
+      "within_review_radius_1": true,
       "updates": 2000
     },
     "Momentum lr=0.01": {
@@ -18,6 +22,10 @@
       "final_loss": 8.487256552221516e-90,
       "final_radius": 1.2351486876365298e-45,
       "first_update_loss_le_0.01": 78,
+      "first_sustained_update_loss_le_0.01": 97,
+      "radius_threshold_pdf": 0.1,
+      "within_pdf_radius_0.1": true,
+      "within_review_radius_1": true,
       "updates": 2000
     },
     "Adam lr=0.01": {
@@ -28,6 +36,10 @@
       "final_loss": 1.1715777429634562e-08,
       "final_radius": 4.6153455264974296e-05,
       "first_update_loss_le_0.01": 1242,
+      "first_sustained_update_loss_le_0.01": 1242,
+      "radius_threshold_pdf": 0.1,
+      "within_pdf_radius_0.1": true,
+      "within_review_radius_1": true,
       "updates": 2000
     }
   },
@@ -40,6 +52,10 @@
       "final_loss": 0.43969866514303907,
       "final_radius": 0.6630977794737659,
       "first_update_loss_le_0.01": null,
+      "first_sustained_update_loss_le_0.01": null,
+      "radius_threshold_pdf": 0.1,
+      "within_pdf_radius_0.1": false,
+      "within_review_radius_1": true,
       "updates": 100
     },
     "Newton": {
@@ -50,6 +66,10 @@
       "final_loss": 0.0,
       "final_radius": 0.0,
       "first_update_loss_le_0.01": 1,
+      "first_sustained_update_loss_le_0.01": 1,
+      "radius_threshold_pdf": 0.1,
+      "within_pdf_radius_0.1": true,
+      "within_review_radius_1": true,
       "updates": 100
     }
   },

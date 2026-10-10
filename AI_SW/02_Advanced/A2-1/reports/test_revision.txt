@@ -1,0 +1,69 @@
+test_distribution_likelihoods_match_losses_and_softmax_cases (test_assessment.AssessmentTests.test_distribution_likelihoods_match_losses_and_softmax_cases)
+분포를 대입한 우도와 전개된 손실 및 확률 정규화를 검증한다. ... ok
+test_eigenvector_sign_is_equivalent_but_wrong_vector_fails (test_assessment.AssessmentTests.test_eigenvector_sign_is_equivalent_but_wrong_vector_fails)
+v와 -v는 같게 취급하고 고유공간 밖의 벡터는 거부한다. ... ok
+test_hand_comparison_rejects_pdf_typo_and_wrong_shape (test_assessment.AssessmentTests.test_hand_comparison_rejects_pdf_typo_and_wrong_shape)
+참고 예시의 -.0513 및 (1,2) 모양을 통과시키지 않는다. ... ok
+test_learning_rate_boundary_and_observed_divergence (test_assessment.AssessmentTests.test_learning_rate_boundary_and_observed_divergence)
+.5 수렴, 1 진동, 1.1 발산을 실제 경로와 점화식으로 확인한다. ... ok
+test_sensitivity_distinguishes_truncation_from_cancellation (test_assessment.AssessmentTests.test_sensitivity_distinguishes_truncation_from_cancellation)
+sin의 보통 h 구간은 O(h²), 아주 작은 h는 반올림 영향이 커진다. ... ok
+test_adam_bias_corrected_first_and_second_steps (test_bonus.BonusOptimizerTests.test_adam_bias_corrected_first_and_second_steps)
+크기가 다른 기울기 두 개로 1·2차 모멘트 편향 보정을 검증한다. ... ok
+test_adam_inherits_momentum (test_bonus.BonusOptimizerTests.test_adam_inherits_momentum)
+보너스 Adam은 기본 Momentum을 상속한다. ... ok
+test_newton_inherits_gd_and_solves_quadratic_in_one_step (test_bonus.BonusOptimizerTests.test_newton_inherits_gd_and_solves_quadratic_in_one_step)
+타원 Hessian diag(2,20)을 사용하면 한 번에 원점에 도달한다. ... ok
+test_cross_entropy_equals_entropy_plus_kl (test_bonus.InformationTheoryTests.test_cross_entropy_equals_entropy_plus_kl)
+H(p,q)=H(p)+D_KL(p||q)를 서로 다른 분포에서 확인한다. ... ok
+test_inherits_required_probability_class (test_bonus.InformationTheoryTests.test_inherits_required_probability_class)
+정보 이론은 필수 확률 클래스의 Softmax를 재사용한다. ... ok
+test_invalid_distribution_is_rejected (test_bonus.InformationTheoryTests.test_invalid_distribution_is_rejected)
+합이 1이 아닌 벡터를 확률 분포로 계산하지 않는다. ... ok
+test_probability_sum_uses_absolute_tolerance (test_bonus.InformationTheoryTests.test_probability_sum_uses_absolute_tolerance)
+확률 합의 상대 허용오차 때문에 1.000001을 수락하지 않는다. ... ok
+test_uniform_entropy_and_identical_kl (test_bonus.InformationTheoryTests.test_uniform_entropy_and_identical_kl)
+공정한 동전의 엔트로피는 ln2 nats, 같은 분포의 KL은 0이다. ... ok
+test_zero_probability_and_impossible_event (test_bonus.InformationTheoryTests.test_zero_probability_and_impossible_event)
+0log0=0이며 p>0, q=0 사건의 CE/KL은 무한대다. ... ok
+test_all_parameter_gradients_match_finite_difference (test_core.BackpropTests.test_all_parameter_gradients_match_finite_difference)
+가중치와 편향의 분석적 미분을 손실 중심차분과 비교한다. ... ok
+test_backward_hand_checkpoints_and_shapes (test_core.BackpropTests.test_backward_hand_checkpoints_and_shapes)
+PDF가 지정한 여섯 미분과 각 shape을 모두 확인한다. ... ok
+test_forward_hand_checkpoints (test_core.BackpropTests.test_forward_hand_checkpoints)
+반올림은 출력 시점에만 하며 손계산과 4자리까지 일치한다. ... ok
+test_central_difference_at_three (test_core.CalculusTests.test_central_difference_at_three)
+x²의 x=3 미분값과 6의 차이는 1e-4 이하다. ... ok
+test_gradient_is_perpendicular_to_circle_tangent (test_core.CalculusTests.test_gradient_is_perpendicular_to_circle_tangent)
+여러 점에서 기울기와 원의 접선 내적이 0이다. ... ok
+test_determinant_area_error_below_one_percent (test_core.LinearAlgebraTests.test_determinant_area_error_below_one_percent)
+다각형으로 측정한 면적비와 |det(A)|의 오차가 1% 이하다. ... ok
+test_power_iteration_matches_verification_eig (test_core.LinearAlgebraTests.test_power_iteration_matches_verification_eig)
+직접 구현한 Power Iteration을 검증 전용 eig와 비교한다. ... ok
+test_rotation_preserves_radius (test_core.LinearAlgebraTests.test_rotation_preserves_radius)
+회전한 단위 원의 반지름은 1이다. ... ok
+test_scaling_and_shear (test_core.LinearAlgebraTests.test_scaling_and_shear)
+PDF의 스케일링과 전단이 각각 좌표 정의대로 작동한다. ... ok
+test_svd_error_decreases_and_rank_is_capped (test_core.LinearAlgebraTests.test_svd_error_decreases_and_rank_is_capped)
+k 증가에 따라 오차가 감소하며 k=100은 64개 성분으로 제한한다. ... ok
+test_gd_step_and_radius_after_100_updates (test_core.OptimizerTests.test_gd_step_and_radius_after_100_updates)
+lr=.1에서 100회 뒤 반경은 .1 이하다. ... ok
+test_half_learning_rate_reaches_zero (test_core.OptimizerTests.test_half_learning_rate_reaches_zero)
+원의 lr=.5는 발산하지 않고 한 번에 원점에 도달한다. ... ok
+test_learning_rate_above_one_diverges (test_core.OptimizerTests.test_learning_rate_above_one_diverges)
+PDF의 .5 이상 조건 중 lr=1.1을 선택하면 실제 발산한다. ... ok
+test_momentum_accumulates_gradient (test_core.OptimizerTests.test_momentum_accumulates_gradient)
+v=beta*v+g, theta=theta-lr*v 정의의 두 번 업데이트를 확인한다. ... ok
+test_momentum_advantage_on_ellipse_at_point_zero_one (test_core.OptimizerTests.test_momentum_advantage_on_ellipse_at_point_zero_one)
+lr=.01의 타원에서는 Momentum이 손실 .01에 먼저 도달한다. ... ok
+test_bernoulli_pmf (test_core.ProbabilityTests.test_bernoulli_pmf)
+B(.3), B(.7)의 0과 1 확률 합은 각각 1이다. ... ok
+test_normal_variance_parameter_and_integral (test_core.ProbabilityTests.test_normal_variance_parameter_and_integral)
+N(2,.5)의 두 번째 인수를 분산으로 사용하고 적분이 1인지 확인한다. ... ok
+test_softmax_sum_stability_and_shift_invariance (test_core.ProbabilityTests.test_softmax_sum_stability_and_shift_invariance)
+큰 로짓도 overflow 없이 합 1과 상수 이동 불변성을 만족한다. ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 0.082s
+
+OK
