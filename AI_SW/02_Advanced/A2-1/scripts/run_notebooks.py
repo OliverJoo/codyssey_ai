@@ -20,7 +20,7 @@ from jupyter_client.kernelspec import KernelSpecManager
 
 
 def run_notebooks(include_bonus=False):
-    """필수 두 노트북과 선택 시 보너스 노트북을 순서대로 실행한다."""
+    """필수 두 노트북과 수학 실험 증거, 선택 시 보너스 노트북을 실행한다."""
     kernel_root = ROOT / '.cache' / 'kernels'
     kernel_dir = kernel_root / 'py312-local'
     kernel_dir.mkdir(parents=True, exist_ok=True)
@@ -28,7 +28,7 @@ def run_notebooks(include_bonus=False):
         'argv': [sys.executable, '-m', 'ipykernel_launcher', '-f', '{connection_file}'],
         'display_name': 'Python (py312)', 'language': 'python',
     }), encoding='utf-8')
-    names = ['backprop_derivation.ipynb', 'probability_loss.ipynb']
+    names = ['backprop_derivation.ipynb', 'probability_loss.ipynb', 'mathematics_experiments.ipynb']
     if include_bonus:
         names.append('bonus_report.ipynb')
     for name in names:
