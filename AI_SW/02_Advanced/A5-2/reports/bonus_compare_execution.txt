@@ -1,0 +1,1 @@
+{'algorithm': 'Ward hierarchical', 'k': 2, 'silhouette': 0.13388106576926476, 'ari_vs_kmeans': 0.26583491914619267, 'counts': {0: 8416, 1: 1584}}
