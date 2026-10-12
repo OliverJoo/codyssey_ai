@@ -1,0 +1,8 @@
+.....                                                                    [100%]
+=============================== warnings summary ===============================
+../../../../../../Anaconda/anaconda3/envs/py312/lib/python3.12/site-packages/shap/plots/colors/_colorconv.py:819: 909 warnings
+  /Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/lib/python3.12/site-packages/shap/plots/colors/_colorconv.py:819: DeprecationWarning: Converting `np.inexact` or `np.floating` to a dtype is deprecated. The current result is `float64` which is not strictly correct.
+    if np.issubdtype(dtype_in, np.dtype(dtype).type):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+5 passed, 909 warnings in 16.47s
