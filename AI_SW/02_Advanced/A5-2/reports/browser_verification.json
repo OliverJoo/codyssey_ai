@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "offline": true,
+  "views": [
+    {
+      "file": "README.html",
+      "width": 1440,
+      "documentWidth": 1440,
+      "images": 10,
+      "diagrams": 1,
+      "math": 0,
+      "missing": [],
+      "overflow": []
+    },
+    {
+      "file": "README.html",
+      "width": 390,
+      "documentWidth": 390,
+      "images": 10,
+      "diagrams": 1,
+      "math": 0,
+      "missing": [],
+      "overflow": []
+    },
+    {
+      "file": "docs/code_walkthrough.html",
+      "width": 1440,
+      "documentWidth": 1440,
+      "images": 10,
+      "diagrams": 6,
+      "math": 12,
+      "missing": [],
+      "overflow": []
+    },
+    {
+      "file": "docs/code_walkthrough.html",
+      "width": 390,
+      "documentWidth": 390,
+      "images": 10,
+      "diagrams": 6,
+      "math": 12,
+      "missing": [],
+      "overflow": []
+    }
+  ],
+  "clicks": [
+    {
+      "hash": "#code-src-analysis-py-L18",
+      "visible": true,
+      "text": "18    def __init__(self, csv_path=None, model_path=None):"
+    },
+    {
+      "hash": "#code-src-analysis-py-L33",
+      "visible": true,
+      "text": "33    def scaled(self):"
+    },
+    {
+      "hash": "#code-src-analysis-py-L37",
+      "visible": true,
+      "text": "37    def cluster(self, candidates=range(2, 9)):"
+    },
+    {
+      "hash": "#code-analysis_clustering-py-L8",
+      "visible": true,
+      "text": "8def run():"
+    },
+    {
+      "hash": "#code-src-analysis-py-L37",
+      "visible": true,
+      "text": "37    def cluster(self, candidates=range(2, 9)):"
+    },
+    {
+      "hash": "#code-src-analysis-py-L65",
+      "visible": true,
+      "text": "65    def probabilities(self, frame):"
+    }
+  ],
+  "sourceFiles": 10,
+  "contrast": [
+    {
+      "scheme": "light",
+      "code": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(231, 235, 240)",
+        "contrast": 13.341258120609217
+      },
+      "number": {
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(244, 237, 223)",
+        "contrast": 6.5044634568807025
+      },
+      "target": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(244, 237, 223)",
+        "contrast": 13.711286209670325
+      },
+      "padding": "0px"
+    },
+    {
+      "scheme": "dark",
+      "code": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(231, 235, 240)",
+        "contrast": 13.341258120609217
+      },
+      "number": {
+        "foreground": "rgb(71, 85, 105)",
+        "background": "rgb(244, 237, 223)",
+        "contrast": 6.5044634568807025
+      },
+      "target": {
+        "foreground": "rgb(20, 33, 61)",
+        "background": "rgb(244, 237, 223)",
+        "contrast": 13.711286209670325
+      },
+      "padding": "0px"
+    }
+  ],
+  "requests": [],
+  "errors": []
+}

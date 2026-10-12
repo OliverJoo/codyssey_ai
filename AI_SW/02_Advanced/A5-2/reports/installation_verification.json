@@ -1,0 +1,41 @@
+{
+  "python": "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/bin/python",
+  "packages": {
+    "shap": {
+      "version": "0.46.0",
+      "path": "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/lib/python3.12/site-packages/shap/__init__.py",
+      "metadata_versions": [
+        "0.46.0"
+      ]
+    },
+    "streamlit": {
+      "version": "1.41.1",
+      "path": "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/lib/python3.12/site-packages/streamlit/__init__.py",
+      "metadata_versions": [
+        "1.41.1"
+      ]
+    },
+    "scikit-learn": {
+      "version": "1.7.2",
+      "path": "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/lib/python3.12/site-packages/sklearn/__init__.py",
+      "metadata_versions": [
+        "1.7.2"
+      ]
+    },
+    "pandas": {
+      "version": "2.3.3",
+      "path": "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/lib/python3.12/site-packages/pandas/__init__.py",
+      "metadata_versions": [
+        "2.3.3"
+      ]
+    }
+  },
+  "tree_shap_additivity_error": 6.328271240363392e-15,
+  "streamlit_e2e": {
+    "metric": "83.53%",
+    "expected_probability": 0.8353426672648965,
+    "exceptions": 0,
+    "input_changed": true,
+    "output_widgets": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "markdown_links": {
+    "A5-2/README.md": 22,
+    "A5-2/docs/code_walkthrough.md": 25
+  },
+  "missing": [],
+  "csv_exact_original": true,
+  "model_exact_original": true,
+  "tdd_tests": 5,
+  "diagram_self_check": "passed",
+  "diagram_geometry_findings": 0
+}
