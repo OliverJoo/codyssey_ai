@@ -1,0 +1,146 @@
+{
+  "explainer": "TreeExplainer",
+  "output": "P(is_overdue=1)",
+  "sample_size": 1000,
+  "seed": 42,
+  "max_additivity_error": 9.71445146547012e-15,
+  "ranking": [
+    {
+      "feature": "annual_income",
+      "mean_abs_shap": 0.2471725813423059,
+      "low_quartile_mean_shap": 0.17554641002269722,
+      "high_quartile_mean_shap": -0.383653061462583
+    },
+    {
+      "feature": "overdue_count_6m",
+      "mean_abs_shap": 0.14977190969327397,
+      "low_quartile_mean_shap": -0.17956835559186055,
+      "high_quartile_mean_shap": 0.10199141937941705
+    },
+    {
+      "feature": "debt_ratio",
+      "mean_abs_shap": 0.11782731861156491,
+      "low_quartile_mean_shap": -0.18984090445291607,
+      "high_quartile_mean_shap": 0.1052482852887591
+    },
+    {
+      "feature": "spending_score",
+      "mean_abs_shap": 0.018091299684233383,
+      "low_quartile_mean_shap": -0.022999475632732774,
+      "high_quartile_mean_shap": -0.01820334819024433
+    },
+    {
+      "feature": "age",
+      "mean_abs_shap": 0.015361543289252492,
+      "low_quartile_mean_shap": -0.01637407301110755,
+      "high_quartile_mean_shap": -0.019031317292715403
+    },
+    {
+      "feature": "credit_card_count",
+      "mean_abs_shap": 0.009644788496374264,
+      "low_quartile_mean_shap": -0.012010986370109352,
+      "high_quartile_mean_shap": -0.004261668665611146
+    }
+  ],
+  "dependence_features": [
+    "annual_income",
+    "overdue_count_6m",
+    "debt_ratio"
+  ],
+  "cases": {
+    "approval": {
+      "row_index": 6,
+      "probability": 0.0,
+      "decision": "승인",
+      "actual_is_overdue": 0,
+      "features": {
+        "age": 43.0,
+        "annual_income": 4738.0,
+        "spending_score": 28.0,
+        "debt_ratio": 0.18,
+        "credit_card_count": 9.0,
+        "overdue_count_6m": 0.0
+      },
+      "base": 0.4988822417964904,
+      "contributions": {
+        "age": -0.007093570183635906,
+        "annual_income": -0.1341847608773496,
+        "spending_score": -0.020196613987050124,
+        "debt_ratio": -0.1642478358617334,
+        "credit_card_count": -0.003255777091847461,
+        "overdue_count_6m": -0.16990368379487894
+      }
+    },
+    "rejection": {
+      "row_index": 576,
+      "probability": 0.9830355190355801,
+      "decision": "거절",
+      "actual_is_overdue": 1,
+      "features": {
+        "age": 32.0,
+        "annual_income": 2071.0,
+        "spending_score": 59.0,
+        "debt_ratio": 0.93,
+        "credit_card_count": 1.0,
+        "overdue_count_6m": 1.0
+      },
+      "base": 0.4988822417964904,
+      "contributions": {
+        "age": 0.00095297388372207,
+        "annual_income": 0.2846225095329471,
+        "spending_score": 0.005308330336486668,
+        "debt_ratio": 0.1384611898320157,
+        "credit_card_count": -0.024347839502577018,
+        "overdue_count_6m": 0.07915611315649217
+      }
+    },
+    "cluster_0": {
+      "row_index": 6225,
+      "probability": 0.005113322679064361,
+      "decision": "승인",
+      "actual_is_overdue": 0,
+      "features": {
+        "age": 45.0,
+        "annual_income": 5396.0,
+        "spending_score": 43.0,
+        "debt_ratio": 0.46,
+        "credit_card_count": 5.0,
+        "overdue_count_6m": 1.0
+      },
+      "base": 0.4988822417964904,
+      "contributions": {
+        "age": -0.009382416923628087,
+        "annual_income": -0.3573794885323859,
+        "spending_score": -0.01384926313222059,
+        "debt_ratio": -0.10025940480929832,
+        "credit_card_count": -0.01025587094734617,
+        "overdue_count_6m": -0.0026424747725496624
+      }
+    },
+    "cluster_1": {
+      "row_index": 2707,
+      "probability": 0.0,
+      "decision": "승인",
+      "actual_is_overdue": 0,
+      "features": {
+        "age": 40.0,
+        "annual_income": 4645.0,
+        "spending_score": 54.0,
+        "debt_ratio": 0.5,
+        "credit_card_count": 5.0,
+        "overdue_count_6m": 0.0
+      },
+      "base": 0.4988822417964904,
+      "contributions": {
+        "age": -0.00750554103906045,
+        "annual_income": -0.16133835278140932,
+        "spending_score": -0.01214060322784011,
+        "debt_ratio": -0.11421198667808152,
+        "credit_card_count": -0.008943743391611511,
+        "overdue_count_6m": -0.1947420146784943
+      }
+    }
+  },
+  "threshold": 0.5,
+  "model_sha256": "103e029e64935abb3c8521112b67451c14fcfc0f039c774092bf75d0077f0efb"
+}
