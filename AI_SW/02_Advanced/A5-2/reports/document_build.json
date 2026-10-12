@@ -1,0 +1,48 @@
+{
+  "sources": {
+    "analysis_clustering.py": {
+      "sha256": "931d18280f766ad980a721630f1b4516619a8cc14e715285afa2d34f0cb949ac",
+      "lines": 28
+    },
+    "analysis_shap.py": {
+      "sha256": "fb62e6276e6f0337e0e2f6cd3be220db19dc3c410e911ec7461454873269d69a",
+      "lines": 54
+    },
+    "app.py": {
+      "sha256": "72a79d925690b187733eeeab4dbb5a5c2bc783e10d68c4fc9126349a1f367dc9",
+      "lines": 23
+    },
+    "bonus_compare.py": {
+      "sha256": "0e6db164f42e1b06a4f1cbcbd6160bc46bf3ad3052414ea643e79ed1f96c7aa2",
+      "lines": 11
+    },
+    "scripts/build_docs.py": {
+      "sha256": "79389d54d1187aa142d4ebbf3edef5d5261bb719e364bff53f09361b42b65221",
+      "lines": 220
+    },
+    "scripts/html_tools.py": {
+      "sha256": "017fd77d1f6a6bbaf7f366dff52a7ff9d31bafb3231ed9883094af6005012f2b",
+      "lines": 165
+    },
+    "scripts/verify_installation.py": {
+      "sha256": "ed94adf1fbed81cdda3a01f15533e536ee70c3627c82d91bdb71ef7604929126",
+      "lines": 45
+    },
+    "src/analysis.py": {
+      "sha256": "00fd2989a66596cf85f52b74a043d2f29fd344e7fcbc9bde504fb5fcd7473e60",
+      "lines": 78
+    },
+    "src/bonus.py": {
+      "sha256": "0e6159b2c9780dd04021fe5c5b178078496a7a30e7efd27e8df370e0e02375d0",
+      "lines": 25
+    },
+    "tests/test_analysis.py": {
+      "sha256": "48128f9bd482dbda9d4e2908b1a2b91d95d6200c2070bff0549ff34df84ff360",
+      "lines": 46
+    }
+  },
+  "chapters": 12,
+  "diagram_profile": "financial-services",
+  "code_background": "#e7ebf0",
+  "code_foreground": "#14213d"
+}
