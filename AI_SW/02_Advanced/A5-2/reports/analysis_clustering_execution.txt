@@ -1,0 +1,119 @@
+{
+  "chosen_k": 2,
+  "candidates": [
+    {
+      "k": 2,
+      "inertia": 52274.24482339002,
+      "silhouette": 0.13639084539323743
+    },
+    {
+      "k": 3,
+      "inertia": 47231.890285412024,
+      "silhouette": 0.12486152426871587
+    },
+    {
+      "k": 4,
+      "inertia": 43140.45629680632,
+      "silhouette": 0.1275032030850588
+    },
+    {
+      "k": 5,
+      "inertia": 39830.627032966,
+      "silhouette": 0.1295193859764987
+    },
+    {
+      "k": 6,
+      "inertia": 37296.417304386785,
+      "silhouette": 0.12939588578330208
+    },
+    {
+      "k": 7,
+      "inertia": 35279.32121130667,
+      "silhouette": 0.13179036535164607
+    },
+    {
+      "k": 8,
+      "inertia": 33690.807269270495,
+      "silhouette": 0.1305558890620142
+    }
+  ],
+  "silhouette_sample_size": 1500,
+  "seed": 42,
+  "n_init": 10,
+  "explained_variance_ratio": [
+    0.1747475812833286,
+    0.1713282925363371
+  ],
+  "pca_loadings": [
+    [
+      0.42562615990616826,
+      -0.07518199676111703,
+      0.6249084604114178,
+      -0.5583115454052088,
+      0.2391042847620207,
+      0.23194140369597813
+    ],
+    [
+      -0.5012134459739559,
+      0.6913920899420721,
+      0.03516234497177691,
+      -0.23910245413880238,
+      0.46081832334688655,
+      -0.0014691252830359139
+    ]
+  ],
+  "clusters": [
+    {
+      "cluster": 0,
+      "count": 3931,
+      "means": {
+        "age": 44.80742813533452,
+        "annual_income": 5054.322818621216,
+        "spending_score": 50.49020605443907,
+        "debt_ratio": 0.5063825998473671,
+        "credit_card_count": 5.048333757313661,
+        "overdue_count_6m": 1.2872042737216993
+      },
+      "representative": 6225
+    },
+    {
+      "cluster": 1,
+      "count": 6069,
+      "means": {
+        "age": 44.49925852694019,
+        "annual_income": 5020.146646894052,
+        "spending_score": 49.47520184544406,
+        "debt_ratio": 0.49802603394298905,
+        "credit_card_count": 4.998517053880375,
+        "overdue_count_6m": 0.0
+      },
+      "representative": 2707
+    }
+  ],
+  "shape": [
+    10000,
+    6
+  ],
+  "csv_sha256": "4ddf83dd154ee23bb2374a2bbc1aa56d537ef7ad5114c2f162078756542fe1a2"
+}
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	/Users/oliverjoo/.cache/fontconfig
+	/Users/oliverjoo/.fontconfig
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	/Users/oliverjoo/.cache/fontconfig
+	/Users/oliverjoo/.fontconfig
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	/Users/oliverjoo/.cache/fontconfig
+	/Users/oliverjoo/.fontconfig
+
+Fontconfig error: No writable cache directories
+	/opt/homebrew/var/cache/fontconfig
+	/Users/oliverjoo/.cache/fontconfig
+	/Users/oliverjoo/.fontconfig
+Matplotlib is building the font cache; this may take a moment.
