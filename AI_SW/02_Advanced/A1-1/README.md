@@ -12,9 +12,8 @@
 | [notebooks/analysis_report.ipynb](notebooks/analysis_report.ipynb) | 실행된 필수 분석 보고서, 6종 차트와 수치 해석 |
 | [src/bonus_pipeline.py](src/bonus_pipeline.py) | 상속을 이용한 엣지·코호트·Plotly 확장 |
 | [notebooks/bonus_report.ipynb](notebooks/bonus_report.ipynb) | 실행된 보너스 보고서 |
-| [docs/code_walkthrough.md](docs/code_walkthrough.md) | 개념·수식·예시와 코드 순차 설명 |
 | [docs/code_walkthrough.html](docs/code_walkthrough.html) | 같은 설명의 HTML과 diagram-design 도식 |
-| [docs/requirements_review.md](docs/requirements_review.md) | 코드 작성 후 PDF를 다시 대조한 기록 |
+| [reports/requirements_audit.md](reports/requirements_audit.md) | PDF 전체 필수 항목·실제 결과물을 다시 대조한 제출용 기록 |
 | [reports/rfm_interactive.html](reports/rfm_interactive.html) | 오프라인에서 여는 Plotly RFM 차트 |
 | [tests](tests/) | 손계산 단위 테스트와 통합 테스트 |
 
