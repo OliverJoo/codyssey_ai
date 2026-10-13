@@ -18,13 +18,14 @@ python -m pytest tests -q
 python analysis_clustering.py
 python analysis_shap.py
 python bonus_compare.py
-python scripts/build_docs.py
 python -m streamlit run app.py
 ```
 
-실행 순서는 군집화 → SHAP → README/HTML 재생성이다. `models/random_forest.joblib`은 이전 미션 Train 분할에서 학습한 sklearn 전처리+RF Pipeline이다. 원본 SHA-256: `4ddf83dd154ee23bb2374a2bbc1aa56d537ef7ad5114c2f162078756542fe1a2`; 모델 SHA-256: `103e029e64935abb3c8521112b67451c14fcfc0f039c774092bf75d0077f0efb`.
+실행 순서는 군집화 → SHAP → reports의 실제 결과와 README 해석 대조이다. `models/random_forest.joblib`은 이전 미션 Train 분할에서 학습한 sklearn 전처리+RF Pipeline이다. 원본 SHA-256: `4ddf83dd154ee23bb2374a2bbc1aa56d537ef7ad5114c2f162078756542fe1a2`; 모델 SHA-256: `103e029e64935abb3c8521112b67451c14fcfc0f039c774092bf75d0077f0efb`.
 
-평가자가 읽을 순서는 [코드 설명](docs/code_walkthrough.md), [도식·수식·실제 코드 HTML](docs/code_walkthrough.html), [실험 JSON](reports/shap.json)이다. README HTML은 [README.html](README.html)이다.
+현재 학습 HTML은 누적된 평가 질답과 좌측 바로가기를 포함한다. 이전 `scripts/build_docs.py`를 실행하면 현재 설명이 덮어써지므로 위 재현 명령에서 제외했다. 분석 실행은 reports의 수치·그림을 재생성하며 설명 HTML은 보존한다.
+
+평가자가 읽을 순서는 [도식·수식·실제 코드 링크·평가 질답 HTML](docs/code_walkthrough.html), [PDF 필수 요구 재검토](reports/requirements_audit.md), [실험 JSON](reports/shap.json)이다. README HTML은 [README.html](README.html)이다. 제출 필수 근거는 Git에서 무시되는 docs에만 두지 않고 README와 reports에 유지한다.
 
 ## 2. 군집 요약
 

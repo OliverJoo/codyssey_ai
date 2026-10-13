@@ -1,0 +1,19 @@
+{
+  "mission": "A5-2",
+  "scope": "current files; old browser/build records are historical",
+  "documents_checked": 4,
+  "broken_local_links": [],
+  "required_markdown_ignored": [],
+  "sha256": {
+    "README.md": "4abc791a3a82b1b77d97f9221607963536d2ccc8250fe945e563400b0a70d60e",
+    "docs/code_walkthrough.html": "e4809a609479fa93610a47410668c3c7553e082bccfa20e132a3e67cbd950c2a",
+    "README.html": "9396b56f9fb294744be0716f163cda84dfe711a8f0f84f7f931274815708f0dd",
+    "reports/requirements_audit.md": "4f609cc8eae9c3744fb2d7bffe91d10d5120b5de792d36a638e7e6a7b9779b92"
+  },
+  "walkthrough": {
+    "questions": 18,
+    "diagrams": 24,
+    "whole_source_appendices": 0
+  },
+  "A7_1_excluded": true
+}

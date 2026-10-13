@@ -8,5 +8,11 @@
   "model_exact_original": true,
   "tdd_tests": 5,
   "diagram_self_check": "passed",
-  "diagram_geometry_findings": 0
+  "diagram_geometry_findings": 0,
+  "latest_requirements_audit": {
+    "date": "2026-10-13",
+    "walkthrough_sha256": "e4809a609479fa93610a47410668c3c7553e082bccfa20e132a3e67cbd950c2a",
+    "readme_sha256": "4abc791a3a82b1b77d97f9221607963536d2ccc8250fe945e563400b0a70d60e",
+    "note": "After current PDF audit and cumulative Q&A edits. Original browser/doc-build evidence records historical creation; legacy full-doc generator excluded from current reproduction."
+  }
 }
