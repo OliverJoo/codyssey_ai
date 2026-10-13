@@ -34,11 +34,12 @@ python data_gen.py
 python -m pytest -q
 python experiment.py
 python bonus_experiment.py
-python scripts/build_docs.py
 python scripts/verify_artifacts.py
 ```
 
-새 환경에는 `python -m pip install -r requirements.txt` 후 위 실행을 확인합니다. 기본·보너스·문서 빌더가 이 폴더 안에서 동작하며 다른 미션 모듈이나 데이터를 import하지 않습니다. CSV가 없으면 첫 실험에서 제공 코드로 생성합니다. 기존 CSV는 원본 재생성과 동치인지 검사하여 임의 수정된 데이터가 조용히 학습되지 않게 합니다.
+새 환경에는 `python -m pip install -r requirements.txt` 후 위 실행을 확인합니다. 기본·보너스 실험과 검증이 이 폴더 안에서 동작하며 다른 미션 모듈이나 데이터를 import하지 않습니다. CSV가 없으면 첫 실험에서 제공 코드로 생성합니다. 기존 CSV는 원본 재생성과 동치인지 검사하여 임의 수정된 데이터가 조용히 학습되지 않게 합니다.
+
+현재 학습 HTML은 누적된 질답과 좌측 목차를 포함한 완성본입니다. 기존 `scripts/build_docs.py`는 이전 문서 생성기이므로 현재 재현 순서에서 실행하지 않습니다. 실험은 reports의 수치·그림만 재생성하고, 설명 HTML은 보존합니다.
 
 새 고객 실행:
 
@@ -161,10 +162,10 @@ Test 고객 5911의 입력은 `{'age': 51.0, 'annual_income': 3559.0, 'spending_
 미구현 stub에서 19개 테스트를 실행해 11 failed/8 errors를 기록했고 구현 후 19 passed가 되었습니다. [RED 로그](reports/tdd_red.txt), [GREEN 로그](reports/tdd_green.txt). 데이터 동치·범위, 5개 규칙 경계, 고정 층화 분할, Train-only 통계·결측 대치, 타겟 제외, alpha/clip/balanced/grid, 손계산 지표, 상속/clone/원본 무변경을 검증합니다.
 
 - [README HTML](README.html): 이 보고서와 실제 그림·도식.
-- [학습 MD](docs/code_walkthrough.md): 15개 개념·수식·현실 예시·실제 함수의 순차 설명.
-- [학습 HTML](docs/code_walkthrough.html): 위 설명과 Python 전체 원문·줄번호 링크·SHA 내장.
+- [학습 HTML](docs/code_walkthrough.html): 개념·수식·현실 예시·실제 코드 파일 링크와 평가 질답의 순차 설명.
+- [PDF 재검토](reports/requirements_audit.md): 각 페이지의 필수 항목·원본 데이터 정의·실제 실행 근거 대조.
 - [기본 실측값](reports/experiment.json), [보너스 실측값](reports/bonus.json), [문서 생성 근거](reports/document_build.json), [최종 검증](reports/final_verification.json).
 
-Markdown은 README와 학습 문서의 정확히 두 개이며 각각 HTML을 만들었습니다. diagram-design financial-services를 적용하고 코드 배경 #e7ebf0/글자 #14213d/줄번호 #475569/선택줄 #f4eddf를 사용합니다. flowchart 960×600, 실제 그림, 코드, MathML을 내장하여 외부 서버 없이 읽힙니다.
+필수 제출 근거는 README와 reports에 두고, 추가 학습·평가 설명은 단일 HTML에 이어서 정리했습니다. diagram-design financial-services를 적용하고 코드 배경 #e7ebf0/글자 #14213d/줄번호 #475569/선택줄 #f4eddf를 사용합니다. flowchart 960×600, 실제 그림, 짧은 코드 근거, MathML을 내장하여 외부 서버 없이 읽힙니다. 실제 전체 원문은 연결된 파일에서 확인합니다.
 
 기존 상위 저장소는 `https://github.com/OliverJoo/codyssey_ai`, 미션 경로는 `AI_SW/02_Advanced/A5-1`입니다. A5-1 변경은 상위 저장소에서 기능 단위 커밋으로 관리합니다. Git에 CSV를 포함하지 않고 제공 생성기로 재현합니다.

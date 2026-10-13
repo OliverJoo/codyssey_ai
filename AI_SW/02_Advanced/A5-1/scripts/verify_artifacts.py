@@ -35,12 +35,16 @@ def verify():
     assert bonus["learning_curve"]["sizes"]==[640,1600,3200,4800,6400]
     for name in ["regularization","roc_auc","confusion_matrix","feature_importance","learning_curve"]:
         assert (ROOT/f"reports/{name}.png").stat().st_size>10000
-    assert sorted(p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*.md") if not any(part.startswith(".") for part in p.relative_to(ROOT).parts))==["README.md","docs/code_walkthrough.md"]
-    assert sorted(p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*.html") if not any(part.startswith(".") for part in p.relative_to(ROOT).parts))==["README.html","docs/code_walkthrough.html"]
+    # 필수 제출 문서가 reports에 추가되어도, 불필요한 파일 개수 제약으로 실패시키지 않는다.
+    assert (ROOT/"README.md").exists()
+    assert (ROOT/"reports/requirements_audit.md").exists()
+    for link in re.findall(r"\]\(([^)]+)\)",(ROOT/"README.md").read_text()):
+        if link.startswith(("https:","#")):continue
+        assert (ROOT/link.split("#")[0]).exists(),link
     html=(ROOT/"docs/code_walkthrough.html").read_text()
     for source in build["sources"]:
         assert hashlib.sha256((ROOT/source["file"]).read_bytes()).hexdigest()==source["sha256"]
-        assert source["sha256"] in html
+        # 사용자가 전체 원문 부록을 제거했으므로 HTML 내 SHA 문자열은 필수 근거가 아니다.
     for p in [ROOT/"README.html",ROOT/"docs/code_walkthrough.html"]:
         text=p.read_text();ids=re.findall(r'\bid="([^"]+)"',text)
         assert len(ids)==len(set(ids))
@@ -56,6 +60,10 @@ def verify():
                 html_standalone=True,source_hashes_valid=True,code_references_valid=True,csv_git_ignored=True,
                 categorical_note="No categorical columns in supplied numeric-only data; encoding branch unused",
                 git_note="Existing parent Git repository used; A5-1 changes are managed as functional commits.")
+    report["latest_requirements_audit"]={"date":"2026-10-13",
+        "walkthrough_sha256":hashlib.sha256((ROOT/"docs/code_walkthrough.html").read_bytes()).hexdigest(),
+        "readme_sha256":hashlib.sha256((ROOT/"README.md").read_bytes()).hexdigest(),
+        "note":"Current cumulative Q&A retained; original document-build records are historical. Legacy full-doc generator is excluded from reproduction."}
     (ROOT/"reports/final_verification.json").write_text(json.dumps(report,ensure_ascii=False,indent=2))
     (ROOT/"reports/tdd_green.txt").write_text(test.stdout+test.stderr)
     print(json.dumps(report,ensure_ascii=False,indent=2))

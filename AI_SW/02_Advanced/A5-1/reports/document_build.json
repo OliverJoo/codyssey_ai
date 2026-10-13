@@ -66,8 +66,9 @@
     },
     {
       "file": "scripts/verify_artifacts.py",
-      "sha256": "03c3da7a361c729fac71680a5048098afaad7887fb2be417bb625c3fd24b8721",
-      "lines": 63
+      "sha256": "b5885f922190f78c45afb4c2b95081d32ec57bd3bbf1821e9909b0f4556903e4",
+      "lines": 71,
+      "before_requirement_audit_sha256": "03c3da7a361c729fac71680a5048098afaad7887fb2be417bb625c3fd24b8721"
     },
     {
       "file": "tests/conftest.py",
@@ -408,5 +409,6 @@
       "snippet": "                confusion_matrix=confusion_matrix(actual,predicted,labels=[0,1]).tolist())",
       "sha256": "48de77fa68ca121048243c469b424b131726992364d8d61a00aae4c06b0898dd"
     }
-  ]
+  ],
+  "requirements_audit_note": "2026-10-13: current source hashes independently refreshed after required report/review-tool changes; existing walkthrough content retained."
 }

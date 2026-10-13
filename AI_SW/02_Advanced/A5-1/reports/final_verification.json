@@ -13,11 +13,19 @@
   "grid_combinations": 4,
   "plots": 5,
   "tests": 19,
-  "pytest_summary": "19 passed in 1.51s",
+  "pytest_summary": "19 passed in 1.57s",
   "html_standalone": true,
   "source_hashes_valid": true,
   "code_references_valid": true,
   "csv_git_ignored": true,
   "categorical_note": "No categorical columns in supplied numeric-only data; encoding branch unused",
-  "git_note": "Existing parent Git repository used; A5-1 changes are managed as functional commits."
+  "git_note": "Existing parent Git repository used; A5-1 changes are managed as functional commits.",
+  "latest_requirements_audit": {
+    "date": "2026-10-13",
+    "walkthrough_sha256": "2166d42b9a9edf959126c9c158d6f1ebc91a4a75feba0846938d1f3e1b3a6e51",
+    "readme_sha256": "d1c5ed0c4eb4bd335fe5b8ab0a0f738eb89c86575c2d83fde58f40161da1af53",
+    "note": "Current cumulative Q&A retained; original document-build records are historical. Legacy full-doc generator is excluded from reproduction.",
+    "readme_html_sha256": "46bbfff72b253b52a669562d01e2b22c51be81bcda8bffff49165cd6321b1e73",
+    "readme_html_anchor_fix": "6 deleted walkthrough source anchors replaced by existing root Python file links; full HTML was not regenerated."
+  }
 }
