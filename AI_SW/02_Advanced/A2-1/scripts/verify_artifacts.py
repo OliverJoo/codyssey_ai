@@ -37,7 +37,8 @@ def verify_artifacts():
                 eig_calls.append(f'{path.relative_to(ROOT)}:{node.lineno}')
                 assert path.parent.name in ['tests', 'scripts']
     broken_links = []
-    assert [path.name for path in (ROOT/'docs').iterdir()] == ['code_walkthrough.html']
+    # 보조 평가 질문지는 학습 HTML의 추가 질답 입력이다. 필수 산출물과 구분한다.
+    assert [path.name for path in (ROOT/'docs').glob('*.html')] == ['code_walkthrough.html']
     documents = [ROOT/'README.md', ROOT/'data/SOURCE.md', ROOT/'docs/code_walkthrough.html']
     html_cache = {}
     for path in documents:
@@ -105,25 +106,31 @@ def verify_artifacts():
     assert all(row['passed'] for row in metrics['softmax_cases']) and metrics['loss_likelihood_checks']['passed']
     answer = BeautifulSoup((ROOT/'docs/code_walkthrough.html').read_text(), 'html.parser')
     assert len(answer.select('section.answer-section')) == 15
-    assert len(answer.find_all('svg')) == 15
+    assert len(answer.select('section.answer-section svg')) == 15
     assert len(answer.select('.answer-section img')) == 13
     assert len(answer.find_all('img')) == 30
     for number in range(1, 16):
         section = answer.find(id=f'criterion-{number}')
         assert section.find('svg') and section.find('table') and section.find('pre')
         assert all(text in section.get_text() for text in ['개념', '현실적인 예시', '실제 코드가 수행하는 순서'])
-        assert section.select('.code-links a[href^="#"]')
+        assert any(urlsplit(a['href']).path.endswith('.py')
+                   for a in section.select('.code-links a[href]'))
     code_soup = BeautifulSoup((ROOT/'docs/code_walkthrough.html').read_text(), 'html.parser')
-    manifest = json.loads((ROOT/'reports/code_reference_manifest.json').read_text())
-    for entry in manifest:
-        path = ROOT/entry['path']
-        assert hashlib.sha256(path.read_bytes()).hexdigest() == entry['sha256'], ('stale snapshot', path)
-        prefix = entry['path'].replace('/', '-').replace('.', '-')
-        for number, original in enumerate(path.read_text().splitlines(), 1):
-            node = code_soup.find(id=f'{prefix}-L{number}')
-            assert node is not None, (entry['path'], number)
-            node.find('a').extract()
-            assert node.get_text() == original, (entry['path'], number, 'source mismatch')
+    # 사용자가 전체 원문 부록을 제거했으므로 현재 형식의 실제 파일 링크·짧은 발췌를 검사한다.
+    assert not code_soup.select('.source-section')
+    source_contents = [path.read_text() for path in python_files]
+    excerpts = list(code_soup.select('.qa-item pre'))
+    excerpts += [pre for pre in code_soup.select('.answer-section pre')
+                 if pre.get_text().lstrip().startswith(('def ', 'class ', '@'))]
+    assert excerpts
+    for pre in excerpts:
+        excerpt = pre.get_text().strip()
+        assert any(excerpt in text for text in source_contents), ('source excerpt mismatch', excerpt[:80])
+    manifest = [{'path': str(path.relative_to(ROOT)),
+                 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+                for path in sorted(python_files)]
+    (ROOT/'reports/code_reference_manifest.json').write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     pinned = {}
     for line in (ROOT/'requirements.txt').read_text().splitlines():
         if '==' in line:
@@ -141,8 +148,13 @@ def verify_artifacts():
     report = {'missing_docstrings': missing_docstrings, 'forbidden_imports': forbidden_imports,
               'eig_verification_calls': eig_calls, 'broken_local_links': broken_links,
               'notebooks': notebooks, 'png_count': len(png_files), 'pinned_versions': pinned,
-              'current_test_count': 32, 'evaluation_sections': 15, 'answer_svg_count': 15,
-              'answer_embedded_png_count': 13, 'code_snapshots_verified': len(manifest),
+              'current_test_count': 32, 'evaluation_sections': 15,
+              'answer_svg_count': len(answer.find_all('svg')),
+              'answer_embedded_png_count': 13, 'code_snapshots_verified': 0,
+              'code_source_files_verified': len(manifest),
+              'literal_source_excerpts_verified': len(excerpts),
+              'whole_source_appendix_present': False,
+              'evaluation_question_count': len(answer.select('.qa-item')),
               'single_learning_document': 'docs/code_walkthrough.html', 'total_embedded_png_count': 30,
               'notebook_symbolic_derivations_verified': True,
               'html': {'no_remote_runtime_assets': True,

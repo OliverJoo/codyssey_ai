@@ -6,10 +6,10 @@ NumPy로 행렬 변환·Power Iteration·SVD·중심차분·역전파·GD/Moment
 ## 바로 읽을 문서
 
 학습과 설명은 **[docs/code_walkthrough.html](docs/code_walkthrough.html) 하나**에 통합했다.
-개념·현실 예시 → 15개 항목의 도식·수식·실제 코드·결과 → 선택 과제 → 재현 방법 → PDF 대조 → 노트북 출력 → 실제 코드 전체 순서다.
-코드 링크와 노트북 링크는 같은 HTML 안의 해당 줄·셀로 이동한다.
+개념·현실 예시 → 15개 항목의 도식·수식·짧은 실제 코드·결과 → 선택 과제 → 재현 방법 → PDF 대조 → 노트북 출력 → 29개 평가 질답 순서다.
+코드 링크는 해당 원본 파일을 직접 열고, 노트북 링크는 같은 HTML의 실행 출력 또는 원본 노트북으로 이동한다.
 
-통합 HTML은 15개의 diagram-design 도식과 실험 PNG, 수치표, 노트북 실행 출력, 실제 코드 전체를 내장한다.
+통합 HTML은 15개 기본 항목과 29개 질답의 diagram-design 도식, 실험 PNG, 수치표, 노트북 실행 출력과 짧은 코드 발췌를 내장한다. 전체 코드 원문은 각 실제 파일 링크에서 확인한다.
 HTML을 더블클릭해 브라우저로 열 수 있다. 코드·원본 파일 링크는 A2-1 폴더 구조를 유지한다.
 내장 이미지·SVG·CSS는 네트워크 없이 표시되며 외부 실행 스크립트가 없다.
 
@@ -25,12 +25,13 @@ HTML을 더블클릭해 브라우저로 열 수 있다. 코드·원본 파일 �
 python scripts/run_experiments.py --bonus > reports/experiment_run.txt
 MPLCONFIGDIR=.cache/matplotlib python -m unittest discover -s tests -v > reports/test_revision.txt 2>&1
 python scripts/run_notebooks.py --bonus > reports/notebook_execution.txt
-python scripts/build_assessment.py
 python scripts/verify_artifacts.py
 ```
 
 처음 환경을 구성해야 한다면 requirements.txt의 패키지가 필요하다. 이번 보완에서는 이미 설치된 환경을 재사용했다.
 브라우저 검수 명령과 검사 범위는 [통합 문서의 재현 방법](docs/code_walkthrough.html#reproduction)에 있다.
+현재 재현 절차는 계산·노트북·검수만 갱신하고 기존 학습 HTML과 질답을 보존한다.
+레거시 `scripts/build_assessment.py`는 문서를 처음부터 다시 생성하는 이전 형식의 빌더여서 현재 재현 명령에서 제외했다.
 
 ## 주요 실제 결과
 
@@ -110,3 +111,7 @@ NLL = −log ∏ᵢ∏c qᵢc^yᵢc = −ΣᵢΣc yᵢc log qᵢc = CE 합
 PDF의 y_true 빈칸과 참고 숫자 오류는 원래 입력·수식으로 보완하며 결과를 왜곡하지 않는다.
 Momentum의 이점은 명시한 함수·lr·임계값 아래의 결과다. 수학 구현은 NumPy만 사용하고 eig는 비교 검증 전용이다.
 과거 TDD·검증 기록은 그대로 보존하고 현재 실행 근거를 새 보고서에 기록한다. 원격 GitHub 제출은 이 작업 범위에 포함하지 않는다.
+
+## PDF 필수 요구사항 재검증과 제출 근거
+
+[PDF 페이지별 재검증 보고서](reports/requirements_audit.md)와 [기계 검증 근거 JSON](reports/requirements_audit.json)을 확인합니다. 보고서는 실제 실행 로그·수치·파일 위치와 필수/선택 구분을 연결하며 보조 학습 문서인 docs에 의존하지 않습니다.

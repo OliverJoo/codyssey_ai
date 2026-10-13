@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/oliverjoo/Dev/codyssey/2026/codyssey_missions/AI_SW/02_Advanced/A2-1/scripts/verify_artifacts.py", line 156, in <module>
+    verify_artifacts()
+  File "/Users/oliverjoo/Dev/codyssey/2026/codyssey_missions/AI_SW/02_Advanced/A2-1/scripts/verify_artifacts.py", line 40, in verify_artifacts
+    assert [path.name for path in (ROOT/'docs').iterdir()] == ['code_walkthrough.html']
+AssertionError

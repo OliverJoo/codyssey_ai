@@ -1,0 +1,137 @@
+{
+  "mission": "A2-1",
+  "pdf": "A2-1_미션 - AI 심화 학습_AI가 어떻게 학습.pdf",
+  "pdf_sha256": "0c29988b6d406c64de096a3955295230c4010fde78aade1861b956bf301ae5ea",
+  "python": "/Users/oliverjoo/Dev/Anaconda/anaconda3/envs/py312/bin/python",
+  "requirements": [
+    {
+      "pages": "1~2",
+      "requirement": "linear_algebra/calculus/optimizer 및 필수 두 노트북",
+      "evidence": "[선형대수](../src/linear_algebra.py), [미적분](../src/calculus.py), [최적화](../src/optimizer.py), [역전파 노트북](../notebooks/backprop_derivation.ipynb), [확률 노트북](../notebooks/probability_loss.ipynb)",
+      "status": "충족"
+    },
+    {
+      "pages": "3",
+      "requirement": "단위 원 회전·S(2,.5)·전단 전후 Figure",
+      "evidence": "[구현](../src/linear_algebra.py), [세 변환 PNG](../outputs/matrix_transformations.png)",
+      "status": "충족"
+    },
+    {
+      "pages": "3",
+      "requirement": "det와 면적비 상대오차≤1%",
+      "evidence": "[metrics.area](metrics.json),100×2 좌표·오차0%",
+      "status": "충족"
+    },
+    {
+      "pages": "3",
+      "requirement": "직접 PowerIteration·eig 기준 오차≤5%",
+      "evidence": "[구현](../src/linear_algebra.py), [비교 전용 eig](../scripts/assessment.py), [행렬/고유쌍/잔차](metrics.json)",
+      "status": "충족"
+    },
+    {
+      "pages": "3,5",
+      "requirement": "64×64 이하 공개 grayscale의 SVD k10/50/100 비교",
+      "evidence": "[이미지 출처](../data/SOURCE.md), [복원 PNG](../outputs/svd_reconstructions.png), effective k10/50/64",
+      "status": "충족"
+    },
+    {
+      "pages": "3",
+      "requirement": "x²,x3 수치미분과 해석값6 오차≤1e−4",
+      "evidence": "[구현](../src/calculus.py), [오차/h 민감도](metrics.json), [그림](../outputs/derivative_sensitivity.png)",
+      "status": "충족"
+    },
+    {
+      "pages": "3",
+      "requirement": "f=x²+y² 등고선과 수직 Gradient 화살표",
+      "evidence": "[구현](../src/calculus.py), [그림](../outputs/gradient_contours.png)",
+      "status": "충족"
+    },
+    {
+      "pages": "3~4",
+      "requirement": "2→2→1 고정 예제의 순·역전파 수식·shape·손계산",
+      "evidence": "[실행 노트북](../notebooks/backprop_derivation.ipynb), [NumPy](../src/backprop.py)",
+      "status": "충족"
+    },
+    {
+      "pages": "4",
+      "requirement": "손계산과 NumPy의 소수4자리 일치",
+      "evidence": "[11체크포인트 비교](metrics.json), [독립 비교 상수](../scripts/assessment.py)",
+      "status": "충족"
+    },
+    {
+      "pages": "4",
+      "requirement": "원형GD lr.1 100회 반경.1 이내·점선 등고선 경로",
+      "evidence": "[원형 경로](../outputs/circle_paths.png), [손실](../outputs/circle_loss.png), 실제반경1.4404e−9",
+      "status": "충족"
+    },
+    {
+      "pages": "4",
+      "requirement": "lr≥.5 범위의 발산 경로",
+      "evidence": "[원형 lr1.1 발산/1진동/.5수렴](../outputs/learning_rate_paths.png), [타원 lr.5 발산](../outputs/ellipse_learning_rate_loss.png)",
+      "status": "수학적 경계 구분하여 실측"
+    },
+    {
+      "pages": "4",
+      "requirement": "Momentum beta.9 구현·GD와 한 Figure 비교",
+      "evidence": "[Momentum](../src/optimizer.py), [원형 비교](../outputs/circle_paths.png), [타원 비교](../outputs/ellipse_paths.png)",
+      "status": "충족"
+    },
+    {
+      "pages": "4",
+      "requirement": "타원 f=x²+10y² 두 옵티마이저 경로 비교",
+      "evidence": "[손실](../outputs/ellipse_loss.png), [경로](../outputs/ellipse_paths.png), 동일lr.01/200회",
+      "status": "충족"
+    },
+    {
+      "pages": "4",
+      "requirement": "정규PDF2종·베르누이PMF2종 한 Figure씩",
+      "evidence": "[정규](../outputs/normal_pdf.png), [베르누이](../outputs/bernoulli_pmf.png), [실행 노트북](../notebooks/probability_loss.ipynb)",
+      "status": "충족"
+    },
+    {
+      "pages": "4",
+      "requirement": "Softmax 합오차≤1e−6",
+      "evidence": "[안정적 구현](../src/probability.py), [5입력 실제검증](metrics.json)",
+      "status": "충족"
+    },
+    {
+      "pages": "4",
+      "requirement": "MSE-MLE·BCE/CE-MLE 기호식 유도",
+      "evidence": "[확률 노트북](../notebooks/probability_loss.ipynb), [README 기호 유도](../README.md), [독립 PDF/PMF 검산](loss_likelihood_checks.json)",
+      "status": "충족"
+    },
+    {
+      "pages": "5",
+      "requirement": "seed42·outputs PNG 저장·requirements 버전",
+      "evidence": "[실험 실행](../scripts/run_experiments.py), [requirements](../requirements.txt), [산출물 검사](artifact_verification.json)",
+      "status": "충족"
+    },
+    {
+      "pages": "6",
+      "requirement": "금지 자동미분/PCA/최적화 라이브러리 미사용·eig 비교전용",
+      "evidence": "[AST 검증 결과](artifact_verification.json): forbidden_imports=[], eig는assessment/tests에만 존재",
+      "status": "충족"
+    },
+    {
+      "pages": "6",
+      "requirement": "모든 함수/클래스 docstring·수식·환경명시",
+      "evidence": "[검수](artifact_verification.json): missing_docstrings=[], [소스](../src/linear_algebra.py) 및 실행노트북 확인",
+      "status": "충족"
+    }
+  ],
+  "verified_results": [
+    "[현재32개 unittest 재실행](pdf_audit_tests.txt): PASS.",
+    "[실험 재실행](pdf_audit_experiments.txt): 기존 필수·선택 결과 재현.",
+    "고유값오차 8.500908881654e-12%; 중심차분오차 3.930633596383e-11; 손계산11항목4자리비교PASS.",
+    "필수 두 노트북·수학 실험·기존 선택 노트북을 py312 커널로 다시 실행하고 출력·execution_count·오류 없음을 검수했습니다.",
+    "[이전 산출물 검수 실패](pdf_audit_artifacts_before.txt)→[현재 검수 통과](pdf_audit_artifacts_after.txt): 옛 검수기가 삭제된 전체 코드 부록과 docs 단일 파일만 가정하던 문제를 현재 실제 파일 링크·짧은 발췌·추가 질문지 형식으로 수정했습니다. 수학 알고리즘을 바꾸거나 조건을 낮추지 않았습니다."
+  ],
+  "limitations": [
+    "원형 f=x²+y²는0<lr<1에서수렴하므로.5를발산이라고 꾸밀수없습니다. lr≥.5범위의1.1실제발산과타원.5발산을보이고.5안정/1진동을명시합니다.",
+    "64×64 이미지에는 최대64개 성분만 있어 요청k100은유효k64입니다. k50/64는인자수기준저장압축이아님을명시합니다.",
+    "PDF 참고 예시의 손계산 일부 숫자 오류와 y_true 빈칸은 실제 고정 입력·BCE 수식·예시 정답1로 검산했습니다.",
+    "필수 노트북은 Git에서 제외되는 docs와 분리되어 있으며, MLE 유도는 README에도 있습니다. 보조 HTML의29질답과15기존항목을보존했습니다."
+  ],
+  "submission_artifacts_outside_docs": true,
+  "optional_tasks_not_added": true
+}

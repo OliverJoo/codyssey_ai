@@ -144,7 +144,7 @@
         64
       ],
       "mse": 0.009078435873897225,
-      "max_absolute_pixel_error": 0.4274169368339865,
+      "max_absolute_pixel_error": 0.42741693683398646,
       "rank_cap": 64,
       "factor_to_original_ratio": 0.31494140625,
       "original_values": 4096,
@@ -157,7 +157,7 @@
         64,
         64
       ],
-      "mse": 9.018560609664049e-05,
+      "mse": 9.018560609664044e-05,
       "max_absolute_pixel_error": 0.04590962147235289,
       "rank_cap": 64,
       "factor_to_original_ratio": 1.57470703125,
@@ -171,8 +171,8 @@
         64,
         64
       ],
-      "mse": 2.9025612139035137e-31,
-      "max_absolute_pixel_error": 4.3298697960381105e-15,
+      "mse": 2.8914392741032086e-31,
+      "max_absolute_pixel_error": 4.440892098500626e-15,
       "rank_cap": 64,
       "factor_to_original_ratio": 2.015625,
       "original_values": 4096,
