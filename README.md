@@ -29,7 +29,9 @@ codyssey_missions/
     │
     ├── 02_Advanced/           # 심화 트랙 (Data, Math, CV, NLP, ML, DL)
     │   ├── A1-1/              # EDA 및 RFM 고객 세분화 (NumPy, Pandas, Online Retail)
-    │   └── A2-1/              # AI 수학 기초 및 신경망 역전파 구현 (NumPy, SVD, Gradient Descent)
+    │   ├── A2-1/              # AI 수학 기초 및 신경망 역전파 구현 (NumPy, SVD, Gradient Descent)
+    │   ├── A5-1/              # 대출 연체 예측 지도학습 시스템 (Random Forest, Logistic Regression)
+    │   └── A5-2/              # 고객 군집화 및 설명 가능한 AI (K-Means, TreeSHAP)
     │
     └── 03_Master/             # 마스터 트랙 (진행 예정)
 ```
@@ -72,6 +74,8 @@ codyssey_missions/
 |---|---|---|---|
 | **A1-1** | 쇼핑몰 단골 찾기 (RFM) | `Python`, `NumPy`, `Pandas` | UCI Online Retail 데이터 전처리, 결측치·이상치 처리, EDA 및 RFM 고객 세분화 분석 파이프라인 |
 | **A2-1** | AI 수학 및 역전파 구현 | `Python`, `NumPy`, `Matplotlib` | 선형대수(행렬 변환·고유값·SVD), 미적분(중심차분), 2→2→1 신경망 순전파/역전파 유도 및 경사하강법 구현 |
+| **A5-1** | 대출 연체 예측 시스템 | `Python`, `scikit-learn`, `Pandas` | 가상 고객 10,000명 대상 신용점수 회귀(Ridge/Lasso) 및 연체 분류(Logistic/Random Forest), 5-fold GridSearchCV, TDD 19개 통과 |
+| **A5-2** | 고객 군집화 및 XAI | `Python`, `scikit-learn`, `SHAP` | K-Means 군집화 및 PCA 시각화, TreeSHAP 기반 연체 예측 설명, 군집별 Waterfall·Dependence Plot 및 Flask 대시보드 |
 
 ---
 
