@@ -212,7 +212,8 @@ def build():
         refs.append(dict(section=section["id"],file=section["file"],symbol=section["symbol"],line=line))
         guide.extend(["## "+section["title"]+"\n","### 개념과 필요한 이유\n",section["concept"]+"\n","### 현실 예시: 입력→계산→판단\n",section["example"]+"\n"])
         for name in ["formula","extra_formula"]:
-            if name in section:guide.append("$$ "+section[name]+" $$\n")
+            if name in section:
+                guide.extend(["$$ "+section[name]+" $$\n", section[name+"_explanation"]+"\n"])
         if "diagram" in section:
             guide.extend(["<!-- diagram:"+section["id"]+" -->\n","처리순서: "+" → ".join(n[0] for n in section["diagram"])+"\n"])
         guide.extend(["### 실제 코드와 순차 실행\n",section["detail"]+"\n",f"[실제 코드: {section['file']} · {section['symbol']} · L{line}](../{section['file']}#L{line})\n","```python\n"+code+"\n```\n","### 활용 사례와 해석 한계\n",section["cases"]+"\n"])

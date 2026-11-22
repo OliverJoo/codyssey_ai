@@ -88,11 +88,11 @@ def render_answers(result, bonus, locate):
         return table(['모델', 'alpha', 'Train CV RMSE', 'Test RMSE', 'Test MAE', 'Test R²', '0인 계수 수'], rows)
 
     rows = []
-    def answer(number, group, lead, explanation, example, nodes, evidence, extra='', formula=None, limit=''):
+    def answer(number, group, lead, explanation, example, nodes, evidence, extra='', formula=None, formula_explanation='', limit=''):
         """이미지의 질문 순서를 유지하며 답변과 근거를 바로 이어 붙인다."""
         rows.append(dict(number=number, group=group, question=QUESTIONS[number-1], lead=lead,
                          explanation=explanation, example=example, nodes=nodes, evidence=evidence,
-                         extra=extra, formula=formula, limit=limit))
+                         extra=extra, formula=formula, formula_explanation=formula_explanation, limit=limit))
 
     answer(1, 1, '예. PDF 제공 생성식을 구현했고, 실제 CSV의 shape은 (10,000, 8)입니다.',
         ['한 행은 가상 고객 한 명입니다. 입력은 나이·소득·소비점수·부채비율·카드 수·최근 연체 횟수의 6개이고, 정답은 신용점수와 연체 여부의 2개입니다. 8개 열 전체를 모델 입력으로 넣지는 않습니다.',
@@ -105,6 +105,12 @@ def render_answers(result, bonus, locate):
         [('data_gen.py', 'generate_data', 'np.random.seed', 10), ('experiment.py', 'run_experiment', 'pd.testing.assert_frame_equal', 7)],
         extra=p('근거 파일: ')+file_link('finance_data.csv')+' · '+file_link('reports/experiment.json')+' · '+file_link('reports/final_verification.json')+p('원본 CSV SHA-256: `'+result['data']['sha256']+'`'),
         formula='credit_score=clip(300+0.03×income−50×overdue_count−100×debt_ratio+noise,0,1000)',
+        formula_explanation=(
+            '과제 PDF의 합성 정답 생성식입니다. 300은 시작점, 0.03은 3점÷100만 원에서 나온 만 원당 가점, 50은 최근 6개월 연체 1회당 감점입니다. '
+            '부채비율은 소수이므로 100을 곱하면 40%에서 40점이 감점됩니다. noise는 평균 0점, 표준편차 30점의 난수입니다. '
+            'clip의 0·1,000은 점수 경계이며, 코드는 범위 제한 뒤 정수 자리에서 저장하도록 반올림합니다. '
+            '[숫자별 계산 표](#supervised)에서 380점 예시를 확인할 수 있습니다.'
+        ),
         limit='실제 고객 데이터가 아니라 PDF가 지정한 합성 자료입니다. .gitignore의 *.csv 규칙으로 데이터 파일은 Git에서 제외하고 생성기로 재현합니다.')
 
     answer(2, 1, '예. 학습하지 않는 양성 규칙 5개와 정상 else를 구현했고 동일 Test 2,000명에서 ML과 비교했습니다.',
@@ -130,6 +136,12 @@ def render_answers(result, bonus, locate):
         [('workflow.py', 'FinanceWorkflow.preprocessor', None, 11), ('tests/test_finance.py', 'test_train_only_fit_and_imputation', 'original=', 5)],
         extra=p('19개 테스트 통과 기록: ')+file_link('reports/tdd_green.txt')+' · '+file_link('reports/final_verification.json'),
         formula='z=(x−μTrain)/σTrain',
+        formula_explanation=(
+            'x는 대치를 마친 입력값, μTrain과 σTrain은 해당 열의 Train 평균과 표준편차입니다. '
+            '평균을 빼서 평균과의 차이를 구하고, 표준편차로 나눠 그 차이가 표준편차 몇 배인지 표현합니다. '
+            '예를 들어 평균 5,000만 원·표준편차 1,000만 원일 때 6,000만 원은 z=1입니다. '
+            'CV 중 Train은 각 fold의 학습 부분을 가리킵니다.'
+        ),
         limit='코드는 원본과 명시적으로 검증한 결측·새 입력 사례에서 동작합니다. 모든 종류의 잘못된 입력을 자동 교정하는 범용 서비스는 아닙니다.')
 
     answer(4, 1, '예. Logistic과 Random Forest에 balanced class weight를 적용했고 실제 혼동행렬과 ROC 그림을 저장했습니다.',
@@ -143,6 +155,11 @@ def render_answers(result, bonus, locate):
         [('workflow.py', 'FinanceWorkflow.classifier', None, 7), ('experiment.py', 'run_experiment', 'probability = model.predict_proba', 6)],
         extra=matrix_table()+p('실제 시각화: ')+file_link('reports/confusion_matrix.png')+' · '+file_link('reports/roc_auc.png'),
         formula='weight(c)=nTrain/(2×nTrain,c)',
+        formula_explanation=(
+            'c는 정상 0 또는 연체 1, nTrain은 현재 학습에 쓰는 전체 인원, nTrain,c는 그중 c인 인원입니다. '
+            '2는 클래스 수이며, 산식의 양변에 nTrain,c를 곱하면 각 클래스의 전체 가중치가 nTrain/2임을 알 수 있습니다. '
+            '최종 Train에서 정상 한 명의 가중치는 8,000÷(2×7,039)≈0.568, 연체 한 명은 8,000÷(2×961)≈4.162입니다.'
+        ),
         limit='SMOTE를 실행하지 않았으며 클래스 가중치만 사용했습니다. weighted 학습 뒤 확률이 실제 은행의 연체율에 맞게 보정됐다는 검증은 없습니다.')
 
     answer(5, 1, '예. Ridge와 Lasso 모두 alpha 0.01·0.1·1·10·100을 실험하고 RMSE·MAE·R² 세 지표를 기록했습니다.',
@@ -156,6 +173,11 @@ def render_answers(result, bonus, locate):
         [('workflow.py', 'FinanceWorkflow.regression', None, 12), ('experiment.py', 'run_experiment', 'cv = -cross_val_score', 10)],
         extra=regression_table()+p('계수 그래프: ')+file_link('reports/regularization.png'),
         formula='MAE=Σ|y−ŷ|/n ; RMSE=√(Σ(y−ŷ)²/n) ; R²=1−RSS/TSS',
+        formula_explanation=(
+            '- **공통 기호**　y는 실제 점수, ŷ는 예측 점수, n은 평가 고객 수입니다. Σ는 모든 고객의 항을 더하라는 뜻입니다.\n'
+            '- **MAE와 RMSE**　MAE는 절댓값 |y−ŷ|를 평균 냅니다. RMSE는 제곱한 오차의 평균에 제곱근을 씌워 큰 실수를 더 강조합니다. 예를 들어 잔차가 0점과 10점이면 MAE는 5점, RMSE는 약 7.07점입니다.\n'
+            '- **R²**　RSS는 모델의 제곱오차 합, TSS는 실제 점수 평균만 예측했을 때의 제곱오차 합입니다. RSS=8, TSS=50이면 1−8÷50=0.84이며, 평균 기준보다 제곱오차 합이 84% 줄었다는 뜻입니다.'
+        ),
         limit='RMSE가 작아졌다는 사실만으로 현실 고객의 신용 평가가 정확하다고 결론 내리지 않습니다. 이 값은 합성 정답을 고정 Test에서 예측한 결과입니다.')
 
     f1_pp=100*(forest['f1']-logistic['f1'])
@@ -230,6 +252,11 @@ def render_answers(result, bonus, locate):
         [('88% 모두 정상 예측', 'TP=0 / FN=240'), ('연체 탐지와 오경고', 'Precision / Recall → F1'), ('임계값 밖 순위 확인', 'ROC-AUC / continuous score')],
         [('workflow.py', 'classification_metrics', None, 10), ('workflow.py', 'FinanceWorkflow.ensemble_search', 'scoring="f1"', 1)],
         extra=metric_table(), formula='F1=2TP/(2TP+FP+FN)',
+        formula_explanation=(
+            'TP는 맞힌 연체, FP는 오경고, FN은 놓친 연체의 인원수입니다. '
+            'Precision=TP/(TP+FP)와 Recall=TP/(TP+FN)을 조화평균에 넣어 정리하면 분모에 TP가 두 번 들어가고 분자도 2TP가 됩니다. '
+            '실측 Logistic은 TP=210, FP=213, FN=30이므로 420÷663≈0.633484입니다.'
+        ),
         limit='AUC가 높아도 특정 임계값의 오경고 비용이나 확률 보정이 좋다는 뜻은 아닙니다. 실제 손익과 점수 보정은 추가 검증이 필요합니다.')
 
     coefficients = table(['입력', 'Ridge α=1', 'Lasso α=1', 'Lasso α=100'],
@@ -247,6 +274,11 @@ def render_answers(result, bonus, locate):
         [('workflow.py', 'FinanceWorkflow.regression', 'if model ==', 7), ('experiment.py', 'run_experiment', 'coefficients=model.named_steps', 6)],
         extra=coefficients+p('실제 계수 그림: ')+file_link('reports/regularization.png')+p('공식 목적함수: scikit-learn 1.7 Ridge — https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.Ridge.html ; Lasso — https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.Lasso.html'),
         formula='Ridge: RSS+αΣw² ; Lasso: RSS/(2n)+αΣ|w|',
+        formula_explanation=(
+            '- **RSS·n**　RSS는 Train 고객 예측의 제곱오차 합입니다. Lasso에서 n은 학습 고객 수이고, 2n으로 나누면 평균 제곱오차의 절반입니다.\n'
+            '- **w·Σ·α**　w는 표준화한 각 입력의 학습 계수입니다. Σ는 입력별 벌점의 합, α는 벌점에 곱하는 규제 강도입니다. Ridge 벌점은 제곱, Lasso 벌점은 절댓값을 사용합니다.\n'
+            '- **계산 예시**　계수가 3과 4이고 α=1이면 Ridge는 RSS에 25를 더하고, Lasso는 RSS/(2n)에 7을 더합니다. 최적화를 통해 각 합을 작게 만드는 계수를 찾습니다.'
+        ),
         limit='이번 비교는 동일 합성 데이터와 한 고정 외부 분할의 결과입니다. 계수0을 현실 고객 특성의 인과적 무의미함으로 일반화하지 않습니다.')
 
     answer(13, 3, '현재 구현은 Random Forest입니다. 이론상 여러 나무의 평균은 분산을 줄일 수 있고, 실험에서는 F1 향상을 확인했습니다.',
@@ -260,6 +292,11 @@ def render_answers(result, bonus, locate):
         [('workflow.py', 'FinanceWorkflow.ensemble_search', 'forest = RandomForestClassifier', 7)],
         extra=metric_table()+p('원리 참고: scikit-learn 1.7 RandomForestClassifier — https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.RandomForestClassifier.html'),
         formula='Var(평균)=σ²×[ρ+(1−ρ)/B] (동일 분산·동일 상관을 가정한 설명 모형)',
+        formula_explanation=(
+            '- **Var·σ²·ρ·B**　Var(평균)은 여러 학습 표본에서 예측 평균이 얼마나 흔들리는지 나타내는 분산입니다. σ²는 각 트리 예측의 공통 분산, ρ는 서로 다른 두 트리 예측의 공통 상관계수, B는 트리 수입니다.\n'
+            '- **식의 출처**　평균에 1/B가 있으므로 분산 계산에는 1/B²가 곱해집니다. 합의 분산에는 개별 분산 B개와 서로 다른 순서쌍의 공분산 B(B−1)개가 들어갑니다. 공분산을 ρσ²로 놓고 정리하면 위 식이 됩니다.\n'
+            '- **계산 예시**　트리가 100개이고 ρ=0이면 분산은 σ²의 1/100입니다. ρ=0.2이면 0.2+0.8÷100=0.208배입니다. 0.2는 설명을 위해 가정한 값입니다.'
+        ),
         limit='단일 결정나무 비교, 여러 데이터 재표집의 편향·분산 분해는 수행하지 않았습니다. F1 개선만으로 분산 감소를 직접 측정했다고 주장하지 않습니다.')
 
     answer(14, 3, '이번에는 class_weight를 선택했습니다. Train의 손실 비중만 바꾸고 Test의 표본·정답·평가 빈도는 유지합니다.',
@@ -272,6 +309,11 @@ def render_answers(result, bonus, locate):
         [('Train 레이블 빈도', '7039 normal / 961 overdue'), ('학습 손실 비중 조정', 'balanced / no synthetic rows'), ('원본 Test 평가', '2000 customers / unweighted metrics')],
         [('workflow.py', 'FinanceWorkflow.classifier', 'LogisticRegression', 3), ('experiment.py', 'run_experiment', 'result["class_balance"]', 4)],
         formula='weighted loss=Σᵢ weight(yᵢ)×lossᵢ',
+        formula_explanation=(
+            'Σᵢ는 학습 고객 i를 하나씩 보며 더하라는 뜻입니다. yᵢ는 그 고객의 실제 클래스, weight(yᵢ)는 클래스에 따라 정한 가중치, lossᵢ는 모델이 그 고객을 예측한 결과에서 구한 손실입니다. '
+            '손실이 똑같이 0.5라면 현재 Train에서 정상은 0.568×0.5≈0.284, 연체는 4.162×0.5≈2.081을 합에 더합니다. '
+            '이 식은 표본별 기여를 보여 주며, 규제 항이나 구현별 정규화는 별도로 적용됩니다.'
+        ),
         limit='fit된 모델이 가중 학습을 받은 상태로 Test를 예측하는 것은 정상입니다. “Test에 적용하지 않는다”는 말은 모델의 가중치를 없애라는 뜻이 아니라 Test 재표집·재학습·평가 가중치 변경을 하지 않는다는 뜻입니다.')
 
     answer(15, 4, '가상 대출 심사에서는 위험 판단의 품질을 먼저 충족시키고, 처리 시간 목표 안에서 모델을 고르겠습니다.',
@@ -298,6 +340,11 @@ def render_answers(result, bonus, locate):
         extra=matrix_table()+table(['교육용 비용 가정', 'Logistic 합계', 'Forest 합계'],
                                  [['FP=1만원, FN=100만원','3,213만원','5,244만원'],['FP=100만원, FN=1만원','21,330만원','14,451만원']]),
         formula='예시 비용=C_FP×FP+C_FN×FN ; 연체 예측 ⇔ score≥t',
+        formula_explanation=(
+            '- **C_FP·C_FN**은 오경고 1건과 미탐 1건의 가정 비용입니다. FP·FN은 각각의 발생 건수입니다. 건당 비용과 건수를 곱해 합하면 전체 예시 비용이 됩니다. Logistic에서 건당 1만 원과 100만 원을 가정하면 213×1+30×100=3,213만 원입니다.\n'
+            '- **score·t·≥**　score는 분류 모델이 낸 연체 점수이고 t는 임계값입니다. 현재 평가의 t는 0.5이며, score=0.5도 연체로 분류합니다.\n'
+            '- **이론 임계값의 출처**　score가 잘 보정된 연체 확률 p이고 두 종류의 오류에만 비용이 있으면, 연체로 판정할 기대 비용은 (1−p)×C_FP, 정상으로 판정할 기대 비용은 p×C_FN입니다. 두 비용이 같아지는 p를 풀면 t=C_FP/(C_FP+C_FN)입니다. 이 값은 가정하에서의 기준입니다.'
+        ),
         limit='임계값0.3/0.7에서의 실제 혼동행렬·최적 비용·운영 승인/거절/보류 정책은 구현·측정하지 않았습니다. 이 답변은 기존 결과를 이용한 판단 예시와 추가 평가 절차입니다.')
 
     output = ['<section id="evaluator-questions" class="qa-appendix"><p class="tag">A5-1.PNG / 16 QUESTIONS / CODE AND MEASURED EVIDENCE</p>',
@@ -316,6 +363,7 @@ def render_answers(result, bonus, locate):
                        '<h4>초보자가 따라가는 활용 사례와 수치 예시</h4>', steps(row['example'])])
         if row['formula']:
             output.append(html_tools.formula(row['formula']))
+            output.append(html_tools.markdown_html(row['formula_explanation'], "qa"))
         output.append(html_tools.diagram(f'qa-flow-{row["number"]:02d}', f'질문 {row["number"]}의 설명 흐름', row['nodes']))
         output.append('<h4>실제 구현 코드로 이동</h4>')
         for file, symbol, needle, limit in row['evidence']:
